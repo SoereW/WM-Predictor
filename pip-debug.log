@@ -1,0 +1,22 @@
+2026-05-27T13:59:44,246 Using pip 25.2 from C:\Users\soeren\Downloads\wm_predictor_prototype\wm_predictor_prototype\.venv\Lib\site-packages\pip (python 3.14)
+2026-05-27T13:59:44,247 Non-user install because user site-packages disabled
+2026-05-27T13:59:44,658 Created temporary directory: C:\Users\soeren\AppData\Local\Temp\pip-build-tracker-q4fo1vzk
+2026-05-27T13:59:44,659 Initialized build tracking at C:\Users\soeren\AppData\Local\Temp\pip-build-tracker-q4fo1vzk
+2026-05-27T13:59:44,659 Created build tracker: C:\Users\soeren\AppData\Local\Temp\pip-build-tracker-q4fo1vzk
+2026-05-27T13:59:44,660 Entered build tracker: C:\Users\soeren\AppData\Local\Temp\pip-build-tracker-q4fo1vzk
+2026-05-27T13:59:44,662 Created temporary directory: C:\Users\soeren\AppData\Local\Temp\pip-install-u6jg38ia
+2026-05-27T13:59:44,669 Created temporary directory: C:\Users\soeren\AppData\Local\Temp\pip-ephem-wheel-cache-d9w4aeyt
+2026-05-27T13:59:44,697 1 location(s) to search for versions of pandas:
+2026-05-27T13:59:44,697 * https://pypi.org/simple/pandas/
+2026-05-27T13:59:44,698 Fetching project page and analyzing links: https://pypi.org/simple/pandas/
+2026-05-27T13:59:44,698 Getting page https://pypi.org/simple/pandas/
+2026-05-27T13:59:44,699 Found index url https://pypi.org/simple/
+2026-05-27T13:59:44,701 Looking up "https://pypi.org/simple/pandas/" in the cache
+2026-05-27T13:59:44,702 Request header has "max_age" as 0, cache bypassed
+2026-05-27T13:59:44,704 Starting new HTTPS connection (1): pypi.org:443
+2026-05-27T13:59:44,741 https://pypi.org:443 "GET /simple/pandas/ HTTP/1.1" 307 0
+2026-05-27T13:59:44,743 Status code 307 not in (200, 203, 300, 301, 308)
+2026-05-27T13:59:44,745 Starting new HTTP connection (1): sphinx2.srv.jat-gmbh.de:8091
+2026-05-27T13:59:44,748 http://sphinx2.srv.jat-gmbh.de:8091 "GET /v1/ntlm/ntlmauth.html?2pypi.org/simple/pandas/ HTTP/1.1" 401 0
+2026-05-27T13:59:44,749 Keyring provider requested: auto
+2026-05-27T13:59:44,752 Keyring provider set: disabled
