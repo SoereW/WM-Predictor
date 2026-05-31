@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Generierte Artefakte (werden lokal erzeugt, gehoeren nicht ins Repo).
+# Beispieldaten entstehen deterministisch aus src/sample_data.py (von
+# init_db.py / app.py automatisch); echte Historie via --fetch.
+db/
+models/
+data/*.csv
+
+# Logs/Tooling
+*.log
+pip-debug.log
+.streamlit/secrets.toml
+
+# OS/IDE
+.DS_Store
+.idea/
+.vscode/

@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.database import connect, init_schema, load_fixtures, load_matches, read_table
 from src.model import WMPredictor
+from src.sample_data import write_sample_data
 from src.simulation import simulate_group
 
 DB_PATH = ROOT / "db" / "wm_predictor.sqlite"
@@ -22,10 +23,19 @@ st.set_page_config(page_title="WM Predictor", page_icon="⚽", layout="wide")
 
 def ensure_assets() -> None:
     if not DB_PATH.exists():
+        data = ROOT / "data"
+        real = data / "international_results.csv"
+        sample = data / "sample_matches.csv"
+        fixtures = data / "sample_fixtures_2026.csv"
+        # Beispieldaten bei Bedarf erzeugen (nicht ins Repo eingecheckt).
+        if not sample.exists() or not fixtures.exists():
+            write_sample_data(data)
+
         con = connect(DB_PATH)
         init_schema(con)
-        load_matches(con, ROOT / "data" / "sample_matches.csv")
-        load_fixtures(con, ROOT / "data" / "sample_fixtures_2026.csv")
+        # Echte historische Daten bevorzugen, falls vorhanden; sonst Beispieldaten.
+        load_matches(con, real if real.exists() else sample)
+        load_fixtures(con, fixtures)
         con.close()
     if not MODEL_PATH.exists():
         con = connect(DB_PATH)
