@@ -104,6 +104,39 @@ Spieler werden über `available=0` ausgeschlossen.
 Im Dashboard lassen sich zusätzlich Kontext-Adjustments (Startelf,
 Verletzungen, Erholung, Wetter) als Elo-Zuschlag einstellen.
 
+## Bewertungssystem (Spieler / Team / Chemie)
+
+Eigenständiges Subsystem (`src/rating/`), **getrennt** vom Predictor. Es
+beantwortet die Frage „wie stark ist dieser Kader und wie gut passt er
+zusammen?" anhand klar definierter, **gewichteter Kriterien** – die zentrale
+Stellschraube ist `src/rating/criteria.py`.
+
+**Spieler-Gesamtscore** (0–100):
+- *Skill* (Gewicht 0,68): Rohattribute (Tempo, Abschluss, Passspiel,
+  Technik, Defensive, Physis, Übersicht, Torwart) werden mit dem
+  **Positionsprofil** der Rolle gewichtet – ein Stürmer an Abschluss/Tempo,
+  ein Innenverteidiger an Zweikampf/Physis.
+- *Form* (0,16), *Erfahrung* (0,10, aus Länderspielen + Alter),
+  *Fitness/Verfügbarkeit* (0,06).
+
+**Team-Gesamtscore** (0–100): beste Elf (0,62) + Kadertiefe (0,13) +
+**Chemie** (0,17) + Trainer (0,08).
+
+**Chemie** als eigener Faktor, fünf gewichtete Teilkriterien:
+Vereinsblöcke (liga-gewichtet), Eingespieltheit (gemeinsame Caps),
+Positionstreue, Altersbalance, Trainer-Kontinuität. Wichtig: Chemie wirkt
+**ans Niveau gekoppelt** – perfekte Chemie macht aus einem schwachen Kader
+keinen Favoriten, hebt aber einen starken Kader spürbar.
+
+**Validierung per Stichprobe** (statt Backtest – es gibt keine „wahre"
+Chemie-Zahl): `python scripts/evaluate_ratings.py` bewertet bekannte Spieler
+und Teams und prüft automatisch Plausibilität (Top-Spieler oben, Top-Nation
+vorn, Chemie nicht überzeichnet). Unit-Tests: `python tests/test_rating.py`.
+
+Echte Kaderdaten einspeisen via `src/rating/io.load_squads_csv` (Format:
+`team, player, position` + Attribute oder `overall`; optional `club, league,
+age, caps, form, available`).
+
 ## Projektstruktur
 
 ```text
@@ -111,6 +144,7 @@ app.py                          Streamlit-Dashboard
 scripts/make_sample_data.py     Erzeugt Beispieldaten + WM-2026-Fixtures
 scripts/init_db.py              Baut SQLite-DB (--fetch lädt echte Historie)
 scripts/train_model.py          Trainiert Modell, speichert es, zeigt Backtest
+scripts/evaluate_ratings.py     Stichproben-Auswertung des Bewertungssystems
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen
 src/elo.py                      World-Football-Elo
@@ -122,6 +156,13 @@ src/simulation.py               Monte-Carlo-Gruppensimulation
 src/backtest.py                 Out-of-Sample-Backtest + Kalibrierung
 src/ingest.py                   Download offener Datenquellen (martj42)
 src/weather.py                  Optionale Open-Meteo-Integration
+src/rating/criteria.py          Kriterien, Positionsprofile, Gewichte (zentral)
+src/rating/player.py            Spielerbewertung (Attribute→Skill→Score)
+src/rating/chemistry.py         Team-Chemie (5 gewichtete Teilkriterien)
+src/rating/team.py              Team-Aggregation inkl. Chemie + Trainer
+src/rating/sample.py            Kuratierte bekannte Spieler (für Stichproben)
+src/rating/io.py                Loader für echte Kader-CSVs
+tests/test_rating.py            Unit-Tests des Bewertungssystems
 data/sample_matches.csv         Synthetische Beispiel-Historie
 data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)
 ```
