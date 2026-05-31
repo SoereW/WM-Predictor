@@ -133,7 +133,22 @@ Chemie-Zahl): `python scripts/evaluate_ratings.py` bewertet bekannte Spieler
 und Teams und prüft automatisch Plausibilität (Top-Spieler oben, Top-Nation
 vorn, Chemie nicht überzeichnet). Unit-Tests: `python tests/test_rating.py`.
 
-Echte Kaderdaten einspeisen via `src/rating/io.load_squads_csv` (Format:
+**Validierung an echten Spielen** (Mannschaften/Spieler vergleichen →
+Vorhersage → mit Endergebnis abgleichen): `python scripts/validate_predictions.py`.
+Für jedes Testspiel wird ein frisches Modell **nur auf Spielen davor**
+trainiert (out-of-sample, kein Leakage – echte Prognose). Optionen:
+`--real-players` nutzt echte FIFA-Spielerattribute statt der Demo-Kader,
+`--insample` zum Vergleich das fertige Gesamtmodell.
+
+**Einkopplung in den Predictor:** Der Team-Gesamtscore (Spieler + Chemie +
+Trainer) speist den Predictor über `WMPredictor.attach_team_scores` als
+Elo-Korrektur (moderat, `squad_pull`, Standard 35 %). Wie die einfache
+Kaderstärke greift er **erst zur Vorhersage** – die trainierten ML-Modelle
+sehen ihn nie und können nicht overfitten.
+
+**Echte Spielerdaten:** `src/rating/fifa_ingest.py` lädt einen offenen
+FIFA-Spielerdatensatz (echte Attribute) und übersetzt ihn ins Bewertungs-
+Schema. Eigene Kaderdaten via `src/rating/io.load_squads_csv` (Format:
 `team, player, position` + Attribute oder `overall`; optional `club, league,
 age, caps, form, available`).
 
@@ -145,6 +160,7 @@ scripts/make_sample_data.py     Erzeugt Beispieldaten + WM-2026-Fixtures
 scripts/init_db.py              Baut SQLite-DB (--fetch lädt echte Historie)
 scripts/train_model.py          Trainiert Modell, speichert es, zeigt Backtest
 scripts/evaluate_ratings.py     Stichproben-Auswertung des Bewertungssystems
+scripts/validate_predictions.py Vorhersage vs. echtes Ergebnis (out-of-sample)
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen
 src/elo.py                      World-Football-Elo
@@ -162,6 +178,7 @@ src/rating/chemistry.py         Team-Chemie (5 gewichtete Teilkriterien)
 src/rating/team.py              Team-Aggregation inkl. Chemie + Trainer
 src/rating/sample.py            Kuratierte bekannte Spieler (für Stichproben)
 src/rating/io.py                Loader für echte Kader-CSVs
+src/rating/fifa_ingest.py       Echte FIFA-Spielerdaten → Bewertungs-Schema
 tests/test_rating.py            Unit-Tests des Bewertungssystems
 data/sample_matches.csv         Synthetische Beispiel-Historie
 data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)

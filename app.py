@@ -44,11 +44,18 @@ def ensure_assets() -> None:
         matches = read_table(con, "matches")
         con.close()
         predictor = WMPredictor().fit(matches)
-        # Kaderstaerke anbinden (Demo-Kader bei Bedarf erzeugen).
-        squads_csv = ROOT / "data" / "sample_squads.csv"
-        if not squads_csv.exists():
-            write_sample_squads(ROOT / "data")
-        predictor.attach_squads(load_squads(squads_csv))
+        # Bewertungssystem (Spieler + Chemie + Trainer) als Staerkequelle
+        # anbinden; Fallback auf einfache Kaderstaerke.
+        try:
+            from src.rating.sample import COACHES, load_sample_players
+            from src.rating.team import rate_all_teams
+
+            predictor.attach_team_scores(rate_all_teams(load_sample_players(), coaches=COACHES))
+        except Exception:
+            squads_csv = ROOT / "data" / "sample_squads.csv"
+            if not squads_csv.exists():
+                write_sample_squads(ROOT / "data")
+            predictor.attach_squads(load_squads(squads_csv))
         predictor.save(MODEL_PATH)
 
 

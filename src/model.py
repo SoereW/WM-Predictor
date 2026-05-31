@@ -267,6 +267,42 @@ class WMPredictor:
         self.training_summary = summary
         return self
 
+    def attach_team_scores(self, team_scores: Dict) -> "WMPredictor":
+        """Bindet das volle Bewertungssystem (Spieler+Chemie+Trainer) an.
+
+        Reichhaltigere Alternative zu ``attach_squads``: statt des reinen
+        Spielerdurchschnitts wird der Team-Gesamtscore aus ``src.rating``
+        (beste Elf, Tiefe, Chemie, Trainer) als Staerkequelle genutzt und
+        wie gehabt auf die Elo-Skala kalibriert. Greift ebenfalls erst zur
+        Vorhersage - die trainierten ML-Modelle sehen ihn nie.
+
+        ``team_scores`` ist ein Dict ``{team_name: objekt_mit_.overall}``
+        (z. B. die Ausgabe von ``rate_all_teams``).
+        """
+        from .squad import calibrate_to_elo
+
+        if not team_scores:
+            self.squad_overall = {}
+            self.squad_calib = None
+            return self
+
+        self.squad_overall = {
+            t: float(getattr(s, "overall", s)) for t, s in team_scores.items()
+        }
+        self.squad_calib = calibrate_to_elo(self.squad_overall, self.elo.ratings)
+        summary = dict(self.training_summary)
+        summary["squad"] = {
+            "source": "rating_system (Spieler+Chemie+Trainer)",
+            "n_teams_with_squad": int(len(self.squad_overall)),
+            "calibrated": self.squad_calib is not None,
+            "squad_pull": round(self.squad_pull, 2),
+        }
+        if self.squad_calib is not None:
+            a, b = self.squad_calib
+            summary["squad"]["overall_to_elo"] = {"intercept": round(a, 1), "slope": round(b, 1)}
+        self.training_summary = summary
+        return self
+
     def effective_elo(self, team: str, elo_rating: float) -> float:
         """Elo nach moderater Korrektur durch die Kaderstaerke.
 

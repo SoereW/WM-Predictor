@@ -64,6 +64,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Vorhersagen gegen echte Ergebnisse pruefen")
     parser.add_argument("--insample", action="store_true",
                         help="Fertiges Gesamtmodell nutzen (kennt die Spiele) statt out-of-sample")
+    parser.add_argument("--real-players", action="store_true",
+                        help="Echte FIFA-Spielerdaten fuer den Kadervergleich nutzen statt Demo-Kader")
     args = parser.parse_args()
 
     con = connect(DB_PATH)
@@ -72,7 +74,20 @@ def main() -> None:
     squads = load_squads(SQUADS_CSV) if SQUADS_CSV.exists() else None
 
     full_model = WMPredictor.load(MODEL_PATH) if args.insample else None
-    team_scores = rate_all_teams(load_sample_players(), coaches=COACHES)
+
+    # Kadervergleich: echte FIFA-Spielerdaten oder kuratierte Demo-Spieler.
+    if args.real_players:
+        from src.rating.fifa_ingest import fetch_fifa_players, load_fifa_as_squads
+
+        fifa_csv = ROOT / "data" / "fifa_players.csv"
+        if not fifa_csv.exists():
+            print("Lade echte FIFA-Spielerdaten ...")
+            fetch_fifa_players(fifa_csv)
+        players_df = load_fifa_as_squads(fifa_csv)
+        team_scores = rate_all_teams(players_df, coaches=COACHES)
+        print("Kadervergleich auf Basis ECHTER FIFA-Spielerattribute (FIFA-20-Stand).")
+    else:
+        team_scores = rate_all_teams(load_sample_players(), coaches=COACHES)
 
     mode = "IN-SAMPLE (Modell kennt die Spiele)" if args.insample else "OUT-OF-SAMPLE (echte Prognose)"
     print("=" * 92)

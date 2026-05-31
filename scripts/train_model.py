@@ -28,15 +28,26 @@ def main() -> None:
     print(f"Trainiere auf {len(matches)} Spielen ...")
     predictor = WMPredictor().fit(matches)
 
-    # Kaderstaerke anbinden, falls Kaderdaten vorliegen (Demo oder echte CSV).
-    squads_csv = ROOT / "data" / "sample_squads.csv"
-    if squads_csv.exists():
-        from src.squad import load_squads
+    # Bewertungssystem (Spieler + Chemie + Trainer) als Staerkequelle
+    # anbinden - reichhaltiger als der reine Kaderdurchschnitt. Faellt auf
+    # die einfache Kaderstaerke zurueck, falls das Rating-System keine Daten
+    # hat.
+    try:
+        from src.rating.sample import COACHES, load_sample_players
+        from src.rating.team import rate_all_teams
 
-        predictor.attach_squads(load_squads(squads_csv))
+        team_scores = rate_all_teams(load_sample_players(), coaches=COACHES)
+        predictor.attach_team_scores(team_scores)
         sq = predictor.training_summary.get("squad", {})
-        print(f"Kaderdaten angebunden: {sq.get('n_teams_with_squad')} Teams, "
-              f"kalibriert={sq.get('calibrated')}")
+        print(f"Bewertungssystem angebunden: {sq.get('n_teams_with_squad')} Teams, "
+              f"kalibriert={sq.get('calibrated')} (Quelle: {sq.get('source')})")
+    except Exception as err:  # noqa: BLE001 - robust gegen fehlende Rating-Daten
+        squads_csv = ROOT / "data" / "sample_squads.csv"
+        if squads_csv.exists():
+            from src.squad import load_squads
+
+            predictor.attach_squads(load_squads(squads_csv))
+            print(f"Fallback Kaderstaerke angebunden ({err}).")
 
     predictor.save(MODEL_PATH)
     print(f"Modell gespeichert unter {MODEL_PATH}\n")
