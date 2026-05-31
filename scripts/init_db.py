@@ -30,11 +30,14 @@ def main() -> None:
 
     # Beispieldaten bei Bedarf erzeugen (werden nicht ins Repo eingecheckt).
     from src.sample_data import write_sample_data
+    from src.sample_squads import write_sample_squads
 
     sample_matches = DATA / "sample_matches.csv"
     sample_fixtures = DATA / "sample_fixtures_2026.csv"
     if not sample_matches.exists() or not sample_fixtures.exists():
         write_sample_data(DATA)
+    if not (DATA / "sample_squads.csv").exists():
+        write_sample_squads(DATA)
 
     if args.matches:
         matches_csv = Path(args.matches)

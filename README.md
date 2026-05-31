@@ -8,8 +8,9 @@ und Gruppen-Simulationen aus – belegt durch einen Out-of-Sample-Backtest.
 
 - SQLite-Datenmodell für Spiele und Fixtures, kompatibel zum offenen
   Datensatz `martj42/international_results` (~49.000 echte Spiele ab 1872)
-- Hybrides Modell: **World-Football-Elo** + **Dixon-Coles/Poisson-Tor-Modell**
-  + **multinomialer Logit-Klassifikator**, kalibriert kombiniert
+- Hybrides Modell: **World-Football-Elo** + **Kaderstärke (Spieler→Team)**
+  + **Dixon-Coles/Poisson-Tor-Modell** + **multinomialer Logit-Klassifikator**,
+  kalibriert kombiniert
 - Zeitgewichtetes Training (neuere Spiele zählen mehr) und automatische
   Hyperparameter-Wahl auf einem zeitlich abgetrennten Validierungsfenster
 - Out-of-Sample-Backtest mit Log-Loss, Brier-Score, Trefferquote und
@@ -62,21 +63,43 @@ Tipp-Richtung.
 
 ## Modellidee
 
-Drei Bausteine, bewusst hybrid statt eines reinen Deep-Learning-Modells –
-WM-Daten sind klein und verrauscht:
+Bewusst hybrid statt eines reinen Deep-Learning-Modells – WM-Daten sind
+klein und verrauscht, und im Backtest schlägt der ML-Aufbau reines Elo nur
+knapp. Der Hebel liegt daher nicht in mehr Modellkomplexität, sondern in
+besseren **Features** – insbesondere der Kaderstärke.
 
 1. **Elo-Rating** als robuste Stärke-Baseline (turnierabhängiger
    K-Faktor, Tordifferenz-Multiplikator, Heimvorteil, sequenziell und
    damit leak-frei).
-2. **Dixon-Coles/Poisson-Tor-Modell**: schätzt erwartete Tore beider
+2. **Kaderstärke (Spieler → Team)**: Jeder Spieler wird bewertet, positions­
+   bewusst zur Teamstärke aggregiert (beste Elf + Kadertiefe) und auf die
+   Elo-Skala kalibriert. Elo misst nur, *wie eine Nation historisch
+   gespielt hat* – nicht, *wie stark der Kader ist, der morgen aufläuft*.
+   Genau dort (Kaderumbruch, junge Generation, lange Pausen) korrigiert die
+   Kaderstärke das effektive Rating moderat (Standard 35 %).
+3. **Dixon-Coles/Poisson-Tor-Modell**: schätzt erwartete Tore beider
    Teams und leitet daraus ein konsistentes Korrektergebnis-Gitter ab –
    Grundlage für 1X2 und die Gruppensimulation.
-3. **Logit-Klassifikator** auf Pre-Match-Features (Elo-Differenz, Form,
+4. **Logit-Klassifikator** auf Pre-Match-Features (Elo-Differenz, Form,
    Tore, Ruhetage, neutraler Platz).
 
 Tor-Modell und Klassifikator werden gewichtet gemischt; Mischgewicht und
 die Dixon-Coles-Korrektur `rho` werden auf einem zeitlich abgetrennten
 Validierungsfenster auf **minimalen Log-Loss** optimiert.
+
+**Warum die Kaderstärke nicht overfittet:** Sie greift ausschließlich zum
+Vorhersagezeitpunkt als Elo-Korrektur – die trainierten ML-Modelle sehen
+sie nie. Sie kann also nichts „auswendig lernen", sondern nur den robusten
+Elo-Input verschieben. Eigene Kaderdaten lassen sich per CSV einspeisen
+(Format: `team, player, position, rating[, available]`); verletzte/gesperrte
+Spieler werden über `available=0` ausgeschlossen.
+
+> Hinweis: Die mitgelieferten Kaderdaten sind **Näherungen** und werden
+> deterministisch erzeugt (`src/sample_squads.py`). Sie bilden den
+> *aktuellen* Stand ab und fließen daher bewusst **nicht** in den
+> historischen Backtest ein (das wäre anachronistisch) – sie verbessern die
+> WM-2026-Prognose, nicht die Backtest-Zahl. Ein sauberer Kader-Backtest
+> bräuchte zeitpunktgenaue historische Kader.
 
 Im Dashboard lassen sich zusätzlich Kontext-Adjustments (Startelf,
 Verletzungen, Erholung, Wetter) als Elo-Zuschlag einstellen.
@@ -93,6 +116,8 @@ src/teams.py                    Normalisierung von Teamnamen
 src/elo.py                      World-Football-Elo
 src/features.py                 Feature-Engineering (leak-frei)
 src/model.py                    Hybrid-Modell: Training + Prediction
+src/squad.py                    Kaderstärke: Spieler→Team, Elo-Kalibrierung
+src/sample_squads.py            Deterministische Demo-Kaderdaten (Näherung)
 src/simulation.py               Monte-Carlo-Gruppensimulation
 src/backtest.py                 Out-of-Sample-Backtest + Kalibrierung
 src/ingest.py                   Download offener Datenquellen (martj42)
@@ -112,12 +137,15 @@ data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)
 - WM-Spielplan: FIFA-Webseite oder gepflegte CSV (Format wie
   `sample_fixtures_2026.csv`).
 - Wetter: Open-Meteo (`src/weather.py`, Erweiterungspunkt).
-- Spieler-/Lineup-Daten und Quoten als nächste Ausbaustufe (Quoten v. a.
-  als Benchmark, Lizenzbedingungen beachten).
+- Kaderdaten: eigene CSV (`team, player, position, rating[, available]`) –
+  echte Spielerratings (z. B. SoFIFA/EA-Scrapes) oder Marktwerte als Proxy.
+- Quoten: gut als Benchmark, Lizenzbedingungen beachten.
 
 ## Nächste Schritte zur weiteren Verbesserung
 
-1. Spieler-Verfügbarkeit/erwartete Startelf als eigene Features.
+1. Echte Kaderdaten + erwartete Startelf statt der Näherungs-Demokader.
 2. Wetterdaten automatisiert pro Stadion und Anstoßzeit ziehen.
 3. Gegen Wettmarktquoten benchmarken (Markt ist ein starker Maßstab).
 4. K.-o.-Phase (Verlängerung/Elfmeter) zusätzlich simulieren.
+5. Zeitpunktgenaue historische Kader, um die Kaderstärke auch im Backtest
+   zu validieren.

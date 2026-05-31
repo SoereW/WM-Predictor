@@ -27,6 +27,17 @@ def main() -> None:
 
     print(f"Trainiere auf {len(matches)} Spielen ...")
     predictor = WMPredictor().fit(matches)
+
+    # Kaderstaerke anbinden, falls Kaderdaten vorliegen (Demo oder echte CSV).
+    squads_csv = ROOT / "data" / "sample_squads.csv"
+    if squads_csv.exists():
+        from src.squad import load_squads
+
+        predictor.attach_squads(load_squads(squads_csv))
+        sq = predictor.training_summary.get("squad", {})
+        print(f"Kaderdaten angebunden: {sq.get('n_teams_with_squad')} Teams, "
+              f"kalibriert={sq.get('calibrated')}")
+
     predictor.save(MODEL_PATH)
     print(f"Modell gespeichert unter {MODEL_PATH}\n")
 

@@ -39,6 +39,10 @@ from .features import (
 
 MAX_GOALS = 10
 ADJ_ELO_SCALE = 150.0  # 1.0 Adjustment ~ 150 Elo-Punkte
+# Anteil, mit dem die Kaderstaerke das effektive Elo in ihre Richtung zieht.
+# Moderat gewaehlt: Elo bleibt Basis, der Kader korrigiert dort, wo Historie
+# und aktuelle Kaderqualitaet auseinanderlaufen.
+SQUAD_PULL = 0.35
 RHO_GRID = [0.0, -0.04, -0.08, -0.12, -0.16]
 WEIGHT_GRID = [0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 1.0]
 _LOG_FACT = np.concatenate([[0.0], np.cumsum(np.log(np.arange(1, MAX_GOALS + 1)))])
@@ -119,13 +123,17 @@ def _metrics(y: np.ndarray, P: np.ndarray) -> Dict[str, float]:
 class WMPredictor:
     """Trainierbares hybrides Vorhersagemodell."""
 
-    def __init__(self, max_goals: int = MAX_GOALS):
+    def __init__(self, max_goals: int = MAX_GOALS, squad_pull: float = SQUAD_PULL):
         self.max_goals = max_goals
+        self.squad_pull = squad_pull
         self.elo: EloModel | None = None
         self.goals_model: Pipeline | None = None
         self.clf: Pipeline | None = None
         self.blend_weight: float = 0.5
         self.rho: float = -0.08
+        # Optionale Kaderschicht (wird erst zum Vorhersagezeitpunkt genutzt).
+        self.squad_overall: Dict[str, float] = {}
+        self.squad_calib: Tuple[float, float] | None = None
         self.training_summary: Dict = {}
 
     # ----------------------------------------------------------------- fit
@@ -231,6 +239,51 @@ class WMPredictor:
         self.training_summary = summary
         return self
 
+    # --------------------------------------------------------------- squad
+    def attach_squads(self, squads: pd.DataFrame) -> "WMPredictor":
+        """Bindet Kaderdaten an und kalibriert Teamstaerke auf die Elo-Skala.
+
+        Greift bewusst erst zur *Vorhersage* - die trainierten ML-Modelle
+        sehen die Kaderstaerke nie und koennen sie daher nicht overfitten.
+        """
+        from .squad import calibrate_to_elo, team_overall_map
+
+        if squads is None or len(squads) == 0:
+            self.squad_overall = {}
+            self.squad_calib = None
+            return self
+
+        self.squad_overall = team_overall_map(squads)
+        self.squad_calib = calibrate_to_elo(self.squad_overall, self.elo.ratings)
+        summary = dict(self.training_summary)
+        summary["squad"] = {
+            "n_teams_with_squad": int(len(self.squad_overall)),
+            "calibrated": self.squad_calib is not None,
+            "squad_pull": round(self.squad_pull, 2),
+        }
+        if self.squad_calib is not None:
+            a, b = self.squad_calib
+            summary["squad"]["overall_to_elo"] = {"intercept": round(a, 1), "slope": round(b, 1)}
+        self.training_summary = summary
+        return self
+
+    def effective_elo(self, team: str, elo_rating: float) -> float:
+        """Elo nach moderater Korrektur durch die Kaderstaerke.
+
+        Ohne Kaderdaten (oder ohne Kalibrierung) bleibt das reine Elo
+        unveraendert. Liegt eine kalibrierte Kaderstaerke vor, wird das
+        Rating mit ``squad_pull`` in deren Richtung gezogen.
+        """
+        if not self.squad_calib:
+            return elo_rating
+        from .squad import squad_to_elo
+
+        ovr = self.squad_overall.get(team)
+        if ovr is None or ovr != ovr:  # fehlend oder NaN
+            return elo_rating
+        squad_elo = squad_to_elo(ovr, self.squad_calib)
+        return (1.0 - self.squad_pull) * elo_rating + self.squad_pull * squad_elo
+
     # ------------------------------------------------------------- predict
     def _core(self, home_elo, away_elo, hs, as_, neutral: int, adj_total: float = 0.0):
         """Gemeinsamer Vorhersagekern fuer ein Matchup."""
@@ -298,11 +351,25 @@ class WMPredictor:
 
         hs = team_state(matches, self.elo, home)
         as_ = team_state(matches, self.elo, away)
-        probs, lh, la, elo_diff_eff = self._core(hs.elo, as_.elo, hs, as_, neutral, adj_total)
+        home_elo = self.effective_elo(home, hs.elo)
+        away_elo = self.effective_elo(away, as_.elo)
+        probs, lh, la, elo_diff_eff = self._core(home_elo, away_elo, hs, as_, neutral, adj_total)
 
         top_factors = [
             (f"Elo {home}", round(hs.elo, 0)),
             (f"Elo {away}", round(as_.elo, 0)),
+        ]
+        if self.squad_calib:
+            top_factors += [
+                (f"Elo+Kader {home}", round(home_elo, 0)),
+                (f"Elo+Kader {away}", round(away_elo, 0)),
+            ]
+            ovr_h, ovr_a = self.squad_overall.get(home), self.squad_overall.get(away)
+            if ovr_h is not None and ovr_h == ovr_h:
+                top_factors.append((f"Kaderstaerke {home}", round(ovr_h, 1)))
+            if ovr_a is not None and ovr_a == ovr_a:
+                top_factors.append((f"Kaderstaerke {away}", round(ovr_a, 1)))
+        top_factors += [
             ("Elo-Differenz (mit Heimvorteil/Adjust)", round(elo_diff_eff, 1)),
             (f"Form-Punkte {home}", round(hs.form_pts, 2)),
             (f"Form-Punkte {away}", round(as_.form_pts, 2)),
@@ -334,7 +401,9 @@ class WMPredictor:
 
         hs = team_state(matches, self.elo, home)
         as_ = team_state(matches, self.elo, away)
-        _, lh, la, _ = self._core(hs.elo, as_.elo, hs, as_, neutral, adj_total)
+        home_elo = self.effective_elo(home, hs.elo)
+        away_elo = self.effective_elo(away, as_.elo)
+        _, lh, la, _ = self._core(home_elo, away_elo, hs, as_, neutral, adj_total)
 
         pmf_h = _poisson_pmf([lh], self.max_goals)[0]
         pmf_a = _poisson_pmf([la], self.max_goals)[0]

@@ -13,6 +13,8 @@ sys.path.insert(0, str(ROOT))
 from src.database import connect, init_schema, load_fixtures, load_matches, read_table
 from src.model import WMPredictor
 from src.sample_data import write_sample_data
+from src.sample_squads import write_sample_squads
+from src.squad import load_squads
 from src.simulation import simulate_group
 
 DB_PATH = ROOT / "db" / "wm_predictor.sqlite"
@@ -42,6 +44,11 @@ def ensure_assets() -> None:
         matches = read_table(con, "matches")
         con.close()
         predictor = WMPredictor().fit(matches)
+        # Kaderstaerke anbinden (Demo-Kader bei Bedarf erzeugen).
+        squads_csv = ROOT / "data" / "sample_squads.csv"
+        if not squads_csv.exists():
+            write_sample_squads(ROOT / "data")
+        predictor.attach_squads(load_squads(squads_csv))
         predictor.save(MODEL_PATH)
 
 
@@ -68,7 +75,16 @@ matches, fixtures = load_data()
 predictor = load_predictor()
 
 st.title("⚽ WM Predictor Dashboard")
-st.caption("Hybrid-Prototyp: Elo-Baseline + ML-Modell + Kontext-Adjustments. Beispiel-Daten enthalten; echte Datenquellen können angebunden werden.")
+st.caption("Hybrid: Elo-Baseline + Kaderstärke + ML-Modell + Kontext-Adjustments. Beispiel-Daten enthalten; echte Datenquellen können angebunden werden.")
+
+squad_active = bool(getattr(predictor, "squad_calib", None))
+if squad_active:
+    n_sq = len(getattr(predictor, "squad_overall", {}))
+    pull = getattr(predictor, "squad_pull", 0.0)
+    st.caption(
+        f"🧮 Kaderstärke aktiv für {n_sq} Teams (Gewicht {pull:.0%}). "
+        "Demo-Kaderdaten sind Näherungen – echte Kader-CSV via `--squads` einspeisbar."
+    )
 
 with st.sidebar:
     st.header("Spiel auswählen")
@@ -120,14 +136,13 @@ fig = go.Figure(
     ]
 )
 fig.update_layout(yaxis_tickformat=".0%", yaxis_range=[0, 1], title="1X2-Wahrscheinlichkeiten")
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 st.subheader("Wichtigste Modell-Features")
-st.dataframe(
-    pd.DataFrame(prediction.top_factors, columns=["Feature", "Wert"]),
-    hide_index=True,
-    use_container_width=True,
-)
+# Wert-Spalte als Text vereinheitlichen (mischt Zahlen und Labels wie "ja"/"nein").
+factors_df = pd.DataFrame(prediction.top_factors, columns=["Feature", "Wert"])
+factors_df["Wert"] = factors_df["Wert"].astype(str)
+st.dataframe(factors_df, hide_index=True, width="stretch")
 
 st.subheader("Gruppen-Simulation")
 selected_group = fixture.get("group_name")
@@ -136,7 +151,7 @@ if selected_group:
     if len(group_fixtures) >= 2:
         sim = simulate_group(group_fixtures, matches, predictor, n=500)
         st.write(f"Top-2-Wahrscheinlichkeit auf Basis der verfügbaren Fixtures in Gruppe {selected_group}.")
-        st.dataframe(sim, hide_index=True, use_container_width=True)
+        st.dataframe(sim, hide_index=True, width="stretch")
     else:
         st.info("Für diese Gruppe sind im Beispiel-Datensatz noch zu wenige Fixtures enthalten.")
 
