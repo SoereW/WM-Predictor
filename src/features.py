@@ -1,9 +1,17 @@
 """Feature-Engineering ohne Information-Leakage.
 
-Aus der Spielhistorie werden *Pre-Match*-Features gebaut: Elo-Differenz,
-rollende Form (Punkteschnitt, Tore fuer/gegen) sowie Ruhetage. Alle
-rollenden Groessen werden um ein Spiel verschoben, damit das aktuelle
-Ergebnis nie in seine eigenen Features einfliesst.
+Aus der Spielhistorie werden *Pre-Match*-Features gebaut. Neben Elo-Differenz
+und einfacher Form (Punkte, Tore) auch **gegnerbezogene** Groessen:
+
+- ``sos`` (strength of schedule): mittlere Gegnerstaerke der letzten Spiele -
+  ein 2:0 gegen einen Topgegner ist mehr wert als gegen einen Aussenseiter.
+- ``form_vs_exp``: erzielte minus *erwartete* Punkte (aus der Elo-Differenz).
+  Misst, ob ein Team zuletzt ueber oder unter seinem Niveau gespielt hat -
+  unabhaengig davon, wie stark die Gegner nominell waren.
+
+Alle rollenden Groessen werden um ein Spiel verschoben, damit das aktuelle
+Ergebnis nie in seine eigenen Features einfliesst. Die Gegnerstaerke nutzt
+das *Pre-Match*-Elo (nur Vergangenheit) und ist damit ebenfalls leak-frei.
 """
 
 from __future__ import annotations
@@ -14,7 +22,7 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from .elo import HOME_ADVANTAGE, EloModel
+from .elo import HOME_ADVANTAGE, EloModel, expected_score
 
 ROLL_N = 10  # Anzahl letzter Spiele fuer Form-Features
 HALF_LIFE_DAYS = 365.0 * 4.0  # Halbwertszeit fuer Zeitgewichtung (~4 Jahre)
@@ -29,29 +37,41 @@ def _result_points(gf: int, ga: int) -> int:
 
 
 def _team_long(matches: pd.DataFrame) -> pd.DataFrame:
-    """Wandelt Spiele in eine Team-Perspektive (zwei Zeilen pro Spiel)."""
+    """Wandelt Spiele in eine Team-Perspektive (zwei Zeilen pro Spiel).
+
+    Erwartet, dass ``matches`` bereits die Pre-Match-Elo-Spalten
+    ``home_elo_pre``/``away_elo_pre`` enthaelt (fuer Gegnerstaerke und
+    erwartete Punkte). Jede Team-Zeile bekommt eigenes/gegnerisches
+    Pre-Elo sowie die aus der Elo-Differenz erwarteten Punkte.
+    """
+    hfa = np.where(matches["neutral"].values == 1, 0.0, HOME_ADVANTAGE)
+    he, ae = matches["home_elo_pre"].values, matches["away_elo_pre"].values
+    # Erwartete Punkte (0..3) aus dem Elo-Erwartungswert; Remis-Anteil grob
+    # ueber eine feste Unentschieden-Wahrscheinlichkeit eingepreist.
+    exp_home = np.array([expected_score(h + a_ - aw) for h, a_, aw in zip(he, hfa, ae)])
+    p_draw = 0.26
+    home_exp_pts = (exp_home - p_draw / 2.0).clip(0, 1) * 3.0
+    away_exp_pts = ((1 - exp_home) - p_draw / 2.0).clip(0, 1) * 3.0
+
     home = pd.DataFrame(
         {
-            "mid": matches["mid"].values,
-            "date": matches["date"].values,
-            "team": matches["home_team"].values,
-            "gf": matches["home_score"].values,
-            "ga": matches["away_score"].values,
-            "is_home": (1 - matches["neutral"].values).clip(0, 1),
+            "mid": matches["mid"].values, "date": matches["date"].values,
+            "team": matches["home_team"].values, "gf": matches["home_score"].values,
+            "ga": matches["away_score"].values, "is_home": (1 - matches["neutral"].values).clip(0, 1),
+            "opp_elo": ae, "exp_pts": home_exp_pts,
         }
     )
     away = pd.DataFrame(
         {
-            "mid": matches["mid"].values,
-            "date": matches["date"].values,
-            "team": matches["away_team"].values,
-            "gf": matches["away_score"].values,
-            "ga": matches["home_score"].values,
-            "is_home": np.zeros(len(matches), dtype=int),
+            "mid": matches["mid"].values, "date": matches["date"].values,
+            "team": matches["away_team"].values, "gf": matches["away_score"].values,
+            "ga": matches["home_score"].values, "is_home": np.zeros(len(matches), dtype=int),
+            "opp_elo": he, "exp_pts": away_exp_pts,
         }
     )
     long = pd.concat([home, away], ignore_index=True)
     long["points"] = [_result_points(f, a) for f, a in zip(long["gf"], long["ga"])]
+    long["pts_vs_exp"] = long["points"] - long["exp_pts"]
     return long
 
 
@@ -66,6 +86,8 @@ def _rolling_pre(long: pd.DataFrame) -> pd.DataFrame:
     long["form_pts"] = roll("points")
     long["form_gf"] = roll("gf")
     long["form_ga"] = roll("ga")
+    long["sos"] = roll("opp_elo")             # mittlere Gegnerstaerke (Spielplan-Haerte)
+    long["form_vs_exp"] = roll("pts_vs_exp")  # Punkte ueber/unter Erwartung
     long["prev_date"] = grp["date"].shift(1)
     return long
 
@@ -96,6 +118,8 @@ def build_features(matches: pd.DataFrame, elo_model: EloModel | None = None):
         feats[f"{side}_form_pts"] = sub["form_pts"].values
         feats[f"{side}_form_gf"] = sub["form_gf"].values
         feats[f"{side}_form_ga"] = sub["form_ga"].values
+        feats[f"{side}_sos"] = sub["sos"].values
+        feats[f"{side}_form_vs_exp"] = sub["form_vs_exp"].values
         feats[f"{side}_prev_date"] = sub["prev_date"].values
 
     for k, v in feats.items():
@@ -105,11 +129,14 @@ def build_features(matches: pd.DataFrame, elo_model: EloModel | None = None):
     gf_mean = float(np.nanmean(df[["home_form_gf", "away_form_gf"]].values))
     ga_mean = float(np.nanmean(df[["home_form_ga", "away_form_ga"]].values))
     pts_mean = float(np.nanmean(df[["home_form_pts", "away_form_pts"]].values))
+    sos_mean = float(np.nanmean(df[["home_sos", "away_sos"]].values))
     df = df.fillna(
         value={
             "home_form_gf": gf_mean, "away_form_gf": gf_mean,
             "home_form_ga": ga_mean, "away_form_ga": ga_mean,
             "home_form_pts": pts_mean, "away_form_pts": pts_mean,
+            "home_sos": sos_mean, "away_sos": sos_mean,
+            "home_form_vs_exp": 0.0, "away_form_vs_exp": 0.0,
         }
     )
 
@@ -125,6 +152,9 @@ def build_features(matches: pd.DataFrame, elo_model: EloModel | None = None):
     df["elo_diff"] = df["home_elo_pre"] - df["away_elo_pre"] + hfa
     df["form_pts_diff"] = df["home_form_pts"] - df["away_form_pts"]
     df["rest_diff"] = df["home_rest"] - df["away_rest"]
+    # Gegnerbezogene Differenzen.
+    df["sos_diff"] = (df["home_sos"] - df["away_sos"]) / 100.0   # auf Elo/100-Skala
+    df["form_vs_exp_diff"] = df["home_form_vs_exp"] - df["away_form_vs_exp"]
 
     # Ziel: 0 = Auswaertssieg, 1 = Remis, 2 = Heimsieg.
     df["result"] = np.where(
@@ -143,6 +173,7 @@ def build_features(matches: pd.DataFrame, elo_model: EloModel | None = None):
 CLASSIFIER_FEATURES = [
     "elo_diff", "form_pts_diff", "home_form_gf", "home_form_ga",
     "away_form_gf", "away_form_ga", "rest_diff", "neutral",
+    "sos_diff", "form_vs_exp_diff",
 ]
 
 

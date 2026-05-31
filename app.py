@@ -73,6 +73,19 @@ def load_predictor() -> WMPredictor:
     return WMPredictor.load(MODEL_PATH)
 
 
+@st.cache_data
+def squads_for_tactics() -> pd.DataFrame:
+    """Kaderdaten fuer das Taktik-Matchup (echte FIFA-Daten, sonst Demo)."""
+    fifa = ROOT / "data" / "fifa_players.csv"
+    if fifa.exists():
+        from src.rating.fifa_ingest import load_fifa_as_squads
+
+        return load_fifa_as_squads(fifa)
+    from src.rating.sample import load_sample_players
+
+    return load_sample_players()
+
+
 def pct(value: float) -> str:
     return f"{value * 100:.1f}%"
 
@@ -109,13 +122,48 @@ with st.sidebar:
     rest_delta = st.slider("Erholung/Reise", -0.30, 0.30, 0.00, 0.05)
     weather_delta = st.slider("Wetter/Stil-Matchup", -0.25, 0.25, 0.00, 0.05)
 
+    st.header("Reise & Pause (Kontext)")
+    home_rest = st.number_input(f"Ruhetage {fixture['home_team']}", 1, 14, 4)
+    away_rest = st.number_input(f"Ruhetage {fixture['away_team']}", 1, 14, 4)
+    away_travel_km = st.slider(f"Reisedistanz {fixture['away_team']} (km)", 0, 12000, 0, 500)
+    venue_alt = st.slider("Stadionhöhe (m)", 0, 3600, 0, 100)
+
+    auto_tactics = st.checkbox("Taktik-Matchup automatisch aus Kadern", value=True)
+
 adjustments = {
     "player_delta": player_delta,
     "injury_delta": injury_delta,
     "rest_delta": rest_delta,
     "weather_delta": weather_delta,
 }
-prediction = predictor.predict_fixture(fixture, matches, adjustments=adjustments)
+
+# Kontext-Elo aus den Eingaben (Reise als Distanz des Gastes zum Spielort).
+from src.context import altitude_delta, rest_delta as ctx_rest, travel_delta
+import math as _math
+ctx_elo = ctx_rest(home_rest, away_rest)
+if away_travel_km > 0:
+    # Naeherung: Gast reist away_travel_km, Heim 0 km zum Spielort.
+    ctx_elo += travel_delta((0, 0), (0, away_travel_km / 111.0), (0, 0))
+if venue_alt > 1200:
+    ctx_elo += altitude_delta(venue_alt, 100.0, 1800.0)
+
+# Taktik-Elo automatisch aus den Kadern (falls aktiviert und Daten vorhanden).
+tactics_elo = 0.0
+if auto_tactics:
+    try:
+        from src.rating.tactics import compute_tactics
+        sq = squads_for_tactics()
+        h = sq[sq["team"] == fixture["home_team"]]
+        a = sq[sq["team"] == fixture["away_team"]]
+        if len(h) and len(a):
+            tactics_elo = compute_tactics(h, a).elo_delta
+    except Exception:
+        tactics_elo = 0.0
+
+prediction = predictor.predict_fixture(
+    fixture, matches, adjustments=adjustments,
+    context_elo=ctx_elo, tactics_elo=tactics_elo,
+)
 
 col1, col2, col3 = st.columns(3)
 with col1:

@@ -321,9 +321,14 @@ class WMPredictor:
         return (1.0 - self.squad_pull) * elo_rating + self.squad_pull * squad_elo
 
     # ------------------------------------------------------------- predict
-    def _core(self, home_elo, away_elo, hs, as_, neutral: int, adj_total: float = 0.0):
-        """Gemeinsamer Vorhersagekern fuer ein Matchup."""
-        adj_elo = adj_total * ADJ_ELO_SCALE
+    def _core(self, home_elo, away_elo, hs, as_, neutral: int, adj_total: float = 0.0,
+              extra_elo: float = 0.0):
+        """Gemeinsamer Vorhersagekern fuer ein Matchup.
+
+        ``extra_elo`` sind zusaetzliche Elo-Punkte (Heimsicht) aus Kontext-
+        (Reise/Pause/Hoehe/Klima) und Taktik-Faktoren.
+        """
+        adj_elo = adj_total * ADJ_ELO_SCALE + extra_elo
         hfa = 0.0 if neutral else HOME_ADVANTAGE
         elo_diff_eff = (home_elo - away_elo) + adj_elo + hfa
 
@@ -338,6 +343,8 @@ class WMPredictor:
                     "away_form_ga": as_.form_ga,
                     "rest_diff": 0.0,
                     "neutral": int(neutral),
+                    "sos_diff": (hs.elo - as_.elo) / 100.0,
+                    "form_vs_exp_diff": 0.0,
                 }
             ]
         )[CLASSIFIER_FEATURES]
@@ -371,7 +378,8 @@ class WMPredictor:
         probs = probs / probs.sum()
         return probs, lh, la, elo_diff_eff
 
-    def predict_fixture(self, fixture: Dict, matches: pd.DataFrame, adjustments: Dict | None = None) -> Prediction:
+    def predict_fixture(self, fixture: Dict, matches: pd.DataFrame, adjustments: Dict | None = None,
+                        context_elo: float = 0.0, tactics_elo: float = 0.0) -> Prediction:
         from .teams import normalize_team
 
         home = normalize_team(fixture.get("home_team"))
@@ -384,12 +392,13 @@ class WMPredictor:
             + adjustments.get("rest_delta", 0.0)
             + adjustments.get("weather_delta", 0.0)
         )
+        extra_elo = float(context_elo) + float(tactics_elo)
 
         hs = team_state(matches, self.elo, home)
         as_ = team_state(matches, self.elo, away)
         home_elo = self.effective_elo(home, hs.elo)
         away_elo = self.effective_elo(away, as_.elo)
-        probs, lh, la, elo_diff_eff = self._core(home_elo, away_elo, hs, as_, neutral, adj_total)
+        probs, lh, la, elo_diff_eff = self._core(home_elo, away_elo, hs, as_, neutral, adj_total, extra_elo)
 
         top_factors = [
             (f"Elo {home}", round(hs.elo, 0)),
@@ -405,6 +414,10 @@ class WMPredictor:
                 top_factors.append((f"Kaderstaerke {home}", round(ovr_h, 1)))
             if ovr_a is not None and ovr_a == ovr_a:
                 top_factors.append((f"Kaderstaerke {away}", round(ovr_a, 1)))
+        if abs(context_elo) > 0.05:
+            top_factors.append(("Kontext (Reise/Pause/Hoehe/Klima) Elo", round(context_elo, 1)))
+        if abs(tactics_elo) > 0.05:
+            top_factors.append(("Taktik-Matchup Elo", round(tactics_elo, 1)))
         top_factors += [
             ("Elo-Differenz (mit Heimvorteil/Adjust)", round(elo_diff_eff, 1)),
             (f"Form-Punkte {home}", round(hs.form_pts, 2)),

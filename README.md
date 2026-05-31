@@ -77,11 +77,26 @@ besseren **Features** – insbesondere der Kaderstärke.
    gespielt hat* – nicht, *wie stark der Kader ist, der morgen aufläuft*.
    Genau dort (Kaderumbruch, junge Generation, lange Pausen) korrigiert die
    Kaderstärke das effektive Rating moderat (Standard 35 %).
-3. **Dixon-Coles/Poisson-Tor-Modell**: schätzt erwartete Tore beider
+3. **Gegnerbezogene Form** (trainiert & backtestbar): nicht nur *ob* ein
+   Team zuletzt gewann, sondern *gegen wen* (`sos` – mittlere Gegnerstärke
+   des Spielplans) und *ob über/unter Erwartung* (`form_vs_exp` – erzielte
+   minus aus der Elo-Differenz erwartete Punkte). Beides leak-frei aus der
+   Historie, senkt den Out-of-Sample-Log-Loss messbar (0.8602 → 0.8596).
+4. **Spielkontext** (`src/context.py`, Vorhersagezeitpunkt): Ruhetage/Pause,
+   Reisedistanz + Jetlag, Stadionhöhe (Akklimatisierung) und Hitze/Klima –
+   jeweils als gewichtete, **gedeckelte** Elo-Korrektur.
+5. **Taktik-Matchup** (`src/rating/tactics.py`): Taktikprofil je Team
+   (Pressing, Ballbesitz, Tempo, Block, Flügel, Konter) und gewichtete
+   Stil-Regeln (z. B. Konter schlägt Hochpressing) → kleine Elo-Korrektur.
+6. **Dixon-Coles/Poisson-Tor-Modell**: schätzt erwartete Tore beider
    Teams und leitet daraus ein konsistentes Korrektergebnis-Gitter ab –
    Grundlage für 1X2 und die Gruppensimulation.
-4. **Logit-Klassifikator** auf Pre-Match-Features (Elo-Differenz, Form,
-   Tore, Ruhetage, neutraler Platz).
+7. **Logit-Klassifikator** auf Pre-Match-Features (Elo-Differenz, Form,
+   Tore, Ruhetage, gegnerbezogene Form, neutraler Platz).
+
+Faktoren 2/4/5 greifen wie die Kaderstärke **erst zur Vorhersage** als
+Elo-Korrektur – die trainierten ML-Modelle sehen sie nie und können nicht
+overfitten. Faktoren 1/3 sind echte Trainingsfeatures und im Backtest belegt.
 
 Tor-Modell und Klassifikator werden gewichtet gemischt; Mischgewicht und
 die Dixon-Coles-Korrektur `rho` werden auf einem zeitlich abgetrennten
@@ -172,6 +187,8 @@ src/simulation.py               Monte-Carlo-Gruppensimulation
 src/backtest.py                 Out-of-Sample-Backtest + Kalibrierung
 src/ingest.py                   Download offener Datenquellen (martj42)
 src/weather.py                  Optionale Open-Meteo-Integration
+src/context.py                  Kontext: Reise/Pause/Höhe/Klima (Elo-Korrektur)
+src/rating/tactics.py           Taktikprofile + Stil-Matchups
 src/rating/criteria.py          Kriterien, Positionsprofile, Gewichte (zentral)
 src/rating/player.py            Spielerbewertung (Attribute→Skill→Score)
 src/rating/chemistry.py         Team-Chemie (5 gewichtete Teilkriterien)
@@ -180,6 +197,7 @@ src/rating/sample.py            Kuratierte bekannte Spieler (für Stichproben)
 src/rating/io.py                Loader für echte Kader-CSVs
 src/rating/fifa_ingest.py       Echte FIFA-Spielerdaten → Bewertungs-Schema
 tests/test_rating.py            Unit-Tests des Bewertungssystems
+tests/test_context_tactics.py   Unit-Tests für Kontext- und Taktik-Faktoren
 data/sample_matches.csv         Synthetische Beispiel-Historie
 data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)
 ```
