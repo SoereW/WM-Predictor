@@ -211,6 +211,25 @@ Elo-Korrektur (moderat, `squad_pull`, Standard 35 %). Wie die einfache
 Kaderstärke greift er **erst zur Vorhersage** – die trainierten ML-Modelle
 sehen ihn nie und können nicht overfitten.
 
+**Score- vs. Historie-System im direkten Vergleich:** `python
+scripts/compare_systems.py` misst beide Stärke-Signale out-of-sample an echten
+Spielen (Standard: 2024 bis WM-Start, nur WM-Nationen). Typisches Bild:
+
+| System | Log-Loss ↓ | Brier ↓ | Treffer ↑ |
+|--------|-----------:|--------:|----------:|
+| Basisrate (naiv) | 1.106 | 0.671 | 40.8 % |
+| Score (Kader, EA FC 26) | 1.043 | 0.628 | 45.9 % |
+| Historie (ML, ~49k Spiele) | 1.067 | 0.649 | 44.5 % |
+| Hybrid (Score→Elo→ML) | 1.049 | 0.636 | **46.2 %** |
+| Ensemble Ø(Score, Historie) | **1.039** | **0.628** | 44.2 % |
+
+Beide Systeme schlagen die Basisrate und sind **komplementär** (Tipps stimmen
+nur zu ~76 % überein): der Kader bildet *Talent* ab, die Historie *Resultate/
+Form*. Das Ensemble liefert die beste Wahrscheinlichkeits-Qualität (Log-Loss/
+Brier), der Hybrid die beste Trefferquote. Das Skript zeigt zusätzlich, **wo**
+sich die Systeme uneinig sind (z. B. unterschätzt der Kader Nationen mit vielen
+Heimliga-Spielern wie Japan/Iran, deren Spieler im Datensatz fehlen).
+
 **Echte Spielerdaten:** `src/rating/fifa_ingest.py` lädt einen offenen
 EA-SPORTS-FC-Spielerdatensatz (echte Attribute) und übersetzt ihn ins
 Bewertungs-Schema. Standardquelle ist **EA FC 26** (Stand 2025/26 – echte,
@@ -229,6 +248,7 @@ scripts/init_db.py              Baut SQLite-DB (--fetch lädt echte Historie)
 scripts/train_model.py          Trainiert Modell, speichert es, zeigt Backtest
 scripts/evaluate_ratings.py     Stichproben-Auswertung des Bewertungssystems
 scripts/validate_predictions.py Vorhersage vs. echtes Ergebnis (out-of-sample)
+scripts/compare_systems.py      Score- vs. Historie-System vergleichen (out-of-sample)
 src/wm2026.py                   Echte Gruppen-Auslosung + Spielplan-Generator
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen

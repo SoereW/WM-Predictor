@@ -68,6 +68,30 @@ class EloModel:
     def _get(self, team: str) -> float:
         return self.ratings.get(team, self.base_rating)
 
+    def _apply_match(self, home, away, hs, as_, neutral, tournament, date) -> Tuple[float, float]:
+        """Wendet ein einzelnes Ergebnis an und gibt die Pre-Match-Ratings zurueck."""
+        r_home, r_away = self._get(home), self._get(away)
+        hfa = 0.0 if int(neutral or 0) else self.home_advantage
+        exp_home = expected_score(r_home + hfa - r_away)
+
+        if hs > as_:
+            actual_home = 1.0
+        elif hs == as_:
+            actual_home = 0.5
+        else:
+            actual_home = 0.0
+
+        k = tournament_weight(tournament)
+        change = k * gd_multiplier(hs - as_) * (actual_home - exp_home)
+
+        self.ratings[home] = r_home + change
+        self.ratings[away] = r_away - change
+        self.last_date[home] = date
+        self.last_date[away] = date
+        self.history.setdefault(home, []).append((date, self.ratings[home]))
+        self.history.setdefault(away, []).append((date, self.ratings[away]))
+        return r_home, r_away
+
     def fit(self, matches: pd.DataFrame) -> "EloModel":
         """Berechnet Ratings sequentiell ueber alle Spiele (chronologisch)."""
         df = matches.sort_values("date").reset_index(drop=True)
@@ -75,35 +99,24 @@ class EloModel:
         pre_away = np.empty(len(df), dtype=float)
 
         for i, row in enumerate(df.itertuples(index=False)):
-            home, away = row.home_team, row.away_team
-            r_home, r_away = self._get(home), self._get(away)
-            pre_home[i] = r_home
-            pre_away[i] = r_away
-
-            neutral = int(getattr(row, "neutral", 0) or 0)
-            hfa = 0.0 if neutral else self.home_advantage
-            exp_home = expected_score(r_home + hfa - r_away)
-
-            hs, as_ = int(row.home_score), int(row.away_score)
-            if hs > as_:
-                actual_home = 1.0
-            elif hs == as_:
-                actual_home = 0.5
-            else:
-                actual_home = 0.0
-
-            k = tournament_weight(getattr(row, "tournament", None))
-            change = k * gd_multiplier(hs - as_) * (actual_home - exp_home)
-
-            self.ratings[home] = r_home + change
-            self.ratings[away] = r_away - change
-            self.last_date[home] = row.date
-            self.last_date[away] = row.date
-            self.history.setdefault(home, []).append((row.date, self.ratings[home]))
-            self.history.setdefault(away, []).append((row.date, self.ratings[away]))
+            pre_home[i], pre_away[i] = self._apply_match(
+                row.home_team, row.away_team, int(row.home_score), int(row.away_score),
+                int(getattr(row, "neutral", 0) or 0), getattr(row, "tournament", None), row.date,
+            )
 
         self.pre_home = pre_home
         self.pre_away = pre_away
+        return self
+
+    def update(self, match) -> "EloModel":
+        """Schreibt das Rating mit einem einzelnen Ergebnis fort (z. B. fuer
+        ein rollierendes Forward-Testfenster; Pre-Match-Vorhersage davor).
+        """
+        self._apply_match(
+            match["home_team"], match["away_team"], int(match["home_score"]),
+            int(match["away_score"]), int(match.get("neutral", 0) or 0),
+            match.get("tournament"), match["date"],
+        )
         return self
 
     def current_rating(self, team: str) -> float:
