@@ -23,15 +23,32 @@ MODEL_PATH = ROOT / "models" / "wm_predictor.joblib"
 st.set_page_config(page_title="WM Predictor", page_icon="⚽", layout="wide")
 
 
+def _real_team_scores():
+    """Team-Ratings aus echten FC-26-Spielerdaten (falls vorhanden)."""
+    fc26 = ROOT / "data" / "fc26_players.csv"
+    if not fc26.exists():
+        return None
+    from src.rating.fifa_ingest import load_fifa_as_squads
+    from src.rating.squad_builder import build_squads
+    from src.rating.team import rate_all_teams
+    from src.wm2026 import all_teams
+
+    players = load_fifa_as_squads(fc26, prefer_long_name=True)
+    squads = build_squads(players, all_teams())
+    return rate_all_teams(squads)
+
+
 def ensure_assets() -> None:
     if not DB_PATH.exists():
         data = ROOT / "data"
         real = data / "international_results.csv"
         sample = data / "sample_matches.csv"
-        fixtures = data / "sample_fixtures_2026.csv"
-        # Beispieldaten bei Bedarf erzeugen (nicht ins Repo eingecheckt).
-        if not sample.exists() or not fixtures.exists():
+        # Echten WM-2026-Spielplan bevorzugen, sonst Beispiel-Fixtures.
+        wm_fixtures = data / "wm2026_fixtures.csv"
+        sample_fixtures = data / "sample_fixtures_2026.csv"
+        if not wm_fixtures.exists() and not sample_fixtures.exists():
             write_sample_data(data)
+        fixtures = wm_fixtures if wm_fixtures.exists() else sample_fixtures
 
         con = connect(DB_PATH)
         init_schema(con)
@@ -43,14 +60,22 @@ def ensure_assets() -> None:
         con = connect(DB_PATH)
         matches = read_table(con, "matches")
         con.close()
-        predictor = WMPredictor().fit(matches)
-        # Bewertungssystem (Spieler + Chemie + Trainer) als Staerkequelle
-        # anbinden; Fallback auf einfache Kaderstaerke.
+        # Leak-frei: nur Spiele vor WM-Beginn ins Training (falls Datum bekannt).
+        from src.wm2026 import GROUP_STAGE_START
+        cutoff = GROUP_STAGE_START.strftime("%Y-%m-%d")
+        train = matches[matches["date"] < cutoff] if (matches["date"] < cutoff).any() else matches
+        predictor = WMPredictor().fit(train.reset_index(drop=True))
+        # Echte FC-26-Team-Ratings als Staerkequelle; Fallbacks: kuratierte
+        # Beispielspieler, dann einfache Demo-Kaderstaerke.
         try:
-            from src.rating.sample import COACHES, load_sample_players
-            from src.rating.team import rate_all_teams
+            team_scores = _real_team_scores()
+            if team_scores:
+                predictor.attach_team_scores(team_scores)
+            else:
+                from src.rating.sample import COACHES, load_sample_players
+                from src.rating.team import rate_all_teams
 
-            predictor.attach_team_scores(rate_all_teams(load_sample_players(), coaches=COACHES))
+                predictor.attach_team_scores(rate_all_teams(load_sample_players(), coaches=COACHES))
         except Exception:
             squads_csv = ROOT / "data" / "sample_squads.csv"
             if not squads_csv.exists():
@@ -75,12 +100,15 @@ def load_predictor() -> WMPredictor:
 
 @st.cache_data
 def squads_for_tactics() -> pd.DataFrame:
-    """Kaderdaten fuer das Taktik-Matchup (echte FIFA-Daten, sonst Demo)."""
-    fifa = ROOT / "data" / "fifa_players.csv"
-    if fifa.exists():
+    """Kaderdaten fuer das Taktik-Matchup (echte WM-2026-Kader, sonst Demo)."""
+    wm_squads = ROOT / "data" / "wm2026_squads.csv"
+    if wm_squads.exists():
+        return pd.read_csv(wm_squads)
+    fc26 = ROOT / "data" / "fc26_players.csv"
+    if fc26.exists():
         from src.rating.fifa_ingest import load_fifa_as_squads
 
-        return load_fifa_as_squads(fifa)
+        return load_fifa_as_squads(fc26, prefer_long_name=True)
     from src.rating.sample import load_sample_players
 
     return load_sample_players()
@@ -95,15 +123,18 @@ matches, fixtures = load_data()
 predictor = load_predictor()
 
 st.title("⚽ WM Predictor Dashboard")
-st.caption("Hybrid: Elo-Baseline + Kaderstärke + ML-Modell + Kontext-Adjustments. Beispiel-Daten enthalten; echte Datenquellen können angebunden werden.")
+st.caption("Hybrid: Elo-Baseline + Kaderstärke + ML-Modell + Kontext-Adjustments. "
+           "Echte Daten: martj42-Historie (~49k Spiele) + EA-FC-26-Spielerdaten + echte WM-2026-Auslosung.")
 
+real_data = (ROOT / "data" / "wm2026_fixtures.csv").exists()
 squad_active = bool(getattr(predictor, "squad_calib", None))
 if squad_active:
     n_sq = len(getattr(predictor, "squad_overall", {}))
     pull = getattr(predictor, "squad_pull", 0.0)
+    src = "EA-FC-26-Echtdaten (Stand 2025/26)" if real_data else "Demo-Näherungen"
     st.caption(
-        f"🧮 Kaderstärke aktiv für {n_sq} Teams (Gewicht {pull:.0%}). "
-        "Demo-Kaderdaten sind Näherungen – echte Kader-CSV via `--squads` einspeisbar."
+        f"🧮 Kaderstärke aktiv für {n_sq} Teams (Gewicht {pull:.0%}), Quelle: {src}. "
+        "Aufbau via `python scripts/build_wm2026.py`."
     )
 
 with st.sidebar:
@@ -212,6 +243,15 @@ if selected_group:
 
 st.subheader("Modelldiagnose")
 st.json(predictor.training_summary)
-st.warning(
-    "Dieser Prototyp nutzt Beispiel-Daten. Für echte WM-Prognosen müssen vollständige historische Länderspiele, aktuelle Kader, erwartete Startelf, Verletzungen, Wetter und idealerweise Quoten ergänzt werden."
-)
+if real_data:
+    st.info(
+        "Echte Daten aktiv: martj42-Historie + EA-FC-26-Spielerattribute + echte "
+        "WM-2026-Auslosung. Kader = stärkste verfügbare Spieler je Nation laut "
+        "Datensatz (nicht zwingend die offizielle 26er-Nominierung). Verbesserbar "
+        "durch nominierte Startelf, Verletzungen, Wetter und Wettquoten."
+    )
+else:
+    st.warning(
+        "Dieser Prototyp nutzt Beispiel-Daten. Für echte WM-Prognosen `python scripts/build_wm2026.py` "
+        "ausführen (lädt echte Historie + EA-FC-26-Spielerdaten + echte Auslosung)."
+    )

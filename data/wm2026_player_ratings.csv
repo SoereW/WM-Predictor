@@ -1,0 +1,1113 @@
+group,team,player,club,league,position,role,age,ea_overall,skill,form,experience,overall
+J,Algeria,Riyad Mahrez,Al Ahli SFC,Pro League,MID,WM,34,84.0,77.7,84.0,76.4,79.9
+J,Algeria,Ismaël Bennacer,Dinamo Zagreb,Hrvatska nogometna liga,MID,DM,27,80.0,77.9,80.0,66.4,78.4
+J,Algeria,Amine Ferid Gouiri,Olympique de Marseille,Ligue 1,FWD,ST,25,79.0,78.4,79.0,48.2,76.8
+J,Algeria,Mohamed Saïd Benrahma,NEOM SC,Pro League,FWD,W,29,77.0,76.2,77.0,54.8,75.6
+J,Algeria,Mohamed El Amine Amoura,VfL Wolfsburg,Bundesliga,FWD,ST,25,80.0,79.7,80.0,23.9,75.4
+J,Algeria,Ramy Bensebaini,Borussia Dortmund,Bundesliga,DEF,FB,30,79.0,75.2,79.0,56.5,75.4
+J,Algeria,Nabil Bentaleb,Lille OSC,Ligue 1,MID,DM,30,77.0,74.4,77.0,56.5,74.6
+J,Algeria,Houssem Aouar,Al Ittihad,Pro League,MID,AM,27,77.0,74.9,77.0,51.5,74.4
+J,Algeria,Rayan Aït Nouri,Manchester City,Premier League,DEF,FB,24,81.0,78.2,81.0,22.2,74.3
+J,Algeria,Adem Zorgane,Union Saint-Gilloise,Pro League,MID,DM,25,78.0,75.9,78.0,23.9,72.5
+J,Algeria,Anis Hadj Moussa,Feyenoord,Eredivisie,FWD,W,23,76.0,75.7,76.0,20.5,71.7
+J,Algeria,Hicham Boudaoui,OGC Nice,Ligue 1,MID,CM,25,77.0,74.4,77.0,23.9,71.3
+J,Algeria,Rachid Ghezzal,Olympique Lyonnais,Ligue 1,MID,WM,33,74.0,69.1,74.0,61.5,71.0
+J,Algeria,Himad Abdelli,Angers SCO,Ligue 1,MID,AM,25,76.0,73.3,76.0,23.9,70.4
+J,Algeria,Aïssa Mandi,Lille OSC,Ligue 1,DEF,CB,33,75.0,71.6,75.0,37.2,70.4
+J,Algeria,Amir Sayoud,Al Hazem FC,Pro League,MID,WM,34,75.0,71.1,75.0,37.2,70.1
+J,Algeria,Rafik Guitane,GD Estoril Praia,Primeira Liga,FWD,W,26,73.0,73.4,73.0,25.5,70.1
+J,Algeria,Badredine Bouanani,VfB Stuttgart,Bundesliga,FWD,W,20,75.0,73.1,75.0,15.5,69.2
+J,Algeria,Haris Belkebla,Angers SCO,Ligue 1,MID,DM,31,74.0,70.6,74.0,33.9,69.2
+J,Algeria,Ilan Kais Kebbal,Paris FC,Ligue 1,MID,WM,26,76.0,70.0,76.0,25.5,68.3
+J,Algeria,Abdelkader Bedrane,Damac FC,Pro League,DEF,CB,33,72.0,68.8,72.0,37.2,68.0
+J,Algeria,Ahmed Touba,Panathinaikos FC,Super League,DEF,CB,27,70.0,70.5,70.0,27.2,67.9
+J,Algeria,Mehdi Emile Dorval,SSC Bari,Serie B,DEF,FB,24,71.0,68.3,71.0,22.2,66.0
+J,Algeria,Jaouen Hadjam,BSC Young Boys,Super League,DEF,FB,22,69.0,68.8,69.0,18.9,65.7
+J,Algeria,Yasser Larouci,ESTAC Troyes,Ligue 2,DEF,FB,24,68.0,65.5,68.0,22.2,63.6
+J,Algeria,Sohaib Naïr,En Avant Guingamp,Ligue 2,DEF,CB,23,68.0,64.8,68.0,20.5,63.0
+J,Argentina,Lionel Andrés Messi Cuccitini,Inter Miami,Major League Soccer,FWD,W,38,86.0,84.5,86.0,85.5,85.8
+J,Argentina,Lautaro Javier Martínez,Inter,Serie A,FWD,ST,27,88.0,84.4,88.0,81.1,85.6
+J,Argentina,Paulo Bruno Exequiel Dybala,Roma,Serie A,MID,AM,31,86.0,84.5,86.0,82.2,85.4
+J,Argentina,Julián Álvarez,Atlético Madrid,La Liga,FWD,ST,25,87.0,84.9,87.0,72.2,84.9
+J,Argentina,Alexis Mac Allister,Liverpool,Premier League,MID,CM,26,87.0,82.7,87.0,73.8,83.6
+J,Argentina,Rodrigo Javier de Paul,Inter Miami,Major League Soccer,MID,CM,31,84.0,81.6,84.0,73.1,82.2
+J,Argentina,Ángel Fabián Di María Hernández,Rosario Central,Liga Profesional de Fútbol,FWD,W,37,82.0,80.7,82.0,76.4,81.6
+J,Argentina,Giovani Lo Celso,Real Betis Balompié,La Liga,MID,AM,29,82.0,80.3,82.0,69.7,80.7
+J,Argentina,Enzo Jeremías Fernández,Chelsea,Premier League,MID,CM,24,84.0,80.4,84.0,61.4,80.2
+J,Argentina,Damián Emiliano Martínez Romero,Aston Villa,Premier League,GK,GK,32,85.0,77.9,85.0,74.7,80.1
+J,Argentina,Exequiel Alejandro Palacios,Bayer 04 Leverkusen,Bundesliga,MID,CM,26,84.0,79.4,84.0,64.7,79.9
+J,Argentina,Nicolás Hernán Gonzalo Otamendi,SL Benfica,Primeira Liga,DEF,CB,37,82.0,77.1,82.0,76.4,79.2
+J,Argentina,Lisandro Martínez,Manchester United,Premier League,DEF,CB,27,81.0,78.0,81.0,66.4,78.6
+J,Argentina,Thiago Ezequiel Almada,Atlético Madrid,La Liga,MID,AM,24,79.0,79.0,79.0,61.4,78.5
+J,Argentina,Leonardo Julián Balerdi Rossa,Olympique de Marseille,Ligue 1,DEF,CB,26,81.0,77.5,81.0,64.7,78.1
+J,Argentina,Valentín Mariano José Castellanos Giménez,Lazio,Serie A,FWD,ST,26,80.0,77.7,80.0,64.7,78.1
+J,Argentina,Gerónimo Rulli,Olympique de Marseille,Ligue 1,GK,GK,33,82.0,75.4,82.0,76.4,78.0
+J,Argentina,Mauro Emanuel Icardi Rivero,Galatasaray SK,Süper Lig,FWD,ST,32,81.0,75.8,81.0,74.7,78.0
+J,Argentina,Marcos Javier Acuña,River Plate,Liga Profesional de Fútbol,DEF,FB,33,78.0,76.1,78.0,76.4,77.9
+J,Argentina,Cristian Gabriel Romero,Tottenham Hotspur,Premier League,DEF,CB,27,82.0,76.5,82.0,66.4,77.8
+J,Argentina,Nahuel Molina Lucero,Atlético Madrid,La Liga,DEF,FB,27,79.0,75.9,79.0,66.4,76.9
+J,Argentina,Facundo Axel Medina,Olympique de Marseille,Ligue 1,DEF,CB,26,79.0,77.2,79.0,49.8,76.1
+J,Argentina,Walter Daniel Benítez,Crystal Palace,Premier League,GK,GK,32,79.0,73.7,79.0,59.8,74.7
+J,Argentina,Marcos Nicolás Senesi Barón,AFC Bournemouth,Premier League,DEF,CB,28,78.0,73.6,78.0,53.2,73.8
+J,Argentina,Juan Marcos Foyth,Villarreal CF,La Liga,DEF,CB,27,79.0,75.9,79.0,27.2,73.0
+J,Argentina,Giuliano Simeone Baldini,Atlético Madrid,La Liga,MID,WM,22,81.0,76.5,81.0,18.9,72.9
+D,Australia,Mathew David Ryan,Levante UD,La Liga,GK,GK,33,78.0,72.6,78.0,61.5,74.0
+D,Australia,Martin Callie Boyle,Hibernian,Premiership,FWD,ST,32,71.0,73.5,71.0,35.5,70.9
+D,Australia,Craig Alexander Goodwin,Adelaide United,A-League Men,MID,WM,33,73.0,72.6,73.0,37.2,70.8
+D,Australia,Jackson Alexander Irvine,FC St. Pauli,Bundesliga,MID,CM,32,75.0,72.2,75.0,35.5,70.6
+D,Australia,Nicholas D'Agostino,Viking FK,Eliteserien,FWD,ST,27,70.0,73.0,70.0,27.2,69.5
+D,Australia,Brandon Joel Gaetano Borrello,Western Sydney Wanderers,A-League Men,FWD,ST,29,70.0,71.7,70.0,30.5,69.0
+D,Australia,Adam Jake Taggart,Perth Glory,A-League Men,FWD,ST,32,69.0,71.0,69.0,35.5,68.9
+D,Australia,Riley Patrick McGree,Middlesbrough,Championship,MID,WM,26,72.0,71.5,72.0,25.5,68.7
+D,Australia,Massimo Corey Luongo,Millwall FC,Championship,MID,DM,32,72.0,69.3,72.0,35.5,68.2
+D,Australia,Jamie MacLaren,Mohun Bagan Super Giant,Super League,FWD,ST,31,69.0,70.0,69.0,33.9,68.0
+D,Australia,Mathew Allan Leckie,Melbourne City FC,A-League Men,MID,CM,34,70.0,68.9,70.0,37.2,67.8
+D,Australia,Cameron Robert Burgess,Swansea City,Championship,DEF,CB,29,73.0,68.2,73.0,30.5,67.1
+D,Australia,Jordan Jacob Bos,Feyenoord,Eredivisie,DEF,FB,22,69.0,70.9,69.0,18.9,67.1
+D,Australia,Alexander Ian Grant,Sydney FC,A-League Men,DEF,CB,31,71.0,67.7,71.0,33.9,66.8
+D,Australia,Cameron Peter Devlin,Hearts,Premiership,MID,DM,27,71.0,67.8,71.0,27.2,66.2
+D,Australia,Kai Clifton Trewin,Melbourne City FC,A-League Men,DEF,CB,24,69.0,69.0,69.0,22.2,66.2
+D,Australia,Fran Karačić,Hajduk Split,Hrvatska nogometna liga,DEF,FB,29,68.0,68.1,68.0,30.5,66.2
+D,Australia,Anthony Charles Carter,Santa Clara,Primeira Liga,FWD,ST,30,70.0,67.2,70.0,32.2,66.1
+D,Australia,Aiden Connor O'Neill,New York City FC,Major League Soccer,MID,DM,26,70.0,68.1,70.0,25.5,66.1
+D,Australia,Nicolas Petar Milanović,Aberdeen,Premiership,MID,WM,23,71.0,68.2,71.0,20.5,65.8
+D,Australia,Gianni Ryan Stensness,Viking FK,Eliteserien,DEF,CB,26,69.0,67.9,69.0,25.5,65.8
+D,Australia,Kye Francis Rowles,DC United,Major League Soccer,DEF,CB,27,71.0,67.1,71.0,27.2,65.7
+D,Australia,Paul David Izzo,Randers FC,Superliga,GK,GK,30,70.0,66.5,70.0,32.2,65.6
+D,Australia,Alessandro Circati,Parma,Serie A,DEF,CB,21,71.0,68.0,71.0,17.2,65.3
+D,Australia,Harry James Souttar,Leicester City,Championship,DEF,CB,26,73.0,66.1,73.0,25.5,65.2
+D,Australia,Joe Anthony Gauci,Port Vale,League One,GK,GK,24,68.0,64.5,68.0,22.2,63.0
+J,Austria,David Olatukunbo Alaba,Real Madrid,La Liga,DEF,CB,33,82.0,78.6,82.0,76.4,80.2
+J,Austria,Konrad Laimer,FC Bayern München,Bundesliga,DEF,FB,28,82.0,78.8,82.0,68.1,79.5
+J,Austria,Marcel Sabitzer,Borussia Dortmund,Bundesliga,MID,DM,31,80.0,77.9,80.0,73.1,79.1
+J,Austria,Xaver Schlager,RB Leipzig,Bundesliga,MID,DM,27,80.0,75.8,80.0,66.4,77.0
+J,Austria,Philipp Lienhart,SC Freiburg,Bundesliga,DEF,CB,28,79.0,74.4,79.0,53.2,74.5
+J,Austria,Kevin Danso,Tottenham Hotspur,Premier League,DEF,CB,26,79.0,74.7,79.0,49.8,74.4
+J,Austria,Patrick Wimmer,VfL Wolfsburg,Bundesliga,MID,AM,24,77.0,75.6,77.0,46.5,74.4
+J,Austria,Kevin Stöger,Borussia Mönchengladbach,Bundesliga,MID,AM,31,76.0,74.2,76.0,58.2,74.4
+J,Austria,Stefan Posch,Como,Serie A,DEF,FB,28,79.0,73.9,79.0,53.2,74.2
+J,Austria,Christoph Baumgartner,RB Leipzig,Bundesliga,MID,AM,25,77.0,74.3,77.0,48.2,73.7
+J,Austria,Romano Christian Schmid,SV Werder Bremen,Bundesliga,MID,AM,25,78.0,77.0,78.0,23.9,73.2
+J,Austria,Marco Friedl,SV Werder Bremen,Bundesliga,DEF,CB,27,77.0,75.2,77.0,27.2,72.1
+J,Austria,Nicolas Seiwald,RB Leipzig,Bundesliga,MID,DM,24,77.0,74.6,77.0,22.2,71.2
+J,Austria,Valentino Lando Lazaro,Torino,Serie A,MID,WM,29,76.0,73.6,76.0,30.5,71.2
+J,Austria,Phillipp Mwene,1. FSV Mainz 05,Bundesliga,DEF,FB,31,76.0,72.4,76.0,33.9,70.8
+J,Austria,Karim Onisiwo,FC Red Bull Salzburg,Bundesliga,FWD,ST,33,72.0,72.3,72.0,37.2,70.4
+J,Austria,David Leopold Affengruber,Elche CF,La Liga,DEF,CB,24,75.0,73.1,75.0,22.2,69.9
+J,Austria,Michael Gregoritsch,Brøndby IF,Superliga,FWD,ST,31,75.0,66.3,75.0,58.2,68.9
+J,Austria,Maximilian Entrup,LASK Linz,Bundesliga,FWD,ST,27,72.0,71.2,72.0,27.2,68.7
+J,Austria,Alexander Schlager,FC Red Bull Salzburg,Bundesliga,GK,GK,29,73.0,68.8,73.0,30.5,67.5
+J,Austria,Chukwubuike Junior Adamu,SC Freiburg,Bundesliga,FWD,ST,24,71.0,70.3,71.0,22.2,67.4
+J,Austria,Raul Florucz,Union Saint-Gilloise,Pro League,FWD,W,24,70.0,70.6,70.0,22.2,67.4
+J,Austria,Leopold Querfeld,1. FC Union Berlin,Bundesliga,DEF,CB,21,75.0,69.5,75.0,17.2,67.0
+J,Austria,Tobias Okiki Lawal,KRC Genk,Pro League,GK,GK,25,72.0,68.2,72.0,23.9,66.3
+J,Austria,Patrick Pentz,Brøndby IF,Superliga,GK,GK,28,72.0,67.3,72.0,28.9,66.2
+J,Austria,Saša Kalajdžić,LASK Linz,Bundesliga,FWD,ST,27,74.0,65.2,74.0,27.2,64.9
+G,Belgium,Thibaut Nicolas Marc Courtois,Real Madrid,La Liga,GK,GK,33,89.0,81.5,89.0,91.1,84.8
+G,Belgium,Kevin De Bruyne,Napoli,Serie A,MID,CM,34,87.0,82.8,87.0,85.5,84.8
+G,Belgium,Yannick Ferreira Carrasco,Al Shabab,Pro League,FWD,W,31,81.0,82.5,81.0,73.1,82.4
+G,Belgium,Ikoma Loïs Openda,Juventus,Serie A,FWD,ST,25,83.0,83.3,83.0,63.1,82.2
+G,Belgium,Leandro Trossard,Arsenal,Premier League,FWD,W,30,83.0,81.7,83.0,71.4,82.0
+G,Belgium,Romelu Menama Lukaku Bolingoli,Napoli,Serie A,FWD,ST,32,84.0,80.5,84.0,74.7,81.6
+G,Belgium,Youri Tielemans,Aston Villa,Premier League,MID,CM,28,85.0,80.6,85.0,68.1,81.2
+G,Belgium,Jérémy Doku,Manchester City,Premier League,FWD,W,23,80.0,81.1,80.0,59.7,79.9
+G,Belgium,Charles De Ketelaere,Atalanta,Serie A,MID,AM,24,82.0,79.3,82.0,61.4,79.2
+G,Belgium,Matz Willy Els Sels,Nottingham Forest,Premier League,GK,GK,33,83.0,76.5,83.0,76.4,78.9
+G,Belgium,Koen Casteels,Al Qadsiah FC,Pro League,GK,GK,33,82.0,76.7,82.0,76.4,78.9
+G,Belgium,Dodi Lukébakio Ngandoli,SL Benfica,Primeira Liga,MID,WM,27,82.0,76.5,82.0,66.4,77.8
+G,Belgium,Hans Vanaken,Club Brugge KV,Pro League,MID,AM,32,80.0,75.7,80.0,74.7,77.8
+G,Belgium,Thomas Andre A. Meunier,Lille OSC,Ligue 1,DEF,FB,33,76.0,72.1,76.0,76.4,74.8
+G,Belgium,Arthur Nicolas Theate,Eintracht Frankfurt,Bundesliga,DEF,CB,25,80.0,77.0,80.0,23.9,73.6
+G,Belgium,Maxim De Cuyper,Brighton & Hove Albion,Premier League,DEF,FB,24,80.0,76.8,80.0,22.2,73.3
+G,Belgium,Axel Laurent Angel Lambert Witsel,Girona FC,La Liga,DEF,CB,36,77.0,69.5,77.0,76.4,73.2
+G,Belgium,Saint-Cyr Johan Bakayoko,RB Leipzig,Bundesliga,FWD,W,22,78.0,77.6,78.0,18.9,73.1
+G,Belgium,Alexis Jesse Saelemaekers,AC Milan,Serie A,MID,WM,26,79.0,76.2,79.0,25.5,73.0
+G,Belgium,Amadou Zeund Georges Ba Mvom Onana,Aston Villa,Premier League,MID,DM,23,79.0,76.2,79.0,20.5,72.5
+G,Belgium,Malick Martin Fofana,Olympique Lyonnais,Ligue 1,MID,WM,20,78.0,73.9,78.0,15.5,70.3
+G,Belgium,Brandon Mechele,Club Brugge KV,Pro League,DEF,CB,32,76.0,71.0,76.0,35.5,70.0
+G,Belgium,Matte Smets,KRC Genk,Pro League,DEF,CB,21,76.0,73.3,76.0,17.2,69.7
+G,Belgium,Timothy Castagne,Fulham FC,Premier League,DEF,FB,29,76.0,71.1,76.0,30.5,69.6
+G,Belgium,Koni De Winter,AC Milan,Serie A,DEF,CB,23,74.0,70.1,74.0,20.5,67.6
+G,Belgium,Zeno Van Den Bosch,Royal Antwerp FC,Pro League,DEF,CB,21,74.0,70.4,74.0,17.2,67.4
+B,Bosnia-Herzegovina,Ermedin Demirović,VfB Stuttgart,Bundesliga,FWD,ST,27,80.0,77.7,80.0,51.5,76.8
+B,Bosnia-Herzegovina,Edin Džeko,Fiorentina,Serie A,FWD,ST,39,81.0,73.3,81.0,76.4,76.5
+B,Bosnia-Herzegovina,Sead Kolašinac,Atalanta,Serie A,DEF,CB,32,79.0,75.5,79.0,59.8,76.0
+B,Bosnia-Herzegovina,Edin Višća,Trabzonspor,Süper Lig,MID,WM,35,78.0,75.3,78.0,37.2,73.4
+B,Bosnia-Herzegovina,Miroslav Stevanović,Servette FC,Super League,MID,WM,34,75.0,71.3,75.0,61.5,72.6
+B,Bosnia-Herzegovina,Haris Hajradinović,Kasımpaşa SK,Süper Lig,MID,CM,31,76.0,73.0,76.0,33.9,71.2
+B,Bosnia-Herzegovina,Nikola Vasilj,FC St. Pauli,Bundesliga,GK,GK,29,77.0,71.6,77.0,30.5,70.0
+B,Bosnia-Herzegovina,Amar Dedić,SL Benfica,Primeira Liga,DEF,FB,22,74.0,73.8,74.0,18.9,69.9
+B,Bosnia-Herzegovina,Amir Hadžiahmetović,Hull City,Championship,MID,DM,28,73.0,71.9,73.0,28.9,69.4
+B,Bosnia-Herzegovina,Anel Ahmedhodžić,Feyenoord,Eredivisie,DEF,CB,26,74.0,71.9,74.0,25.5,69.3
+B,Bosnia-Herzegovina,Elvis Sarić,Qingdao Hainiu FC,Super League,MID,CM,34,71.0,69.4,71.0,37.2,68.3
+B,Bosnia-Herzegovina,Haris Tabaković,Borussia Mönchengladbach,Bundesliga,FWD,ST,31,73.0,69.0,73.0,33.9,68.0
+B,Bosnia-Herzegovina,Amar Memić,Viktoria Plzeň,První liga,MID,WM,24,72.0,70.6,72.0,22.2,67.7
+B,Bosnia-Herzegovina,Armin Gigović,BSC Young Boys,Super League,MID,CM,23,72.0,69.0,72.0,20.5,66.5
+B,Bosnia-Herzegovina,Jusuf Gazibegović,1. FC Köln,Bundesliga,DEF,FB,25,70.0,68.8,70.0,23.9,66.4
+B,Bosnia-Herzegovina,Asmir Begović,Leicester City,Championship,GK,GK,38,70.0,66.2,70.0,37.2,66.0
+B,Bosnia-Herzegovina,Vladan Kovačević,Norwich City,Championship,GK,GK,27,70.0,66.9,70.0,27.2,65.4
+B,Bosnia-Herzegovina,Denis Huseinbašić,1. FC Köln,Bundesliga,MID,CM,23,72.0,67.2,72.0,20.5,65.3
+B,Bosnia-Herzegovina,Leon Adrian Barišić,FC Basel 1893,Super League,DEF,CB,24,72.0,67.0,72.0,22.2,65.3
+B,Bosnia-Herzegovina,Dennis Hadžikadunić,Sampdoria,Serie B,DEF,CB,26,70.0,66.0,70.0,25.5,64.6
+B,Bosnia-Herzegovina,Kenan Kodro,Real Zaragoza,La Liga 2,FWD,ST,31,70.0,63.8,70.0,33.9,63.9
+B,Bosnia-Herzegovina,Luka Kulenović,Heracles Almelo,Eredivisie,FWD,ST,25,69.0,65.4,69.0,23.9,63.9
+B,Bosnia-Herzegovina,Nikola Katić,FC Schalke 04,2. Bundesliga,DEF,CB,28,69.0,64.3,69.0,28.9,63.7
+B,Bosnia-Herzegovina,Milan Đurić,Parma,Serie A,FWD,ST,35,71.0,62.2,71.0,37.2,63.4
+B,Bosnia-Herzegovina,Nihad Mujakić,Eyüpspor,Süper Lig,DEF,CB,27,67.0,64.6,67.0,27.2,63.4
+B,Bosnia-Herzegovina,Tarik Muharemović,Sassuolo,Serie A,DEF,CB,22,70.0,64.9,70.0,18.9,63.2
+C,Brazil,Vinicius José Paixão de Oliveira Junior,Real Madrid,La Liga,FWD,W,24,89.0,88.3,89.0,76.1,87.9
+C,Brazil,Raphael Dias Belloli,FC Barcelona,La Liga,MID,WM,28,89.0,83.9,89.0,77.2,85.0
+C,Brazil,Marcos Aoás Corrêa,Paris Saint-Germain,Ligue 1,DEF,CB,31,87.0,82.8,87.0,82.2,84.5
+C,Brazil,Alisson Ramsés Becker,Liverpool,Premier League,GK,GK,32,89.0,81.1,89.0,89.5,84.4
+C,Brazil,Rodrygo Silva de Goes,Real Madrid,La Liga,FWD,W,24,85.0,84.0,85.0,70.5,83.7
+C,Brazil,Bruno Guimarães Rodrigues Moura,Newcastle United,Premier League,MID,CM,27,86.0,82.3,86.0,75.5,83.3
+C,Brazil,Ronaldo Jailson Cabrais Petri,Botafogo,Série A,MID,AM,29,83.0,82.8,83.0,69.7,82.6
+C,Brazil,Gabriel dos Santos Magalhães,Arsenal,Premier League,DEF,CB,27,88.0,79.6,88.0,75.5,81.8
+C,Brazil,Malcom Filipe Silva de Oliveira,Al Hilal,Pro League,MID,AM,28,82.0,81.6,82.0,68.1,81.4
+C,Brazil,Éder Gabriel Militão,Real Madrid,La Liga,DEF,CB,27,84.0,80.9,84.0,66.4,81.1
+C,Brazil,Matheus Santos Carneiro da Cunha,Manchester United,Premier League,MID,AM,26,83.0,81.3,83.0,64.7,81.0
+C,Brazil,Gleison Bremer Silva Nascimento,Juventus,Serie A,DEF,CB,28,85.0,78.8,85.0,77.2,80.9
+C,Brazil,Gabriel Teodoro Martinelli Silva,Arsenal,Premier League,FWD,W,24,81.0,81.7,81.0,61.4,80.7
+C,Brazil,Fábio Henrique Tavares,Al Ittihad,Pro League,MID,DM,31,82.0,79.5,82.0,73.1,80.5
+C,Brazil,Joelinton Cassio Apolinário de Lira,Newcastle United,Premier League,MID,CM,28,82.0,80.1,82.0,68.1,80.4
+C,Brazil,Antony Matheus dos Santos,Real Betis Balompié,La Liga,FWD,W,25,81.0,81.0,81.0,63.1,80.4
+C,Brazil,Sávio Moreira de Oliveira,Manchester City,Premier League,FWD,W,21,82.0,81.2,82.0,56.4,80.0
+C,Brazil,Ederson Santana de Moraes,Fenerbahçe SK,Süper Lig,GK,GK,31,85.0,77.1,85.0,73.1,79.3
+C,Brazil,Murillo Santiago Costa dos Santos,Nottingham Forest,Premier League,DEF,CB,22,83.0,79.6,83.0,58.1,79.2
+C,Brazil,Marvin Oswaldo Rangel Azevedo,Flamengo,Série A,FWD,ST,29,81.0,78.3,81.0,69.7,79.1
+C,Brazil,Éderson José dos Santos Lourenço da Silva,Atalanta,Serie A,MID,CM,25,82.0,78.5,82.0,63.1,78.8
+C,Brazil,Carlos Augusto Zopalato Neves,Inter,Serie A,DEF,FB,26,81.0,77.9,81.0,64.7,78.4
+C,Brazil,Roger Ibañez da Silva,Al Ahli SFC,Pro League,DEF,CB,26,82.0,77.2,82.0,64.7,78.1
+C,Brazil,Welington Kauê Dano Nascimento,Atlético Mineiro,Série A,DEF,FB,25,81.0,76.6,81.0,63.1,77.4
+C,Brazil,Lucas Luciano Mantela Patrício,Palmeiras,Série A,GK,GK,25,82.0,75.6,82.0,63.1,76.8
+C,Brazil,Maikel Renan Catarino Fagundes,Corinthians,Série A,DEF,FB,29,80.0,74.6,80.0,30.5,72.6
+B,Canada,Alphonso Boyle Davies,FC Bayern München,Bundesliga,DEF,FB,24,84.0,81.4,84.0,61.4,80.9
+B,Canada,Jonathan Christian David,Juventus,Serie A,FWD,ST,25,82.0,80.2,82.0,63.1,80.0
+B,Canada,Alistair William Johnston,Celtic,Premiership,DEF,FB,26,78.0,76.3,78.0,25.5,72.9
+B,Canada,Cyle Christopher Larin,Feyenoord,Eredivisie,FWD,ST,30,77.0,74.4,77.0,32.2,72.1
+B,Canada,Stephen Antunes Eustáquio,FC Porto,Primeira Liga,MID,DM,28,77.0,74.4,77.0,28.9,71.8
+B,Canada,Milan BorjanMa opja,Al Riyadh,Pro League,GK,GK,37,78.0,72.2,78.0,37.2,71.3
+B,Canada,Moïse Bombito Lumpungu,OGC Nice,Ligue 1,DEF,CB,25,76.0,74.2,76.0,23.9,71.0
+B,Canada,Tajon Trevor Buchanan,Villarreal CF,La Liga,MID,WM,26,74.0,74.1,74.0,25.5,70.8
+B,Canada,Promise Oluwatobi Emmanuel David,Union Saint-Gilloise,Pro League,FWD,ST,23,75.0,72.5,75.0,20.5,69.4
+B,Canada,Richmond Mamah Laryea,Toronto FC,Major League Soccer,MID,WM,30,72.0,70.8,72.0,32.2,68.9
+B,Canada,Derek Austin Cornelius,Rangers FC,Premiership,DEF,CB,27,74.0,71.0,74.0,27.2,68.8
+B,Canada,Liam Alan Millar,Hull City,Championship,MID,WM,25,72.0,71.5,72.0,23.9,68.5
+B,Canada,Tanitoluwa Oluwatimikhin Oluwaseyi,Villarreal CF,La Liga,FWD,ST,25,70.0,71.8,70.0,23.9,68.4
+B,Canada,Kamal Anthony Miller,Portland Timbers,Major League Soccer,DEF,CB,28,71.0,70.4,71.0,28.9,68.1
+B,Canada,Thelonius Alston Bradley Bair,FC Lausanne-Sport,Super League,FWD,ST,25,71.0,70.2,71.0,23.9,67.5
+B,Canada,Jonathan Osorio,Toronto FC,Major League Soccer,MID,CM,33,71.0,68.1,71.0,37.2,67.4
+B,Canada,David Junior Wayne Hoilett,Hibernian,Premiership,MID,WM,35,69.0,68.3,69.0,37.2,67.2
+B,Canada,Dayne Tristan St. Clair,Minnesota United FC,Major League Soccer,GK,GK,28,73.0,68.4,73.0,28.9,67.1
+B,Canada,Samuel Ayomide Adekugbe,Vancouver Whitecaps FC,Major League Soccer,DEF,FB,30,68.0,69.2,68.0,32.2,67.1
+B,Canada,Iké Dominique Ugbo,Sheffield Wednesday,Championship,FWD,ST,26,69.0,68.9,69.0,25.5,66.4
+B,Canada,Ismaël Kenneth Jordan Koné,Sassuolo,Serie A,MID,CM,23,72.0,67.9,72.0,20.5,65.8
+B,Canada,Maxime Crépeau,Portland Timbers,Major League Soccer,GK,GK,31,69.0,65.8,69.0,33.9,65.2
+B,Canada,Niko Kristian Sigur,Hajduk Split,Hrvatska nogometna liga,DEF,FB,21,70.0,67.7,70.0,17.2,65.0
+B,Canada,Samuel Piette,CF Montréal,Major League Soccer,MID,DM,30,69.0,64.5,69.0,32.2,64.1
+B,Canada,Joel Robert Waterman,Chicago Fire,Major League Soccer,DEF,CB,29,68.0,64.6,68.0,30.5,63.8
+B,Canada,Kyle Anthony Hiebert,St. Louis CITY SC,Major League Soccer,DEF,CB,27,67.0,64.9,67.0,27.2,63.5
+H,Cape Verde,Nuno Miguel da Costa Jóia,Medipol Başakşehir FK,Süper Lig,FWD,ST,34,74.0,73.1,74.0,37.2,71.3
+H,Cape Verde,Steven Moreira,Columbus Crew,Major League Soccer,DEF,CB,30,72.0,71.7,72.0,32.2,69.5
+H,Cape Verde,Logan Evans Costa,Villarreal CF,La Liga,DEF,CB,24,77.0,71.8,77.0,22.2,69.4
+H,Cape Verde,Jovane Eduardo Borges Cabral,Estrela da Amadora,Primeira Liga,FWD,W,27,70.0,72.1,70.0,27.2,68.9
+H,Cape Verde,Leandro Livramento Andrade,Qarabağ FK,Premyer Liqa,FWD,W,25,72.0,71.4,72.0,23.9,68.4
+H,Cape Verde,Bruno Miguel Semedo Varela,Al Hazem FC,Pro League,GK,GK,30,74.0,69.4,74.0,32.2,68.3
+H,Cape Verde,Dailon Rocha Livramento do Rosario,Casa Pia,Primeira Liga,FWD,ST,24,70.0,71.0,70.0,22.2,67.7
+H,Cape Verde,Wagner Fabrício Cardoso de Pina,Trabzonspor,Süper Lig,MID,WM,22,72.0,70.3,72.0,18.9,67.2
+H,Cape Verde,Jamiro Gregory Monteiro Alvarenga,PEC Zwolle,Eredivisie,MID,AM,31,69.0,68.6,69.0,33.9,67.1
+H,Cape Verde,Bryan Silva Teixeira,LASK Linz,Bundesliga,FWD,ST,24,66.0,68.8,66.0,22.2,65.6
+H,Cape Verde,Luís Henrique Barros Lopes,CD Leganés,La Liga 2,MID,WM,25,68.0,67.4,68.0,23.9,65.1
+H,Cape Verde,Telmo Emanuel Gomes Arcanjo,Vitória SC,Primeira Liga,MID,WM,24,71.0,66.7,71.0,22.2,65.0
+H,Cape Verde,Ricardo Alexandre Almeida Santos,Swansea City,Championship,DEF,CB,30,67.0,65.6,67.0,32.2,64.6
+H,Cape Verde,Sidny Lopes Cabral,Estrela da Amadora,Primeira Liga,DEF,FB,22,66.0,67.2,66.0,18.9,64.2
+H,Cape Verde,Sidnei Wilson Vieira David Tavares,Blackburn Rovers,Championship,MID,DM,23,68.0,65.5,68.0,20.5,63.5
+H,Cape Verde,Vasco Rafael Fortes Lopes,Radomiak Radom,Ekstraklasa,MID,WM,25,67.0,64.6,67.0,23.9,63.1
+H,Cape Verde,Ivanildo Jorge Mendes Fernandes,CD Nacional,Primeira Liga,DEF,CB,29,66.0,63.3,66.0,30.5,62.6
+H,Cape Verde,Hélder Luís Lopes Vieira Tavares,CD Tondela,Primeira Liga,MID,DM,35,65.0,62.3,65.0,37.2,62.5
+H,Cape Verde,Roberto Carlos Lopes,Shamrock Rovers,Premier Division,DEF,CB,33,66.0,61.5,66.0,37.2,62.1
+H,Cape Verde,Bruno Miguel Santos Leite,FK Haugesund,Eliteserien,MID,CM,30,65.0,62.2,65.0,32.2,61.9
+H,Cape Verde,Fábio Patrick dos Reis dos Santos Fernandes,Oțelul Galați,Liga I,FWD,ST,31,63.0,62.3,63.0,33.9,61.8
+H,Cape Verde,Diogo Alexandre de Almeida Mendes,Rapid Bucuresti,Liga I,MID,DM,27,64.0,62.2,64.0,27.2,61.3
+H,Cape Verde,Fabrício Garcia Andrade,GD Estoril Praia,Primeira Liga,MID,WM,24,67.0,62.0,67.0,22.2,61.1
+H,Cape Verde,João Paulino Moreira Fernandes,Oțelul Galați,Liga I,MID,CM,27,64.0,61.8,64.0,27.2,61.0
+H,Cape Verde,Steve Furtado Pereira,FCV Farul Constanța,Liga I,DEF,FB,30,63.0,60.6,63.0,32.2,60.5
+H,Cape Verde,José Luís Rocha Tavares,Santa Clara,Primeira Liga,MID,AM,22,60.0,58.3,60.0,18.9,57.1
+K,Colombia,Davinson Sánchez Mina,Galatasaray SK,Süper Lig,DEF,CB,29,82.0,79.9,82.0,69.7,80.4
+K,Colombia,Luis Fernando Díaz Marulanda,FC Bayern München,Bundesliga,MID,WM,28,85.0,79.2,85.0,68.1,80.2
+K,Colombia,Duván Esteban Zapata Banguero,Torino,Serie A,FWD,ST,34,82.0,78.2,82.0,76.4,79.9
+K,Colombia,Daniel Muñoz Mejía,Crystal Palace,Premier League,DEF,FB,29,81.0,76.7,81.0,69.7,78.1
+K,Colombia,Juan Guillermo Cuadrado Bello,Pisa,Serie A,MID,WM,37,76.0,76.2,76.0,76.4,77.6
+K,Colombia,Andrés Mateus Uribe Villa,Atlético Nacional,Categoría Primera A,MID,CM,34,76.0,74.3,76.0,76.4,76.3
+K,Colombia,Luis Javier Suárez Charris,Sporting CP,Primeira Liga,FWD,ST,27,77.0,77.6,77.0,51.5,76.2
+K,Colombia,Juan Fernando Quintero Paniagua,River Plate,Liga Profesional de Fútbol,MID,AM,32,77.0,76.3,77.0,59.8,76.2
+K,Colombia,Jhon Adolfo Arias Andrade,Wolverhampton Wanderers,Premier League,FWD,W,27,78.0,78.6,78.0,27.2,74.6
+K,Colombia,Juan Camilo Hernández Suárez,Real Betis Balompié,La Liga,FWD,ST,26,78.0,78.4,78.0,25.5,74.4
+K,Colombia,Jhon Jáder Durán Palacio,Fenerbahçe SK,Süper Lig,FWD,ST,21,79.0,79.0,79.0,17.2,74.1
+K,Colombia,Johan Andrés Mojica Palacio,RCD Mallorca,La Liga,DEF,FB,32,78.0,76.5,78.0,35.5,74.1
+K,Colombia,Cristian Daniel Arango Duque,San Jose Earthquakes,Major League Soccer,FWD,ST,30,78.0,76.6,78.0,32.2,73.8
+K,Colombia,Richard Rios Montoya,SL Benfica,Primeira Liga,MID,CM,25,79.0,77.2,79.0,23.9,73.5
+K,Colombia,David Ospina Ramírez,Atlético Nacional,Categoría Primera A,GK,GK,36,76.0,71.6,76.0,61.5,73.0
+K,Colombia,Deiver Andrés Machado Mena,RC Lens,Ligue 1,DEF,FB,31,76.0,75.6,76.0,33.9,72.9
+K,Colombia,Jefferson Andrés Lerma Solís,Crystal Palace,Premier League,MID,DM,30,77.0,74.5,77.0,32.2,72.2
+K,Colombia,Kevin Duván Castaño Gil,River Plate,Liga Profesional de Fútbol,MID,CM,24,77.0,74.7,77.0,22.2,71.3
+K,Colombia,Yerry Fernando Mina González,Cagliari,Serie A,DEF,CB,30,77.0,68.8,77.0,56.5,70.8
+K,Colombia,Jhon Janer Lucumí Bonilla,Bologna,Serie A,DEF,CB,27,76.0,72.9,76.0,27.2,70.5
+K,Colombia,William José Tesillo Gutiérrez,Atlético Nacional,Categoría Primera A,DEF,CB,35,74.0,71.4,74.0,37.2,70.1
+K,Colombia,Jaminton Leandro Campaz,Rosario Central,Liga Profesional de Fútbol,MID,WM,25,76.0,72.3,76.0,23.9,69.7
+K,Colombia,Yeimar Pastor Gómez Andrade,Seattle Sounders FC,Major League Soccer,DEF,CB,33,75.0,70.5,75.0,37.2,69.6
+K,Colombia,Álvaro David Montero Perales,Vélez Sarsfield,Liga Profesional de Fútbol,GK,GK,30,75.0,70.5,75.0,32.2,69.2
+K,Colombia,Johan Sebastián Romaña Espitia,San Lorenzo de Almagro,Liga Profesional de Fútbol,DEF,CB,26,74.0,69.9,74.0,25.5,67.9
+K,Colombia,Aldair Alejandro Quintana Rojas,Atlético Bucaramanga,Categoría Primera A,GK,GK,30,72.0,68.0,72.0,32.2,66.9
+L,Croatia,Luka Modrić,AC Milan,Serie A,MID,CM,39,83.0,79.3,83.0,76.4,80.9
+L,Croatia,Andrej Kramarić,TSG 1899 Hoffenheim,Bundesliga,MID,AM,34,81.0,78.8,81.0,76.4,80.2
+L,Croatia,Ivan Perišić,PSV,Eredivisie,FWD,W,36,81.0,78.7,81.0,76.4,80.1
+L,Croatia,Mateo Kovačić,Manchester City,Premier League,MID,CM,31,83.0,78.6,83.0,73.1,80.0
+L,Croatia,Marcelo Brozović,Al Nassr,Pro League,MID,DM,32,81.0,78.7,81.0,74.7,79.9
+L,Croatia,Joško Gvardiol,Manchester City,Premier League,DEF,FB,23,84.0,79.8,84.0,59.7,79.7
+L,Croatia,Ante Budimir,CA Osasuna,La Liga,FWD,ST,33,82.0,75.6,82.0,76.4,78.1
+L,Croatia,Mario Pašalić,Atalanta,Serie A,MID,CM,30,80.0,76.3,80.0,71.4,77.8
+L,Croatia,Dominik Livaković,Girona FC,La Liga,GK,GK,30,80.0,74.5,80.0,71.4,76.6
+L,Croatia,Nikola Vlašić,Torino,Serie A,MID,AM,27,79.0,77.1,79.0,51.5,76.2
+L,Croatia,Lovro Majer,VfL Wolfsburg,Bundesliga,MID,CM,27,78.0,75.3,78.0,51.5,74.9
+L,Croatia,Marko Livaja,Hajduk Split,Hrvatska nogometna liga,FWD,ST,31,79.0,77.0,79.0,33.9,74.4
+L,Croatia,Petar Musa,FC Dallas,Major League Soccer,FWD,ST,27,76.0,76.2,76.0,27.2,72.7
+L,Croatia,Josip Šutalo,Ajax,Eredivisie,DEF,CB,25,78.0,75.4,78.0,23.9,72.1
+L,Croatia,Luka Sučić,Real Sociedad,La Liga,MID,CM,22,78.0,75.4,78.0,18.9,71.6
+L,Croatia,Josip Stanišić,FC Bayern München,Bundesliga,DEF,CB,25,78.0,74.4,78.0,23.9,71.5
+L,Croatia,Bruno Petković,Kocaelispor,Süper Lig,FWD,ST,30,76.0,73.1,76.0,32.2,71.1
+L,Croatia,Josip Juranović,1. FC Union Berlin,Bundesliga,DEF,FB,29,75.0,73.4,75.0,30.5,71.0
+L,Croatia,Franjo Ivanović,SL Benfica,Primeira Liga,FWD,ST,21,75.0,74.4,75.0,17.2,70.3
+L,Croatia,Duje Ćaleta-Car,Real Sociedad,La Liga,DEF,CB,28,74.0,69.0,74.0,53.2,70.1
+L,Croatia,Kristijan Kahlina,Charlotte FC,Major League Soccer,GK,GK,32,75.0,70.9,75.0,35.5,69.8
+L,Croatia,Domagoj Vida,AEK Athens,Super League,DEF,CB,36,74.0,70.9,74.0,37.2,69.8
+L,Croatia,Dominik Kotarski,FC København,Superliga,GK,GK,25,77.0,71.3,77.0,23.9,69.2
+L,Croatia,Tin Jedvaj,Panathinaikos FC,Super League,DEF,CB,29,74.0,70.8,74.0,30.5,69.0
+L,Croatia,Marin Pongračić,Fiorentina,Serie A,DEF,CB,27,74.0,68.8,74.0,27.2,67.3
+L,Croatia,Toni Borevković,Samsunspor,Süper Lig,DEF,CB,28,73.0,66.9,73.0,28.9,66.0
+E,Curacao,Tahith Jose Chong,Sheffield United,Championship,MID,AM,25,71.0,71.0,71.0,23.9,68.0
+E,Curacao,Juninho Gracielo Bacuna,Gaziantep FK,Süper Lig,MID,DM,27,69.0,68.5,69.0,27.2,66.4
+E,Curacao,Daijiro Florencio Chirino,UD Almería,La Liga 2,DEF,CB,23,69.0,69.5,69.0,20.5,66.4
+E,Curacao,Sherel Constancio Floranus,PEC Zwolle,Eredivisie,DEF,FB,26,66.0,67.7,66.0,25.5,65.2
+E,Curacao,Shurandy Ruggerio Sambo,Sparta Rotterdam,Eredivisie,DEF,FB,23,68.0,67.8,68.0,20.5,65.0
+E,Curacao,Brandley Mack-Olien Kuwas,FC Volendam,Eredivisie,MID,WM,32,67.0,64.8,67.0,35.5,64.3
+E,Curacao,Xander David Severina,Casa Pia,Primeira Liga,FWD,W,24,67.0,66.7,67.0,22.2,64.3
+E,Curacao,Tyrese Noslin,Telstar,Eredivisie,MID,WM,22,66.0,65.6,66.0,18.9,63.1
+E,Curacao,Martha Ar'jany Jainel,Rotherham United,League One,DEF,FB,21,64.0,64.1,64.0,17.2,61.6
+E,Curacao,Tyrique Mercera,FC Groningen,Eredivisie,DEF,FB,21,64.0,62.1,64.0,17.2,60.2
+E,Curacao,Livano Comenencia,FC Zürich,Super League,DEF,FB,21,62.0,61.9,62.0,17.2,59.7
+E,Curacao,Rayvien Rosario,Excelsior,Eredivisie,MID,WM,21,60.0,58.8,60.0,17.2,57.3
+E,Curacao,Tyrick Bodak,Telstar,Eredivisie,GK,GK,23,60.0,56.9,60.0,20.5,56.3
+E,Curacao,Giandro Alejandro Sambo,Heracles Almelo,Eredivisie,FWD,W,18,57.0,58.3,57.0,12.2,56.0
+E,Curacao,Isaiah Ahmed,SC Heerenveen,Eredivisie,MID,DM,19,58.0,56.0,58.0,13.9,54.7
+A,Czech Republic,Patrik Schick,Bayer 04 Leverkusen,Bundesliga,FWD,ST,29,85.0,78.7,85.0,69.7,80.1
+A,Czech Republic,Tomáš Souček,West Ham United,Premier League,MID,DM,30,78.0,75.5,78.0,56.5,75.5
+A,Czech Republic,Lukáš Provod,SK Slavia Praha,První liga,MID,AM,28,78.0,77.2,78.0,28.9,73.9
+A,Czech Republic,Adam Hložek,TSG 1899 Hoffenheim,Bundesliga,FWD,ST,22,77.0,77.6,77.0,18.9,73.0
+A,Czech Republic,Ladislav Krejčí,Wolverhampton Wanderers,Premier League,DEF,CB,26,78.0,76.0,78.0,25.5,72.7
+A,Czech Republic,Tomáš Holeš,SK Slavia Praha,První liga,DEF,CB,32,76.0,75.0,76.0,35.5,72.7
+A,Czech Republic,Michal Sadílek,SK Slavia Praha,První liga,MID,DM,26,76.0,74.4,76.0,25.5,71.3
+A,Czech Republic,Pavel Šulc,Olympique Lyonnais,Ligue 1,MID,AM,24,77.0,74.3,77.0,22.2,71.1
+A,Czech Republic,Antonín Barák,Sampdoria,Serie B,MID,CM,30,75.0,73.3,75.0,32.2,71.1
+A,Czech Republic,Jan Bořil,SK Slavia Praha,První liga,DEF,CB,34,74.0,72.3,74.0,37.2,70.8
+A,Czech Republic,Matěj Vydra,Viktoria Plzeň,První liga,FWD,ST,33,74.0,72.0,74.0,37.2,70.5
+A,Czech Republic,Pavel Bucha,FC Cincinnati,Major League Soccer,MID,CM,27,75.0,72.9,75.0,27.2,70.3
+A,Czech Republic,Filip Panák,Sparta Praha,První liga,DEF,CB,29,74.0,72.7,74.0,30.5,70.3
+A,Czech Republic,Václav Černý,Beşiktaş JK,Süper Lig,MID,WM,27,77.0,72.4,77.0,27.2,70.2
+A,Czech Republic,Vasil Kušej,SK Slavia Praha,První liga,FWD,W,25,74.0,73.3,74.0,23.9,70.1
+A,Czech Republic,Václav Jemelka,Viktoria Plzeň,První liga,DEF,CB,30,74.0,71.6,74.0,32.2,69.8
+A,Czech Republic,Mojmír Chytil,SK Slavia Praha,První liga,FWD,ST,26,74.0,72.2,74.0,25.5,69.5
+A,Czech Republic,Tomáš Chorý,SK Slavia Praha,První liga,FWD,ST,30,75.0,70.9,75.0,32.2,69.4
+A,Czech Republic,David Jurásek,Beşiktaş JK,Süper Lig,DEF,FB,24,73.0,72.9,73.0,22.2,69.4
+A,Czech Republic,Pavel Kadeřábek,Sparta Praha,První liga,DEF,FB,33,74.0,70.2,74.0,37.2,69.3
+A,Czech Republic,Jindřich Staněk,SK Slavia Praha,První liga,GK,GK,29,76.0,70.3,76.0,30.5,69.0
+A,Czech Republic,Martin Jedlička,Viktoria Plzeň,První liga,GK,GK,27,75.0,70.5,75.0,27.2,68.7
+A,Czech Republic,David Zima,SK Slavia Praha,První liga,DEF,CB,24,74.0,71.1,74.0,22.2,68.4
+A,Czech Republic,Matěj Šín,AZ Alkmaar,Eredivisie,MID,AM,21,74.0,71.9,74.0,17.2,68.4
+A,Czech Republic,Antonín Kinský,Tottenham Hotspur,Premier League,GK,GK,22,75.0,70.7,75.0,18.9,68.0
+A,Czech Republic,Martin Vitík,Bologna,Serie A,DEF,CB,22,74.0,70.7,74.0,18.9,67.8
+K,DR Congo,Yoane Wissa,Newcastle United,Premier League,FWD,ST,28,82.0,79.9,82.0,68.1,80.3
+K,DR Congo,Simon Bokoté Banza,Sporting Clube de Braga,Primeira Liga,FWD,ST,28,81.0,78.6,81.0,68.1,79.2
+K,DR Congo,Aaron Wan-Bissaka,West Ham United,Premier League,DEF,FB,27,80.0,75.8,80.0,66.4,77.0
+K,DR Congo,Cédric Bakambu,Real Betis Balompié,La Liga,FWD,ST,34,77.0,75.0,77.0,61.5,75.5
+K,DR Congo,Chancel Mbemba Mangulu,Lille OSC,Ligue 1,DEF,CB,30,75.0,71.7,75.0,56.5,72.4
+K,DR Congo,Fuka-Arthur Masuaku Kawela,Sunderland,Premier League,DEF,FB,31,75.0,74.9,75.0,33.9,72.3
+K,DR Congo,Joris Kayembe Ditu,KRC Genk,Pro League,DEF,FB,30,74.0,72.5,74.0,32.2,70.4
+K,DR Congo,Afimico Pululu,Jagiellonia Białystok,Ekstraklasa,FWD,ST,26,72.0,73.8,72.0,25.5,70.3
+K,DR Congo,Silas Katompa-Mvumpa,VfB Stuttgart,Bundesliga,MID,WM,26,74.0,72.5,74.0,25.5,69.7
+K,DR Congo,Samuel Emmanuel Essende Mbongu,FC Augsburg,Bundesliga,FWD,ST,27,74.0,71.8,74.0,27.2,69.4
+K,DR Congo,Axel Tuanzebe,Burnley,Premier League,DEF,FB,27,73.0,71.7,73.0,27.2,69.1
+K,DR Congo,Marcel Jany Emile Tisserand,Sydney FC,A-League Men,DEF,CB,32,70.0,71.0,70.0,35.5,69.1
+K,DR Congo,Meschack Elia Lina,Alanyaspor,Süper Lig,FWD,ST,27,70.0,72.3,70.0,27.2,69.1
+K,DR Congo,Oscar Taty Maritu,Yunnan Yukun,Super League,FWD,ST,25,70.0,72.3,70.0,23.9,68.8
+K,DR Congo,Jackson Muleka Kyanvubu,Konyaspor,Süper Lig,FWD,ST,25,70.0,72.3,70.0,23.9,68.7
+K,DR Congo,Edo Kayembe Kayembe,Watford,Championship,MID,CM,27,71.0,69.9,71.0,27.2,67.6
+K,DR Congo,Noah Junior Sadiki,Sunderland,Premier League,MID,CM,20,74.0,70.5,74.0,15.5,67.4
+K,DR Congo,Charles Monginda Pickel,RCD Espanyol,La Liga,MID,CM,28,71.0,69.3,71.0,28.9,67.4
+K,DR Congo,Grady George Diangana,Elche CF,La Liga,MID,AM,27,70.0,69.4,70.0,27.2,67.1
+K,DR Congo,Ngal'ayel Mukau,Lille OSC,Ligue 1,MID,DM,20,74.0,69.7,74.0,15.5,66.8
+K,DR Congo,Buduka Dylan Batubinsika,AS Saint-Étienne,Ligue 2,DEF,CB,29,71.0,68.3,71.0,30.5,66.8
+K,DR Congo,Beni Tangama Baningime,Hearts,Premiership,MID,DM,26,71.0,68.1,71.0,25.5,66.2
+K,DR Congo,Steve Kapuadi,Legia Warszawa,Ekstraklasa,DEF,CB,27,71.0,67.9,71.0,27.2,66.2
+K,DR Congo,Nathanaël Mbuku,Montpellier HSC,Ligue 2,MID,WM,23,70.0,66.9,70.0,20.5,64.8
+K,DR Congo,Jeremy Ngakia,Watford,Championship,DEF,FB,24,69.0,65.6,69.0,22.2,63.8
+K,DR Congo,Lionel M'Pasi N'Zau,Le Havre AC,Ligue 1,GK,GK,30,67.0,62.9,67.0,32.2,62.7
+E,Ecuador,Moisés Isaac Caicedo Corozo,Chelsea,Premier League,MID,DM,23,87.0,81.6,87.0,68.8,82.3
+E,Ecuador,Willian Joel Pacho Tenorio,Paris Saint-Germain,Ligue 1,DEF,CB,23,86.0,80.8,86.0,59.7,80.7
+E,Ecuador,Piero Martín Hincapié Reyna,Arsenal,Premier League,DEF,CB,23,83.0,79.9,83.0,59.7,79.6
+E,Ecuador,Pervis Josué Estupiñán Tenorio,AC Milan,Serie A,DEF,FB,27,79.0,75.6,79.0,66.4,76.7
+E,Ecuador,Ángelo Smit Preciado Quiñónez,Sparta Praha,První liga,MID,WM,27,75.0,74.7,75.0,27.2,71.5
+E,Ecuador,Júnior Nazareno Sornoza Moreira,Independiente del Valle,Serie A,MID,AM,31,72.0,72.2,72.0,33.9,70.0
+E,Ecuador,Hernán Ismael Galíndez,Huracán,Liga Profesional de Fútbol,GK,GK,38,74.0,69.9,74.0,37.2,69.1
+E,Ecuador,José Alfredo Quintero Ordóñez,LDU Quito,Serie A,DEF,FB,35,70.0,70.2,70.0,37.2,68.7
+E,Ecuador,Byron Efraín Palacios Vélez,Universidad Católica del Ecuador,Serie A,FWD,ST,30,71.0,70.4,71.0,32.2,68.5
+E,Ecuador,Leonel Enrique Quiñónez Padilla,LDU Quito,Serie A,DEF,FB,31,71.0,70.0,71.0,33.9,68.4
+E,Ecuador,Joel Leandro Ordóñez Guerrero,Club Brugge KV,Pro League,DEF,CB,21,75.0,71.5,75.0,17.2,68.3
+E,Ecuador,Jhoanner Stalin Chávez Quintero,RC Lens,Ligue 1,DEF,FB,23,72.0,71.5,72.0,20.5,68.2
+E,Ecuador,John Yeboah Zamora,Venezia,Serie B,FWD,ST,25,70.0,71.3,70.0,23.9,68.1
+E,Ecuador,Alexander Domínguez Carabalí,LDU Quito,Serie A,GK,GK,38,73.0,68.6,73.0,37.2,68.0
+E,Ecuador,José Adoni Cifuentes Charcopa,Toronto FC,Major League Soccer,MID,CM,26,72.0,70.3,72.0,25.5,67.9
+E,Ecuador,Janner Hitcler Corozo Alman,Barcelona de Guayaquil,Serie A,MID,WM,29,71.0,69.9,71.0,30.5,67.9
+E,Ecuador,Ray Kendry Páez Andrade,RC Strasbourg Alsace,Ligue 1,MID,AM,18,73.0,71.9,73.0,12.2,67.8
+E,Ecuador,José Joel Carabalí Prado,Universitario de Deportes,Liga 1,DEF,FB,28,70.0,69.8,70.0,28.9,67.6
+E,Ecuador,Bryan Josías Ramírez León,LDU Quito,Serie A,MID,WM,24,71.0,70.4,71.0,22.2,67.5
+E,Ecuador,John Anthony Mercado Cuero,Sparta Praha,První liga,FWD,W,23,70.0,70.9,70.0,20.5,67.5
+E,Ecuador,Javier Nicolás Burrai,Talleres,Liga Profesional de Fútbol,GK,GK,34,72.0,67.3,72.0,37.2,67.0
+E,Ecuador,Carlos Armando Gruezo Arboleda,LDU Quito,Serie A,MID,DM,30,72.0,67.5,72.0,32.2,66.6
+E,Ecuador,Luis David Cangá Sánchez,Universidad Católica del Ecuador,Serie A,DEF,CB,30,70.0,67.6,70.0,32.2,66.4
+E,Ecuador,Carlos Jhon Garcés Acosta,Cienciano,Liga 1,FWD,ST,35,70.0,66.9,70.0,37.2,66.4
+E,Ecuador,Leonardo Campana Romero,New England Revolution,Major League Soccer,FWD,ST,25,72.0,68.0,72.0,23.9,66.2
+E,Ecuador,Felipe Salvador Caicedo Corozo,Barcelona de Guayaquil,Serie A,FWD,ST,36,69.0,66.5,69.0,37.2,66.0
+G,Egypt,Mohamed Salah Hamed Ghaly,Liverpool,Premier League,MID,WM,33,91.0,84.0,91.0,91.1,86.8
+G,Egypt,Omar Khaled Mohamed Marmoush,Manchester City,Premier League,FWD,ST,26,84.0,83.2,84.0,64.7,82.5
+G,Egypt,Mostafa Mohamed Ahmed Abdalla,FC Nantes,Ligue 1,FWD,ST,27,73.0,71.9,73.0,27.2,69.3
+G,Egypt,Mohamed Abdelmonem,OGC Nice,Ligue 1,DEF,CB,26,74.0,70.5,74.0,25.5,68.3
+G,Egypt,Ahmed Hassan Mahgoub,Al Ettifaq,Pro League,FWD,ST,32,72.0,66.9,72.0,35.5,66.5
+G,Egypt,Ahmed Elsayed Ali Elsayed Hegazy,NEOM SC,Pro League,DEF,CB,34,75.0,65.7,75.0,37.2,66.4
+G,Egypt,Rami Hisham Abdel Aziz Rabia,Al Ain,Pro League,DEF,CB,32,67.0,65.1,67.0,35.5,64.5
+G,Egypt,Omar Fayed,FC Arouca,Primeira Liga,DEF,CB,21,65.0,62.4,65.0,17.2,60.6
+G,Egypt,Karim Ashraf Ahmed,Al Akhdoud Saudi Club,Pro League,FWD,ST,21,53.0,55.2,53.0,17.2,53.7
+G,Egypt,Sonny Sharples-Ahmed,Bolton Wanderers,League One,MID,CM,20,52.0,50.9,52.0,15.5,50.5
+L,England,Jude Victor William Bellingham,Real Madrid,La Liga,MID,AM,22,90.0,85.3,90.0,72.8,85.7
+L,England,Harry Edward Kane,FC Bayern München,Bundesliga,FWD,ST,31,89.0,82.4,89.0,87.8,85.0
+L,England,Bukayo Saka,Arsenal,Premier League,FWD,W,23,88.0,85.1,88.0,68.8,84.8
+L,England,Cole Jermaine Palmer,Chelsea,Premier League,MID,AM,23,87.0,84.6,87.0,68.8,84.3
+L,England,Declan Rice,Arsenal,Premier League,MID,DM,26,87.0,83.3,87.0,73.8,83.9
+L,England,Philip Walter Foden,Manchester City,Premier League,FWD,W,25,85.0,83.5,85.0,63.1,82.7
+L,England,Anthony Michael Gordon,Newcastle United,Premier League,FWD,W,24,83.0,83.2,83.0,61.4,82.0
+L,England,Trent John Alexander-Arnold,Real Madrid,La Liga,DEF,FB,26,86.0,80.1,86.0,73.8,81.6
+L,England,Eberechi Oluchi Eze,Arsenal,Premier League,MID,AM,27,83.0,81.4,83.0,66.4,81.2
+L,England,Oliver George Arthur Watkins,Aston Villa,Premier League,FWD,ST,29,84.0,80.3,84.0,69.7,81.0
+L,England,Morgan Anthony Gibbs-White,Nottingham Forest,Premier League,MID,AM,25,82.0,80.6,82.0,63.1,80.2
+L,England,Ezri Konsa Ngoyo,Aston Villa,Premier League,DEF,CB,27,82.0,79.0,82.0,66.4,79.5
+L,England,James Daniel Maddison,Tottenham Hotspur,Premier League,MID,CM,28,84.0,78.1,84.0,68.1,79.4
+L,England,Reece James,Chelsea,Premier League,DEF,FB,25,81.0,79.6,81.0,63.1,79.4
+L,England,Morgan Elliot Rogers,Aston Villa,Premier League,MID,AM,22,82.0,79.7,82.0,58.1,79.2
+L,England,Jordan Lee Pickford,Everton,Premier League,GK,GK,31,84.0,76.9,84.0,73.1,79.0
+L,England,John Stones,Manchester City,Premier League,DEF,CB,31,82.0,76.8,82.0,73.1,78.6
+L,England,Benjamin William White,Arsenal,Premier League,DEF,FB,27,83.0,76.6,83.0,66.4,78.0
+L,England,Addji Keaninkin Marc-Israel Guéhi,Crystal Palace,Premier League,DEF,CB,24,82.0,77.5,82.0,61.4,77.9
+L,England,Oluwafikayomi Oluwadamilola Tomori,AC Milan,Serie A,DEF,CB,27,81.0,76.8,81.0,66.4,77.8
+L,England,Kieran John Trippier,Newcastle United,Premier League,DEF,FB,34,80.0,75.5,80.0,76.4,77.8
+L,England,Nicholas David Pope,Newcastle United,Premier League,GK,GK,33,81.0,75.2,81.0,76.4,77.7
+L,England,Jarrod Bowen,West Ham United,Premier League,MID,WM,28,83.0,75.8,83.0,68.1,77.6
+L,England,Dean Bradley Henderson,Crystal Palace,Premier League,GK,GK,28,81.0,75.2,81.0,68.1,76.9
+L,England,Ivan Benjamin Elijah Toney,Al Ahli SFC,Pro League,FWD,ST,29,81.0,79.4,81.0,30.5,76.0
+L,England,Valentino Francisco Livramento,Newcastle United,Premier League,DEF,FB,22,80.0,76.6,80.0,18.9,72.8
+I,France,Kylian Mbappé Lottin,Real Madrid,La Liga,FWD,ST,26,91.0,89.0,91.0,79.5,89.1
+I,France,Masour Ousmane Dembélé,Paris Saint-Germain,Ligue 1,FWD,ST,28,90.0,86.0,90.0,82.8,87.2
+I,France,Antoine Griezmann,Atlético Madrid,La Liga,FWD,ST,34,85.0,82.1,85.0,85.5,84.0
+I,France,Jules Olivier Koundé,FC Barcelona,La Liga,DEF,FB,26,87.0,82.0,87.0,73.8,83.1
+I,France,Karim Benzema,Al Ittihad,Pro League,FWD,ST,37,85.0,80.6,85.0,85.5,83.0
+I,France,Marcus Lilian Thuram-Ulien,Inter,Serie A,FWD,ST,27,85.0,82.7,85.0,66.4,82.5
+I,France,Theo Bernard François Hernández,Al Hilal,Pro League,DEF,FB,27,84.0,82.6,84.0,66.4,82.3
+I,France,William Alain André Gabriel Saliba,Arsenal,Premier League,DEF,CB,24,87.0,81.3,87.0,70.5,82.2
+I,France,Ibrahima Konaté,Liverpool,Premier League,DEF,CB,26,86.0,80.4,86.0,73.8,81.8
+I,France,Désiré Doué,Paris Saint-Germain,Ligue 1,FWD,W,20,85.0,83.0,85.0,54.7,81.5
+I,France,Benjamin Pavard,Olympique de Marseille,Ligue 1,DEF,CB,29,84.0,81.1,84.0,69.7,81.5
+I,France,Mike Peterson Maignan,AC Milan,Serie A,GK,GK,29,87.0,78.8,87.0,78.8,81.4
+I,France,N'Golo Kanté,Al Ittihad,Pro League,MID,DM,34,85.0,79.6,85.0,76.4,81.4
+I,France,Adrien Rabiot-Provost,AC Milan,Serie A,MID,AM,30,83.0,80.6,83.0,71.4,81.2
+I,France,Moussa Diaby,Al Ittihad,Pro League,MID,WM,25,84.0,80.5,84.0,63.1,80.5
+I,France,Aurélien Djani Tchouameni,Real Madrid,La Liga,MID,DM,25,84.0,80.4,84.0,63.1,80.4
+I,France,Ferland Sinna Mendy,Real Madrid,La Liga,DEF,FB,30,81.0,79.6,81.0,71.4,80.2
+I,France,Dayotchanculle Oswald Upamecano,FC Bayern München,Bundesliga,DEF,CB,26,85.0,79.4,85.0,64.7,80.1
+I,France,Michael Akpovie Olise,FC Bayern München,Bundesliga,MID,WM,23,86.0,79.6,86.0,59.7,79.9
+I,France,Eduardo Celmi Camavinga,Real Madrid,La Liga,MID,CM,22,83.0,80.0,83.0,58.1,79.5
+I,France,Boubacar Bernard Kamara,Aston Villa,Premier League,MID,DM,25,83.0,78.8,83.0,63.1,79.2
+I,France,Kingsley Junior Coman,Al Nassr,Pro League,MID,WM,29,83.0,77.7,83.0,69.7,79.1
+I,France,Lucas François Bernard Hernández Pi,Paris Saint-Germain,Ligue 1,DEF,CB,29,81.0,77.6,81.0,69.7,78.7
+I,France,Lucas Chevalier,Paris Saint-Germain,Ligue 1,GK,GK,23,83.0,76.7,83.0,59.7,77.4
+I,France,Mohamed Simakan,Al Nassr,Pro League,DEF,CB,25,81.0,78.1,81.0,48.2,76.9
+I,France,Brice Lauriche Samba,Stade Rennais FC,Ligue 1,GK,GK,31,80.0,74.3,80.0,73.1,76.6
+E,Germany,Florian Richard Wirtz,Liverpool,Premier League,MID,AM,22,89.0,86.3,89.0,72.8,86.2
+E,Germany,Joshua Walter Kimmich,FC Bayern München,Bundesliga,MID,DM,30,89.0,84.7,89.0,80.5,85.9
+E,Germany,Antonio Rüdiger,Real Madrid,La Liga,DEF,CB,32,86.0,81.7,86.0,83.8,83.7
+E,Germany,Jamal Musiala,FC Bayern München,Bundesliga,MID,AM,22,88.0,83.3,88.0,67.2,83.5
+E,Germany,Marc-André ter Stegen,FC Barcelona,La Liga,GK,GK,33,86.0,78.4,86.0,85.5,81.6
+E,Germany,Jonathan Glao Tah,FC Bayern München,Bundesliga,DEF,CB,29,87.0,78.8,87.0,78.8,81.4
+E,Germany,Julian Brandt,Borussia Dortmund,Bundesliga,MID,AM,29,83.0,81.1,83.0,69.7,81.4
+E,Germany,Nico Cedric Schlotterbeck,Borussia Dortmund,Bundesliga,DEF,CB,25,85.0,81.1,85.0,63.1,81.0
+E,Germany,Emre Can,Borussia Dortmund,Bundesliga,DEF,CB,31,82.0,80.0,82.0,73.1,80.8
+E,Germany,İlkay Gündoğan,Galatasaray SK,Süper Lig,MID,CM,34,83.0,78.8,83.0,76.4,80.5
+E,Germany,David Raum,RB Leipzig,Bundesliga,DEF,FB,27,82.0,79.5,82.0,66.4,79.8
+E,Germany,Jonathan Michael Burkardt,Eintracht Frankfurt,Bundesliga,FWD,ST,24,82.0,80.2,82.0,61.4,79.8
+E,Germany,Waldemar Anton-,Borussia Dortmund,Bundesliga,DEF,CB,28,82.0,78.9,82.0,68.1,79.6
+E,Germany,Manuel Peter Neuer,FC Bayern München,Bundesliga,GK,GK,39,84.0,76.7,84.0,76.4,79.2
+E,Germany,Leroy Aziz Sané,Galatasaray SK,Süper Lig,MID,WM,29,82.0,78.1,82.0,69.7,79.2
+E,Germany,Mario Götze,Eintracht Frankfurt,Bundesliga,MID,CM,33,82.0,77.1,82.0,76.4,79.2
+E,Germany,Maximilian Mittelstädt,VfB Stuttgart,Bundesliga,DEF,FB,28,82.0,77.9,82.0,68.1,78.9
+E,Germany,Oliver Baumann,TSG 1899 Hoffenheim,Bundesliga,GK,GK,35,83.0,76.2,83.0,76.4,78.8
+E,Germany,Angelo Stiller,VfB Stuttgart,Bundesliga,MID,DM,24,83.0,78.6,83.0,61.4,78.8
+E,Germany,Matthias Lukas Ginter,SC Freiburg,Bundesliga,DEF,CB,31,82.0,76.3,82.0,73.1,78.3
+E,Germany,Tim Kleindienst,Borussia Mönchengladbach,Bundesliga,FWD,ST,29,81.0,77.0,81.0,69.7,78.3
+E,Germany,Robin Leon Koch,Eintracht Frankfurt,Bundesliga,DEF,CB,28,82.0,76.7,82.0,68.1,78.1
+E,Germany,Kai Lukas Havertz,Arsenal,Premier League,FWD,ST,26,82.0,77.0,82.0,64.7,77.9
+E,Germany,Deniz Undav,VfB Stuttgart,Bundesliga,FWD,ST,28,80.0,76.9,80.0,68.1,77.9
+E,Germany,Niclas Füllkrug,West Ham United,Premier League,FWD,ST,32,79.0,73.8,79.0,74.7,76.3
+E,Germany,Nick Woltemade,Newcastle United,Premier League,FWD,ST,23,79.0,74.3,79.0,20.5,71.2
+L,Ghana,Thomas Teye Partey,Villarreal CF,La Liga,MID,DM,32,83.0,80.3,83.0,74.7,81.3
+L,Ghana,Mohammed Kudus,Tottenham Hotspur,Premier League,FWD,W,24,80.0,81.3,80.0,61.4,80.2
+L,Ghana,Iñaki Williams Arthuer,Athletic Club,La Liga,MID,WM,31,83.0,78.4,83.0,73.1,79.9
+L,Ghana,Antoine Serlom Semenyo,AFC Bournemouth,Premier League,MID,WM,25,80.0,74.0,80.0,63.1,75.4
+L,Ghana,Alexander Kwabena Baidoo Djiku,,nan,DEF,CB,30,77.0,75.2,77.0,56.5,75.1
+L,Ghana,Emmanuel Okyere Boateng,Gaziantep FK,Süper Lig,FWD,ST,29,72.0,75.4,72.0,30.5,71.9
+L,Ghana,Abdul Rahman Baba,PAOK,Super League,DEF,FB,30,76.0,73.9,76.0,32.2,71.6
+L,Ghana,Khalid Abdul Mumin Suleman,Rayo Vallecano,La Liga,DEF,CB,27,77.0,73.6,77.0,27.2,71.1
+L,Ghana,Joseph Martin Paintsil,LA Galaxy,Major League Soccer,MID,WM,27,76.0,73.3,76.0,27.2,70.7
+L,Ghana,Issahaku Abdul Fatawu,Leicester City,Championship,MID,WM,21,76.0,74.3,76.0,17.2,70.4
+L,Ghana,Jeffrey Schlupp,Norwich City,Championship,DEF,FB,32,73.0,72.1,73.0,35.5,70.2
+L,Ghana,Osman Bukari,Austin FC,Major League Soccer,FWD,W,26,72.0,73.2,72.0,25.5,69.8
+L,Ghana,Mohammed Gadafi Fuseini,Union Saint-Gilloise,Pro League,FWD,ST,23,71.0,72.8,71.0,20.5,68.9
+L,Ghana,Mohamed Salisu Abdul Karim,AS Monaco,Ligue 1,DEF,CB,26,76.0,70.5,76.0,25.5,68.6
+L,Ghana,Emanuel Quartsin Gyasi,Palermo FC,Serie B,MID,WM,31,74.0,69.7,74.0,33.9,68.6
+L,Ghana,Joseph Aidoo,RC Celta,La Liga,DEF,CB,29,75.0,69.6,75.0,30.5,68.4
+L,Ghana,Jordan Pierre Ayew,Leicester City,Championship,MID,WM,33,73.0,69.2,73.0,37.2,68.4
+L,Ghana,Gideon Mensah,AJ Auxerre,Ligue 1,DEF,FB,26,74.0,69.7,74.0,25.5,67.8
+L,Ghana,Ransford Yeboah Königsdörffer,Hamburger SV,Bundesliga,FWD,ST,23,71.0,71.2,71.0,20.5,67.8
+L,Ghana,Ernest Nuamah Appiah,Olympique Lyonnais,Ligue 1,MID,WM,21,75.0,70.1,75.0,17.2,67.4
+L,Ghana,Tariq Kwame Nii-Lante Lamptey,Fiorentina,Serie A,DEF,FB,24,73.0,69.6,73.0,22.2,67.2
+L,Ghana,Alidu Seidu,Stade Rennais FC,Ligue 1,DEF,CB,25,74.0,68.7,74.0,23.9,67.0
+L,Ghana,Lawrence Ati Zigi,FC St.Gallen 1879,Super League,GK,GK,28,73.0,68.2,73.0,28.9,66.9
+L,Ghana,André Morgan Rami Ayew,,nan,FWD,ST,35,72.0,66.7,72.0,37.2,66.6
+L,Ghana,Richard Ofori Antwi,,nan,GK,GK,31,71.0,66.5,71.0,33.9,65.9
+L,Ghana,Joseph Tetteh Anang,St Patrick's Athletic FC,Premier Division,GK,GK,25,67.0,63.7,67.0,23.9,62.4
+C,Haiti,Jean-Ricner Bellegarde,Wolverhampton Wanderers,Premier League,MID,AM,27,75.0,72.8,75.0,27.2,70.2
+C,Haiti,Fabrice Jean-Ian Picault,Inter Miami,Major League Soccer,FWD,W,34,69.0,72.0,69.0,37.2,69.7
+C,Haiti,Ricardo Adé,LDU Quito,Serie A,DEF,CB,35,72.0,70.0,72.0,37.2,68.9
+C,Haiti,Frantzdy Pierrot,AEK Athens,Super League,FWD,ST,30,72.0,69.9,72.0,32.2,68.3
+C,Haiti,Carlens Jean Fedlaire Ruby Arcus,Angers SCO,Ligue 1,DEF,FB,29,71.0,69.8,71.0,30.5,67.9
+C,Haiti,Jean-Kévin Duverne,KAA Gent,Pro League,DEF,FB,27,71.0,66.7,71.0,27.2,65.4
+C,Haiti,Danley Jean Jacques,Philadelphia Union,Major League Soccer,MID,CM,25,70.0,67.3,70.0,23.9,65.4
+C,Haiti,Johny Placide,Sporting Club Bastia,Ligue 2,GK,GK,37,69.0,65.0,69.0,37.2,64.9
+C,Haiti,Louicius Don Deedson,FC Dallas,Major League Soccer,FWD,W,24,65.0,67.1,65.0,22.2,64.3
+C,Haiti,Derrick Burckley Etienne Jr.,Toronto FC,Major League Soccer,MID,WM,28,66.0,65.5,66.0,28.9,64.0
+C,Haiti,Martin Expérience,AS Nancy Lorraine,Ligue 2,DEF,FB,26,62.0,60.5,62.0,25.5,59.6
+C,Haiti,Yuri Aleksandr Guboglo,CF Montréal,Major League Soccer,MID,WM,18,59.0,60.0,59.0,12.2,57.5
+C,Haiti,Wilguens Paugain,SV Zulte Waregem,Pro League,DEF,FB,23,55.0,54.5,55.0,20.5,53.9
+C,Haiti,Joseph Belmar,FC Sion,Super League,MID,CM,19,56.0,51.6,56.0,13.9,51.4
+G,Iran,Mehdi Taremi,Olympiacos FC,Super League,FWD,ST,32,78.0,75.3,78.0,59.8,75.7
+G,Iran,Seyed Allahyar Sayyadmanesh Shiadeh,KVC Westerlo,Pro League,MID,WM,24,74.0,71.4,74.0,22.2,68.6
+G,Iran,Ali Gholizadeh,Lech Poznań,Ekstraklasa,MID,WM,29,71.0,67.8,71.0,30.5,66.5
+G,Iran,Ali Karimi,Kayserispor,Süper Lig,MID,DM,31,67.0,66.0,67.0,33.9,65.0
+G,Iran,Amir Abedzadeh,CD Castellón,La Liga 2,GK,GK,32,68.0,64.1,68.0,35.5,64.0
+G,Iran,Seyed Majid Hosseini,Kayserispor,Süper Lig,DEF,CB,29,68.0,64.5,68.0,30.5,63.8
+I,Iraq,Mohanad Abdulkadhim Qasim Al Jebur Jeahze,Sarpsborg 08 FF,Eliteserien,DEF,FB,28,68.0,68.3,68.0,28.9,66.2
+I,Iraq,Ibrahim Bayesh Kamil Al Kaabawi,Al Riyadh,Pro League,MID,WM,25,68.0,67.4,68.0,23.9,65.1
+I,Iraq,Merchas Doski,Viktoria Plzeň,První liga,DEF,FB,25,68.0,66.8,68.0,23.9,64.7
+I,Iraq,Ali Ibrahim Karim Ali Al Hamadi,Luton Town,League One,FWD,ST,23,66.0,67.4,66.0,20.5,64.4
+I,Iraq,Marko Lawk Farji,Strømsgodset IF,Eliteserien,FWD,W,21,66.0,67.4,66.0,17.2,64.1
+I,Iraq,Amir Al Ammari,Cracovia,Ekstraklasa,MID,CM,27,65.0,64.2,65.0,27.2,62.8
+I,Iraq,Kevin Enkido Yakob,Aarhus Gymnastikforening,Superliga,MID,CM,24,66.0,64.6,66.0,22.2,62.7
+I,Iraq,Zidane Iqbal,FC Utrecht,Eredivisie,MID,DM,22,68.0,64.5,68.0,18.9,62.6
+I,Iraq,Montader Madjed,Hammarby Fotboll,Allsvenskan,MID,WM,20,66.0,64.0,66.0,15.5,61.6
+I,Iraq,Aimar Hazar Sher,Sarpsborg 08 FF,Eliteserien,MID,DM,22,67.0,63.1,67.0,18.9,61.5
+I,Iraq,Danilo Andrés Al Saed Alvarado,BK Häcken,Allsvenskan,MID,WM,26,65.0,62.6,65.0,25.5,61.5
+I,Iraq,Amin Al Hamawi,Randers FC,Superliga,FWD,ST,21,60.0,60.4,60.0,17.2,58.4
+I,Iraq,Mohamed Hussein Reda Al Khafaji Al Taay,Western Sydney Wanderers,A-League Men,MID,DM,25,61.0,58.3,61.0,23.9,57.8
+I,Iraq,Ali-Jasim El-Aibi Al Tameemi,Al-Najma SC,Pro League,MID,WM,21,62.0,57.9,62.0,17.2,57.0
+E,Ivory Coast,Franck Yannick Kessié,Al Ahli SFC,Pro League,MID,DM,28,80.0,78.0,80.0,68.1,78.6
+E,Ivory Coast,Obite Evan Ndicka,Roma,Serie A,DEF,CB,25,81.0,78.1,81.0,63.1,78.4
+E,Ivory Coast,Dazet Wilfried Armel Zaha,Charlotte FC,Major League Soccer,FWD,W,32,77.0,77.3,77.0,74.7,78.4
+E,Ivory Coast,Odilon Kossounou Kouakou,Atalanta,Serie A,DEF,CB,24,80.0,76.9,80.0,61.4,77.3
+E,Ivory Coast,Nicolas Pépé,Villarreal CF,La Liga,MID,WM,30,80.0,76.5,80.0,56.5,76.5
+E,Ivory Coast,Seko Mohamed Fofana,Stade Rennais FC,Ligue 1,MID,CM,30,77.0,74.9,77.0,71.4,76.4
+E,Ivory Coast,Ibrahim Sangaré,Nottingham Forest,Premier League,MID,DM,27,77.0,75.2,77.0,66.4,76.1
+E,Ivory Coast,Ousmane Diomande,Sporting CP,Primeira Liga,DEF,CB,21,80.0,75.6,80.0,56.4,75.8
+E,Ivory Coast,Wilfried Stephane Singo,Galatasaray SK,Süper Lig,DEF,CB,24,80.0,78.7,80.0,22.2,74.5
+E,Ivory Coast,Amad Diallo Traoré,Manchester United,Premier League,MID,AM,22,79.0,78.4,79.0,18.9,73.8
+E,Ivory Coast,Emmanuel Elysee Djedje Agbadou Badobre,Wolverhampton Wanderers,Premier League,DEF,CB,28,79.0,76.8,79.0,28.9,73.8
+E,Ivory Coast,Jonathan Bamba,Chicago Fire,Major League Soccer,MID,WM,29,77.0,73.4,77.0,54.8,73.7
+E,Ivory Coast,Jérémie Boga,OGC Nice,Ligue 1,FWD,W,28,76.0,77.3,76.0,28.9,73.6
+E,Ivory Coast,Sébastien Romain Teddy Haller,FC Utrecht,Eredivisie,FWD,ST,31,77.0,70.0,77.0,73.1,73.3
+E,Ivory Coast,Evann Guessand,Aston Villa,Premier League,MID,WM,24,79.0,73.6,79.0,22.2,70.9
+E,Ivory Coast,Hamed Junior Traoré,Olympique de Marseille,Ligue 1,MID,WM,25,77.0,73.9,77.0,23.9,70.9
+E,Ivory Coast,Yohan Alexandre Mady Boli,Antalyaspor,Süper Lig,FWD,ST,31,73.0,73.1,73.0,33.9,70.8
+E,Ivory Coast,Guéla Doué,RC Strasbourg Alsace,Ligue 1,DEF,FB,22,77.0,73.2,77.0,18.9,70.0
+E,Ivory Coast,Christopher Téa Operi,Medipol Başakşehir FK,Süper Lig,DEF,FB,28,74.0,72.0,74.0,28.9,69.7
+E,Ivory Coast,Christian Michael Kouamé Kouakou,Fiorentina,Serie A,FWD,ST,27,74.0,72.0,74.0,27.2,69.5
+E,Ivory Coast,Cédric Kipré,Ipswich Town,Championship,DEF,CB,28,74.0,70.9,74.0,28.9,68.9
+E,Ivory Coast,Yahia Fofana,Çaykur Rizespor,Süper Lig,GK,GK,24,76.0,70.9,76.0,22.2,68.6
+E,Ivory Coast,Jean-Philippe Krasso,Paris FC,Ligue 1,FWD,ST,27,74.0,70.1,74.0,27.2,68.3
+E,Ivory Coast,Alban Lafont,Panathinaikos FC,Super League,GK,GK,26,75.0,70.1,75.0,25.5,68.2
+E,Ivory Coast,Eric Bertrand Bailly,Real Oviedo,La Liga,DEF,CB,31,74.0,69.0,74.0,33.9,68.2
+E,Ivory Coast,Mohamed Koné,Royal Charleroi Sporting Club,Pro League,GK,GK,23,68.0,64.1,68.0,20.5,62.5
+F,Japan,Kaoru Mitoma,Brighton & Hove Albion,Premier League,MID,WM,28,82.0,79.1,82.0,68.1,79.7
+F,Japan,Takefusa Kubo,Real Sociedad,La Liga,MID,WM,24,82.0,77.8,82.0,61.4,78.2
+F,Japan,Ritsu Doan,Eintracht Frankfurt,Bundesliga,MID,WM,27,82.0,76.5,82.0,66.4,77.8
+F,Japan,Wataru Endo,Liverpool,Premier League,MID,DM,32,79.0,75.2,79.0,59.8,75.8
+F,Japan,Daizen Maeda,Celtic,Premiership,FWD,W,27,79.0,79.6,79.0,27.2,75.5
+F,Japan,Daichi Kamada,Crystal Palace,Premier League,MID,CM,28,77.0,73.4,77.0,68.1,75.0
+F,Japan,Hiroki Ito,FC Bayern München,Bundesliga,DEF,CB,26,78.0,75.6,78.0,49.8,74.9
+F,Japan,Hidemasa Morita,Sporting CP,Primeira Liga,MID,CM,30,79.0,76.2,79.0,32.2,73.7
+F,Japan,Ko Itakura,Ajax,Eredivisie,DEF,CB,28,77.0,73.5,77.0,53.2,73.6
+F,Japan,Shuto Machino,Borussia Mönchengladbach,Bundesliga,FWD,ST,25,75.0,76.6,75.0,23.9,72.5
+F,Japan,Kyogo Furuhashi,Birmingham City,Championship,FWD,ST,30,75.0,74.7,75.0,32.2,72.0
+F,Japan,Takumi Minamino,AS Monaco,Ligue 1,MID,WM,30,78.0,73.4,78.0,32.2,71.6
+F,Japan,Koki Machida,TSG 1899 Hoffenheim,Bundesliga,DEF,CB,27,76.0,74.3,76.0,27.2,71.4
+F,Japan,Kaishu Sano,1. FSV Mainz 05,Bundesliga,MID,DM,24,79.0,73.8,79.0,22.2,71.1
+F,Japan,Tsuyoshi Watanabe,Feyenoord,Eredivisie,DEF,CB,28,75.0,71.9,75.0,28.9,69.8
+F,Japan,Ado Onaiwu,1. FC Magdeburg,2. Bundesliga,FWD,ST,29,72.0,72.1,72.0,30.5,69.6
+F,Japan,Ayase Ueda,Feyenoord,Eredivisie,FWD,ST,26,74.0,72.0,74.0,25.5,69.4
+F,Japan,Yukinari Sugawara,SV Werder Bremen,Bundesliga,DEF,FB,25,74.0,71.9,74.0,23.9,69.1
+F,Japan,Seiya Maikuma,AZ Alkmaar,Eredivisie,DEF,FB,27,74.0,71.0,74.0,27.2,68.8
+F,Japan,Miki Yamane,LA Galaxy,Major League Soccer,DEF,FB,31,72.0,70.3,72.0,33.9,68.7
+F,Japan,Shin Yamada,Celtic,Premiership,FWD,ST,25,69.0,69.8,69.0,23.9,66.9
+F,Japan,Zion Suzuki,Parma,Serie A,GK,GK,22,74.0,69.2,74.0,18.9,66.8
+F,Japan,Yohei Takaoka,Vancouver Whitecaps FC,Major League Soccer,GK,GK,29,72.0,67.3,72.0,30.5,66.3
+F,Japan,Keigo Tsunemoto,FC Basel 1893,Super League,DEF,FB,26,71.0,67.7,71.0,25.5,66.0
+F,Japan,Kota Takai,Tottenham Hotspur,Premier League,DEF,CB,20,72.0,67.4,72.0,15.5,64.9
+F,Japan,Leo Brian Kokubo,Sint-Truidense VV,Pro League,GK,GK,24,70.0,65.6,70.0,22.2,64.0
+J,Jordan,Mousa Mohammad Mousa Sulaiman Al Tamari,Stade Rennais FC,Ligue 1,MID,WM,28,75.0,72.9,75.0,28.9,70.5
+J,Jordan,Yazan Al Arab,FC Seoul,K League 1,DEF,CB,29,75.0,71.1,75.0,30.5,69.4
+J,Jordan,Ibrahim Sabra,Göztepe SK,Süper Lig,FWD,ST,19,61.0,64.6,61.0,13.9,61.1
+A,Mexico,Hirving Rodrigo Lozano Bahena,San Diego FC,Major League Soccer,FWD,W,29,78.0,79.0,78.0,69.7,79.1
+A,Mexico,Julián Andrés Quiñones Quiñones,Al Qadsiah FC,Pro League,FWD,ST,28,80.0,81.1,80.0,28.9,76.8
+A,Mexico,Edson Omar Álvarez Velázquez,Fenerbahçe SK,Süper Lig,MID,DM,27,78.0,74.7,78.0,66.4,75.9
+A,Mexico,Santiago Tomás Giménez,AC Milan,Serie A,FWD,ST,24,79.0,76.8,79.0,46.5,75.5
+A,Mexico,Ernesto Alexis Vega Rojas,,nan,FWD,W,27,78.0,78.8,78.0,27.2,74.8
+A,Mexico,Orbelín Pineda Alvarado,AEK Athens,Super League,MID,AM,29,77.0,76.1,77.0,30.5,73.1
+A,Mexico,Germán Berterame,,nan,FWD,ST,26,78.0,76.4,78.0,25.5,73.0
+A,Mexico,Luis Ángel Malagón Velázquez,,nan,GK,GK,28,79.0,75.4,79.0,28.9,72.8
+A,Mexico,Roberto Carlos Alvarado Hernández,,nan,MID,WM,26,78.0,75.2,78.0,25.5,72.2
+A,Mexico,Erick Daniel Sánchez Ocegueda,,nan,MID,CM,25,78.0,75.4,78.0,23.9,72.1
+A,Mexico,Raúl Alonso Jiménez Rodríguez,Fulham FC,Premier League,FWD,ST,34,77.0,73.3,77.0,37.2,71.9
+A,Mexico,Jesús Daniel Gallardo Vasconcelos,,nan,DEF,FB,30,75.0,74.3,75.0,32.2,71.8
+A,Mexico,Carlos Alberto Rodríguez Gómez,,nan,MID,AM,28,76.0,73.9,76.0,28.9,71.3
+A,Mexico,Diego Lainez Leyva,,nan,MID,WM,25,76.0,73.3,76.0,23.9,70.4
+A,Mexico,Jorge Eduardo Sánchez Ramos,,nan,DEF,FB,27,73.0,73.1,73.0,27.2,70.1
+A,Mexico,Julián Vicente Araujo Zúñiga,AFC Bournemouth,Premier League,DEF,FB,23,74.0,72.7,74.0,20.5,69.4
+A,Mexico,Marcel Alejandro Ruiz Suárez,,nan,MID,CM,24,75.0,72.2,75.0,22.2,69.3
+A,Mexico,César Jasib Montes Castro,,nan,DEF,CB,28,75.0,70.6,75.0,28.9,68.9
+A,Mexico,Johan Felipe Vásquez Ibarra,Genoa,Serie A,DEF,CB,26,75.0,70.5,75.0,25.5,68.5
+A,Mexico,Érik Antonio Lira Méndez,,nan,MID,DM,25,73.0,69.7,73.0,23.9,67.5
+A,Mexico,José Raúl Rangel Aguilar,,nan,GK,GK,25,72.0,69.2,72.0,23.9,67.0
+A,Mexico,Mateo Chávez García,AZ Alkmaar,Eredivisie,DEF,FB,21,72.0,70.2,72.0,17.2,67.0
+A,Mexico,Carlos Agustín Moreno Luna,,nan,GK,GK,27,72.0,68.8,72.0,27.2,67.0
+A,Mexico,Rodrigo Jhossel Huescas Hurtado,FC København,Superliga,DEF,FB,21,72.0,70.0,72.0,17.2,66.8
+A,Mexico,Jesús Gilberto Orozco Chiquete,,nan,DEF,CB,23,73.0,69.1,73.0,20.5,66.7
+A,Mexico,Juan José Sánchez Purata,,nan,DEF,CB,27,72.0,65.8,72.0,27.2,65.0
+C,Morocco,Achraf Hakimi Mouh,Paris Saint-Germain,Ligue 1,DEF,FB,26,89.0,84.2,89.0,73.8,84.9
+C,Morocco,Youssef En-Nesyri,Fenerbahçe SK,Süper Lig,FWD,ST,28,82.0,78.8,82.0,68.1,79.5
+C,Morocco,Yassine Bounou,Al Hilal,Pro League,GK,GK,34,82.0,76.9,82.0,76.4,79.0
+C,Morocco,Nayef Aguerd,Olympique de Marseille,Ligue 1,DEF,CB,29,81.0,76.7,81.0,69.7,78.1
+C,Morocco,Brahim Abdelkader Díaz,Real Madrid,La Liga,MID,WM,25,82.0,76.0,82.0,63.1,77.1
+C,Morocco,Noussair Mazraoui,Manchester United,Premier League,DEF,FB,27,80.0,75.9,80.0,66.4,77.1
+C,Morocco,Hakim Ziyech,,nan,MID,WM,32,78.0,74.7,78.0,74.7,76.8
+C,Morocco,Ayoub El Kaabi,Olympiacos FC,Super League,FWD,ST,32,80.0,79.1,80.0,35.5,76.1
+C,Morocco,Romain Ghanem Paul Saïss,,nan,DEF,CB,35,79.0,75.5,79.0,61.5,76.1
+C,Morocco,Abderrazak Hamdallah,Al Shabab,Pro League,FWD,ST,34,79.0,74.2,79.0,61.5,75.2
+C,Morocco,Sofiane Diop,OGC Nice,Ligue 1,FWD,W,25,76.0,75.7,76.0,48.2,74.4
+C,Morocco,Amine Adli,AFC Bournemouth,Premier League,FWD,ST,25,78.0,77.1,78.0,23.9,73.3
+C,Morocco,Ismael Saibari Ben El Basra,PSV,Eredivisie,MID,AM,23,79.0,77.0,79.0,20.5,73.0
+C,Morocco,Sofyan Amrabat,Real Betis Balompié,La Liga,MID,DM,28,78.0,75.7,78.0,28.9,72.9
+C,Morocco,Soufiane Rahimi,Al Ain,Pro League,MID,WM,29,78.0,73.5,78.0,30.5,71.5
+C,Morocco,Anass Zaroury,Panathinaikos FC,Super League,FWD,W,24,74.0,75.5,74.0,22.2,71.4
+C,Morocco,Omar El Hilali,RCD Espanyol,La Liga,DEF,FB,21,77.0,75.3,77.0,17.2,71.2
+C,Morocco,Neil El Aynaoui,Roma,Serie A,MID,CM,23,77.0,74.1,77.0,20.5,70.8
+C,Morocco,Mourad Batna,Al Fateh,Pro League,MID,WM,35,77.0,71.1,77.0,37.2,70.4
+C,Morocco,Abdessamad Ezzalzouli,Real Betis Balompié,La Liga,MID,WM,23,77.0,72.8,77.0,20.5,69.9
+C,Morocco,Souffian El Karouani,FC Utrecht,Eredivisie,DEF,FB,24,75.0,71.5,75.0,22.2,68.9
+C,Morocco,Adam Masina,Torino,Serie A,DEF,CB,31,74.0,70.2,74.0,33.9,68.9
+C,Morocco,Zakaria El Ouahdi,KRC Genk,Pro League,DEF,FB,23,76.0,71.5,76.0,20.5,68.8
+C,Morocco,Munir Mohand Mohamedi El Kajoui,,nan,GK,GK,36,74.0,69.2,74.0,37.2,68.6
+C,Morocco,Abdelkabir Abqar,Getafe CF,La Liga,DEF,CB,26,74.0,66.9,74.0,25.5,65.9
+C,Morocco,Ahmed Reda Tagnaouti,,nan,GK,GK,29,70.0,65.2,70.0,30.5,64.6
+F,Netherlands,Virgil van Dijk,Liverpool,Premier League,DEF,CB,33,90.0,83.9,90.0,91.1,86.5
+F,Netherlands,Frenkie de Jong,FC Barcelona,La Liga,MID,CM,28,87.0,82.3,87.0,77.2,83.6
+F,Netherlands,Tijjani Martinus Jan Reijnders Lekatompessy,Manchester City,Premier League,MID,CM,26,86.0,81.2,86.0,73.8,82.4
+F,Netherlands,Ryan Jiro Gravenberch,Liverpool,Premier League,MID,DM,23,85.0,81.7,85.0,59.7,81.1
+F,Netherlands,Memphis Depay,,nan,FWD,ST,31,81.0,80.6,81.0,73.1,81.1
+F,Netherlands,Denzel Justus Morris Dumfries,Inter,Serie A,DEF,FB,29,84.0,80.3,84.0,69.7,81.0
+F,Netherlands,Xavier Quentin Shay Simons,Tottenham Hotspur,Premier League,MID,AM,22,84.0,81.0,84.0,58.1,80.3
+F,Netherlands,Marten Elco de Roon,Atalanta,Serie A,MID,CM,34,81.0,78.3,81.0,76.4,79.8
+F,Netherlands,Nathan Benjamin Aké,Manchester City,Premier League,DEF,CB,30,83.0,77.9,83.0,71.4,79.4
+F,Netherlands,Teun Koopmeiners,Juventus,Serie A,MID,AM,27,81.0,79.2,81.0,66.4,79.4
+F,Netherlands,Stefan de Vrij,Inter,Serie A,DEF,CB,33,84.0,76.8,84.0,76.4,79.3
+F,Netherlands,Cody Mathès Gakpo,Liverpool,Premier League,MID,WM,26,84.0,78.5,84.0,64.7,79.3
+F,Netherlands,Micky van de Ven,Tottenham Hotspur,Premier League,DEF,CB,24,82.0,79.1,82.0,61.4,79.0
+F,Netherlands,Jeremie Agyekum Frimpong,Liverpool,Premier League,DEF,FB,24,83.0,77.8,83.0,61.4,78.3
+F,Netherlands,Steven Berghuis,Ajax,Eredivisie,FWD,W,33,78.0,76.6,78.0,76.4,78.2
+F,Netherlands,Jurriën David Norman Timber,Arsenal,Premier League,DEF,FB,24,82.0,77.7,82.0,61.4,78.1
+F,Netherlands,Matthijs de Ligt,Manchester United,Premier League,DEF,CB,25,82.0,76.1,82.0,63.1,77.2
+F,Netherlands,Sven Adriaan Botman,Newcastle United,Premier League,DEF,CB,25,82.0,75.5,82.0,63.1,76.8
+F,Netherlands,Mark Flekken,Bayer 04 Leverkusen,Bundesliga,GK,GK,32,78.0,72.8,78.0,74.7,75.5
+F,Netherlands,Noa Noëll Lang,Napoli,Serie A,FWD,W,26,80.0,78.9,80.0,25.5,75.0
+F,Netherlands,Jacobus Antonius Peter Cillessen,NEC Nijmegen,Eredivisie,GK,GK,36,79.0,73.5,79.0,61.5,74.8
+F,Netherlands,Quinten Ryan Crispito Timber,Feyenoord,Eredivisie,MID,CM,24,80.0,77.7,80.0,22.2,73.8
+F,Netherlands,Wout François Maria Weghorst,Ajax,Eredivisie,FWD,ST,32,78.0,72.0,78.0,59.8,73.4
+F,Netherlands,Emmanuel Esseh Emegha,RC Strasbourg Alsace,Ligue 1,FWD,ST,22,78.0,77.6,78.0,18.9,73.1
+F,Netherlands,Luuk de Jong,FC Porto,Primeira Liga,FWD,ST,34,78.0,68.7,78.0,76.4,72.8
+F,Netherlands,Bart Verbruggen,Brighton & Hove Albion,Premier League,GK,GK,22,78.0,72.8,78.0,18.9,69.9
+G,New Zealand,Christopher Grant Wood,Nottingham Forest,Premier League,FWD,ST,33,82.0,73.8,82.0,76.4,77.0
+G,New Zealand,Joe Zen Robert Bell,Viking FK,Eliteserien,MID,DM,26,74.0,72.6,74.0,25.5,69.8
+G,New Zealand,Konstantinos Barbarouses,Western Sydney Wanderers,A-League Men,FWD,ST,35,68.0,71.6,68.0,37.2,69.3
+G,New Zealand,Liberato Gianpaolo Cacace,Wrexham,Championship,DEF,FB,24,72.0,70.4,72.0,22.2,67.6
+G,New Zealand,Michael Joseph Boxall,Minnesota United FC,Major League Soccer,DEF,CB,36,70.0,67.9,70.0,37.2,67.1
+G,New Zealand,Marko Seufatu Nikola Stamenić,Swansea City,Championship,MID,DM,23,71.0,69.1,71.0,20.5,66.4
+G,New Zealand,Francis de Vries,Auckland FC,A-League Men,DEF,FB,30,69.0,67.4,69.0,32.2,66.1
+G,New Zealand,Benjamin Craig Old,AS Saint-Étienne,Ligue 2,FWD,W,22,68.0,69.3,68.0,18.9,65.9
+G,New Zealand,Elijah Henry Just,Motherwell FC,Premiership,FWD,W,25,66.0,68.6,66.0,23.9,65.6
+G,New Zealand,Alex Arthur Rufer,Wellington Phoenix,A-League Men,MID,DM,29,67.0,66.8,67.0,30.5,65.2
+G,New Zealand,Callum William McCowatt,Silkeborg IF,Superliga,MID,AM,26,67.0,67.5,67.0,25.5,65.2
+G,New Zealand,James Robert McGarry,Brisbane Roar,A-League Men,DEF,FB,27,64.0,66.8,64.0,27.2,64.4
+G,New Zealand,Ryan Jared Thomas,PEC Zwolle,Eredivisie,MID,CM,30,66.0,65.2,66.0,32.2,64.1
+G,New Zealand,Nando Zen Pijnaker,Auckland FC,A-League Men,DEF,CB,26,67.0,65.8,67.0,25.5,64.0
+G,New Zealand,Bill Poni Tuiloma,Charlotte FC,Major League Soccer,DEF,CB,30,65.0,65.1,65.0,32.2,63.9
+G,New Zealand,Alexander Noah Paulsen,Lechia Gdańsk,Ekstraklasa,GK,GK,22,71.0,65.4,71.0,18.9,63.7
+G,New Zealand,Tyler Grant Bindon,Sheffield United,Championship,DEF,CB,20,69.0,66.3,69.0,15.5,63.7
+G,New Zealand,Finn Surman,Portland Timbers,Major League Soccer,DEF,CB,21,68.0,65.6,68.0,17.2,63.2
+G,New Zealand,Sam Harry Sutton,Perth Glory,A-League Men,DEF,FB,23,63.0,66.0,63.0,20.5,63.0
+G,New Zealand,Benjamin Peter Waine,Port Vale,League One,FWD,ST,24,62.0,65.1,62.0,22.2,62.4
+G,New Zealand,Logan Tipene Rogerson,Auckland FC,A-League Men,MID,WM,27,64.0,63.1,64.0,27.2,61.9
+G,New Zealand,Maxime Teremoana Crocombe,Millwall FC,Championship,GK,GK,31,65.0,61.6,65.0,33.9,61.7
+G,New Zealand,Matthew Jimmy David Garbett,Peterborough United,League One,MID,AM,23,65.0,63.6,65.0,20.5,61.7
+G,New Zealand,Cameron Drew Neru Howieson,Auckland FC,A-League Men,MID,CM,30,62.0,61.5,62.0,32.2,60.9
+G,New Zealand,Oliver Steven Edward Sail,Auckland FC,A-League Men,GK,GK,29,63.0,59.9,63.0,30.5,59.8
+G,New Zealand,Luke Brooke-Smith,Wellington Phoenix,A-League Men,FWD,W,17,57.0,61.2,57.0,12.2,57.9
+I,Norway,Erling Braut Håland,Manchester City,Premier League,FWD,ST,24,90.0,86.8,90.0,76.1,87.0
+I,Norway,Martin Ødegaard,Arsenal,Premier League,MID,CM,26,87.0,80.9,87.0,73.8,82.3
+I,Norway,Alexander Sørloth,Atlético Madrid,La Liga,FWD,ST,29,84.0,80.1,84.0,69.7,80.9
+I,Norway,Fredrik Aursnes,SL Benfica,Primeira Liga,MID,CM,29,80.0,78.3,80.0,54.8,77.5
+I,Norway,Julian Ryerson,Borussia Dortmund,Bundesliga,DEF,FB,27,79.0,75.8,79.0,51.5,75.3
+I,Norway,Zlatko Hovland Tripić,Viking FK,Eliteserien,FWD,W,32,76.0,77.4,76.0,35.5,74.3
+I,Norway,Sander Gard Bolin Berge,Fulham FC,Premier League,MID,DM,27,79.0,76.2,79.0,27.2,73.2
+I,Norway,Jørgen Strand Larsen,Wolverhampton Wanderers,Premier League,FWD,ST,25,78.0,76.6,78.0,23.9,73.0
+I,Norway,Joshua Christian Kojo King,Al Khaleej,Pro League,FWD,ST,33,74.0,74.3,74.0,37.2,72.1
+I,Norway,Patrick Berg,FK Bodø/Glimt,Eliteserien,MID,DM,27,77.0,74.1,77.0,27.2,71.4
+I,Norway,Jonas Svensson,Beşiktaş JK,Süper Lig,DEF,FB,32,75.0,73.3,75.0,35.5,71.4
+I,Norway,Mohamed Amine Elyounoussi,FC København,Superliga,MID,WM,30,76.0,72.9,76.0,32.2,71.0
+I,Norway,Kristian Thorstvedt,Sassuolo,Serie A,MID,CM,26,75.0,73.5,75.0,25.5,70.6
+I,Norway,Andreas Rædergård Schjelderup,SL Benfica,Primeira Liga,FWD,W,21,75.0,74.9,75.0,17.2,70.6
+I,Norway,Antonio Eromonsele Nordby Nusa,RB Leipzig,Bundesliga,MID,WM,20,76.0,74.0,76.0,15.5,70.1
+I,Norway,Aron Leonard Dønnum,Toulouse FC,Ligue 1,MID,WM,27,75.0,72.4,75.0,27.2,70.0
+I,Norway,Ørjan Håskjold Nyland,Sevilla FC,La Liga,GK,GK,34,76.0,70.5,76.0,37.2,69.8
+I,Norway,Andreas Schjølberg Hanche-Olsen,1. FSV Mainz 05,Bundesliga,DEF,CB,28,75.0,72.0,75.0,28.9,69.8
+I,Norway,Fredrik André Bjørkan,FK Bodø/Glimt,Eliteserien,DEF,FB,26,74.0,72.2,74.0,25.5,69.5
+I,Norway,Torbjørn Lysaker Heggem,Bologna,Serie A,DEF,CB,26,73.0,72.2,73.0,25.5,69.3
+I,Norway,Kristoffer Vassbakk Köpp Ajer,Brentford,Premier League,DEF,FB,27,75.0,71.0,75.0,27.2,69.0
+I,Norway,Jakob Glesnes,Philadelphia Union,Major League Soccer,DEF,CB,31,73.0,69.7,73.0,33.9,68.5
+I,Norway,David Møller Wolfe,Wolverhampton Wanderers,Premier League,DEF,FB,23,73.0,71.2,73.0,20.5,68.2
+I,Norway,Leo Skiri Østigård,Genoa,Serie A,DEF,CB,25,73.0,67.7,73.0,23.9,66.1
+I,Norway,Mathias Lønne Dyngeland,SK Brann,Eliteserien,GK,GK,29,70.0,65.4,70.0,30.5,64.7
+I,Norway,Egil Selvik,Watford,Championship,GK,GK,27,70.0,65.8,70.0,27.2,64.7
+L,Panama,Michael Amir Murillo Bermúdez,Olympique de Marseille,Ligue 1,DEF,FB,29,76.0,74.6,76.0,30.5,72.0
+L,Panama,Andrés Alberto Andrade Cedeño,LASK Linz,Bundesliga,DEF,CB,26,69.0,69.9,69.0,25.5,67.1
+L,Panama,Eduardo Antonio Guerrero Locano,Dynamo Kyiv,Premier League,FWD,ST,25,69.0,69.7,69.0,23.9,66.8
+L,Panama,Luis Ricardo Mejía Cajar,Club Nacional de Football,Primera División,GK,GK,34,72.0,66.7,72.0,37.2,66.6
+L,Panama,José Fajardo Nelson,Universidad Católica del Ecuador,Serie A,FWD,ST,31,68.0,67.6,68.0,33.9,66.2
+L,Panama,Aníbal Casis Godoy Lemus,San Diego FC,Major League Soccer,MID,CM,35,70.0,66.1,70.0,37.2,65.9
+L,Panama,Orlando Mosquera,Al Fayha,Pro League,GK,GK,30,70.0,65.6,70.0,32.2,65.0
+L,Panama,José Ángel Córdoba Chambers,Norwich City,Championship,DEF,CB,24,68.0,65.6,68.0,22.2,63.7
+L,Panama,Azarias Emmanuel Londoño González,Universidad Católica del Ecuador,Serie A,FWD,ST,24,65.0,65.5,65.0,22.2,63.2
+L,Panama,Edward Cedeño,UD Las Palmas,La Liga 2,MID,CM,21,66.0,64.4,66.0,17.2,62.0
+L,Panama,Carlos Miguel Harvey Cesneros,Minnesota United FC,Major League Soccer,DEF,CB,25,65.0,63.0,65.0,23.9,61.6
+L,Panama,Leslie Eduardo Heráldez Sevillano,Caracas FC,Primera Division,MID,DM,32,64.0,60.4,64.0,35.5,60.9
+L,Panama,Martín Wilhelm Krug,Levante UD,La Liga,DEF,CB,18,62.0,59.4,62.0,12.2,57.5
+L,Panama,Omar Javier Valencia Arauz,New York Red Bulls,Major League Soccer,DEF,FB,21,59.0,57.6,59.0,17.2,56.3
+L,Panama,Rafael Antonio Mosquera Díaz,New York Red Bulls,Major League Soccer,FWD,W,20,54.0,58.9,54.0,15.5,56.2
+D,Paraguay,Alejandro Sebastián Romero Gamarra,Al Ain,Pro League,MID,AM,30,79.0,79.1,79.0,56.5,78.1
+D,Paraguay,Miguel Ángel Almirón Rejala,Atlanta United,Major League Soccer,FWD,W,31,76.0,77.5,76.0,58.2,76.7
+D,Paraguay,Lorenzo Antonio Melgarejo Sanabria,Libertad,División Profesional,FWD,W,34,74.0,75.2,74.0,37.2,72.7
+D,Paraguay,Gabriel Ávalos Stumpfs,Independiente,Liga Profesional de Fútbol,FWD,ST,34,75.0,73.7,75.0,37.2,71.9
+D,Paraguay,Matías Nicolás Rojas Romero,Portland Timbers,Major League Soccer,FWD,W,29,74.0,74.3,74.0,30.5,71.4
+D,Paraguay,Omar Federico Alderete Fernández,Sunderland,Premier League,DEF,CB,28,78.0,73.3,78.0,28.9,71.2
+D,Paraguay,Richard Rafael Sánchez Guerrero,Racing Club,Liga Profesional de Fútbol,MID,CM,29,75.0,73.8,75.0,30.5,71.2
+D,Paraguay,Arnaldo Antonio Sanabria Ayala,Cremonese,Serie A,FWD,ST,29,76.0,72.2,76.0,30.5,70.3
+D,Paraguay,Santiago Arzamendia Duarte,Estudiantes de La Plata,Liga Profesional de Fútbol,DEF,FB,27,73.0,73.2,73.0,27.2,70.2
+D,Paraguay,Julio César Enciso Espínola,RC Strasbourg Alsace,Ligue 1,MID,AM,21,73.0,73.0,73.0,17.2,69.0
+D,Paraguay,Cecilio Andrés Domínguez Ruiz,Cerro Porteño,División Profesional,MID,WM,30,73.0,70.4,73.0,32.2,68.8
+D,Paraguay,Gonzalo Agustín Sández,Rosario Central,Liga Profesional de Fútbol,DEF,FB,24,73.0,71.8,73.0,22.2,68.7
+D,Paraguay,Diego Alexander Gómez Amarilla,Brighton & Hove Albion,Premier League,MID,CM,22,73.0,72.1,73.0,18.9,68.6
+D,Paraguay,Robert Samuel Rojas Chávez,Libertad,División Profesional,DEF,FB,29,71.0,70.6,71.0,30.5,68.4
+D,Paraguay,Álex Adrián Arce Barrios,Independiente Rivadavia,Liga Profesional de Fútbol,FWD,ST,30,75.0,69.2,75.0,32.2,68.3
+D,Paraguay,Víctor Gustavo Velázquez Ramos,Cerro Porteño,División Profesional,DEF,CB,34,73.0,69.0,73.0,37.2,68.3
+D,Paraguay,Diego Francisco Viera Ruiz Díaz,Libertad,División Profesional,DEF,CB,34,76.0,67.4,76.0,37.2,67.7
+D,Paraguay,Iván Rodrigo Ramírez Segovia,Libertad,División Profesional,DEF,FB,30,71.0,68.6,71.0,32.2,67.2
+D,Paraguay,Adrián Andrés Cubas,Vancouver Whitecaps FC,Major League Soccer,MID,DM,29,74.0,67.6,74.0,30.5,66.9
+D,Paraguay,Matías David Espinoza Acosta,Libertad,División Profesional,DEF,FB,27,72.0,68.6,72.0,27.2,66.9
+D,Paraguay,Williams Ismael Riveros Ibáñez,Universitario de Deportes,Liga 1,DEF,CB,32,72.0,67.4,72.0,35.5,66.9
+D,Paraguay,Matías Galarza Fonda,River Plate,Liga Profesional de Fútbol,MID,CM,23,73.0,69.2,73.0,20.5,66.8
+D,Paraguay,Juan Ángel Espínola González,Newell's Old Boys,Liga Profesional de Fútbol,GK,GK,30,71.0,67.5,71.0,32.2,66.5
+D,Paraguay,José Ignacio Florentín Bobadilla,Central Cordoba SdE,Liga Profesional de Fútbol,MID,CM,28,71.0,67.9,71.0,28.9,66.4
+D,Paraguay,Carlos Miguel Coronel,New York Red Bulls,Major League Soccer,GK,GK,28,72.0,67.3,72.0,28.9,66.2
+D,Paraguay,Rodrigo Mario Morínigo Acosta,Libertad,División Profesional,GK,GK,26,71.0,66.7,71.0,25.5,65.3
+K,Portugal,Bruno Miguel Borges Fernandes,Manchester United,Premier League,MID,AM,30,87.0,83.3,87.0,80.5,84.6
+K,Portugal,Vítor Machado Ferreira,Paris Saint-Germain,Ligue 1,MID,CM,25,89.0,82.7,89.0,72.2,83.7
+K,Portugal,Rafael Alexandre da Conceição Leão,AC Milan,Serie A,FWD,W,26,84.0,84.8,84.0,64.7,83.6
+K,Portugal,Cristiano Ronaldo dos Santos Aveiro,Al Nassr,Pro League,FWD,ST,40,85.0,81.6,85.0,76.4,82.8
+K,Portugal,Nuno Alexandre Tavares Mendes,Paris Saint-Germain,Ligue 1,DEF,FB,23,86.0,82.7,86.0,59.7,82.0
+K,Portugal,Pedro António Pereira Gonçalves,Sporting CP,Primeira Liga,MID,AM,27,83.0,82.2,83.0,66.4,81.8
+K,Portugal,João Pedro Cavaco Cancelo,Al Hilal,Pro League,DEF,FB,31,84.0,80.6,84.0,73.1,81.6
+K,Portugal,Rúben dos Santos Gato Alves Dias,Manchester City,Premier League,DEF,CB,28,86.0,79.1,86.0,77.2,81.3
+K,Portugal,Rúben Diogo da Silva Neves,Al Hilal,Pro League,MID,DM,28,84.0,80.4,84.0,68.1,80.9
+K,Portugal,Bernardo Mota Veiga de Carvalho e Silva,Manchester City,Premier League,MID,CM,30,84.0,79.6,84.0,71.4,80.7
+K,Portugal,Otávio Edmilson da Silva Monteiro,Al Qadsiah FC,Pro League,MID,AM,30,82.0,80.1,82.0,71.4,80.7
+K,Portugal,João Pedro Gonçalves Neves,Paris Saint-Germain,Ligue 1,MID,CM,20,85.0,81.0,85.0,54.7,80.2
+K,Portugal,João Maria Lobo Alves Palhinha Gonçalves,Tottenham Hotspur,Premier League,MID,DM,29,83.0,78.5,83.0,69.7,79.6
+K,Portugal,Gonçalo Bernardo Inácio,Sporting CP,Primeira Liga,DEF,CB,23,81.0,79.1,81.0,59.7,78.7
+K,Portugal,José Diogo Dalot Teixeira,Manchester United,Premier League,DEF,FB,26,79.0,78.3,79.0,64.7,78.3
+K,Portugal,Diogo Meireles da Costa,FC Porto,Primeira Liga,GK,GK,25,84.0,76.9,84.0,63.1,78.0
+K,Portugal,Danilo Luís Hélio Pereira,Al Ittihad,Pro League,DEF,CB,33,81.0,75.6,81.0,76.4,78.0
+K,Portugal,Rui Tiago Dantas da Silva,Sporting CP,Primeira Liga,GK,GK,31,81.0,75.8,81.0,73.1,77.8
+K,Portugal,Raphaël Adelino José Guerreiro,FC Bayern München,Bundesliga,DEF,FB,31,80.0,73.5,80.0,73.1,76.1
+K,Portugal,Armindo Tué Na Bangna,SL Benfica,Primeira Liga,FWD,W,30,78.0,79.6,78.0,32.2,75.8
+K,Portugal,Matheus Luiz Nunes,Manchester City,Premier League,DEF,FB,26,79.0,77.8,79.0,25.5,74.1
+K,Portugal,Fábio Daniel Soares Silva,Borussia Dortmund,Bundesliga,FWD,ST,22,79.0,77.7,79.0,18.9,73.4
+K,Portugal,Daniel Castelo Podence,Olympiacos FC,Super League,FWD,W,29,77.0,76.3,77.0,30.5,73.3
+K,Portugal,Gonçalo Matias Ramos,Paris Saint-Germain,Ligue 1,FWD,ST,24,80.0,76.6,80.0,22.2,73.1
+K,Portugal,José Pedro Malheiro de Sá,Wolverhampton Wanderers,Premier League,GK,GK,32,77.0,71.6,77.0,59.8,73.0
+K,Portugal,Diogo Filipe Monteiro Pinto Leite,1. FC Union Berlin,Bundesliga,DEF,CB,26,78.0,72.3,78.0,25.5,70.2
+B,Qatar,Edmílson Junior Paulo da Silva,,nan,FWD,W,30,76.0,78.4,76.0,32.2,74.7
+B,Qatar,Guilherme dos Santos Torres,,nan,MID,DM,34,77.0,73.6,77.0,37.2,72.1
+B,Qatar,Akram Hassan Afif Yahya Afif,,nan,MID,WM,28,78.0,73.8,78.0,28.9,71.5
+B,Qatar,Almoez Ali Zainalabedeen Mohamed Abdulla,,nan,FWD,ST,28,74.0,72.2,74.0,28.9,69.8
+B,Qatar,Karim Boudiaf,,nan,MID,CM,34,71.0,69.7,71.0,37.2,68.5
+B,Qatar,Abdelkarim Hassan Al Haj Fadlalla,,nan,DEF,FB,31,70.0,69.9,70.0,33.9,68.1
+B,Qatar,Hasan Khalid Hasan Al Haydos,,nan,MID,WM,34,71.0,68.4,71.0,37.2,67.6
+B,Qatar,Boualem Khoukhi,,nan,DEF,CB,34,71.0,68.2,71.0,37.2,67.5
+B,Qatar,Abdulaziz Hatem Abdallah Mohammed,,nan,MID,CM,34,70.0,68.0,70.0,37.2,67.2
+B,Qatar,Bassam Hisham Ali Al Rawi,,nan,DEF,FB,27,69.0,68.6,69.0,27.2,66.4
+B,Qatar,Pedro Miguel Carvalho Deus Correia,,nan,DEF,FB,34,68.0,67.4,68.0,37.2,66.4
+B,Qatar,Lucas Michel Mendes,,nan,DEF,CB,34,70.0,66.1,70.0,37.2,65.9
+B,Qatar,Tarek Salman Suleiman Odeh,,nan,DEF,CB,27,68.0,67.6,68.0,27.2,65.6
+B,Qatar,Meshaal Aissa Mohammed Barsham,,nan,GK,GK,27,70.0,65.8,70.0,27.2,64.7
+B,Qatar,Homam Al Amin Mohamed Ahmed,,nan,DEF,FB,25,68.0,66.3,68.0,23.9,64.4
+B,Qatar,Yusuf Abdurisag,,nan,FWD,W,25,65.0,66.6,65.0,23.9,64.1
+B,Qatar,Ahmed Mohamed Hussein Kassim Al Ganehi,,nan,FWD,W,24,67.0,66.0,67.0,22.2,63.8
+B,Qatar,Ahmed Fathi Mansi Abdoulla,,nan,MID,DM,32,68.0,63.7,68.0,35.5,63.7
+B,Qatar,Mohammed Muntari,,nan,FWD,ST,31,66.0,64.0,66.0,33.9,63.5
+B,Qatar,Assim Omer Al Haj Madibo,,nan,MID,DM,28,65.0,62.6,65.0,28.9,61.9
+B,Qatar,Saad Abdullah Mohammed Ebrahim Al Sheeb,,nan,GK,GK,35,65.0,61.4,65.0,37.2,61.8
+B,Qatar,Jassem Gaber Elsayed Abdulsallam,,nan,DEF,CB,23,63.0,63.0,63.0,20.5,61.0
+B,Qatar,Salah Zakaria Mohamed Mousa Hassan,,nan,GK,GK,26,64.0,60.1,64.0,25.5,59.7
+B,Qatar,Abdullah Sirelkhatim Abdullah Yousef,,nan,DEF,FB,23,63.0,60.3,63.0,20.5,59.1
+B,Qatar,Ahmed Husham Ali Al Rawi,,nan,FWD,ST,21,60.0,60.9,60.0,17.2,58.7
+B,Qatar,Mustafa Tarek Mashaal,,nan,MID,CM,24,64.0,58.5,64.0,22.2,58.3
+H,Saudi Arabia,Salem Al Dawsari,Al Hilal,Pro League,MID,WM,33,82.0,78.5,82.0,76.4,80.1
+H,Saudi Arabia,Saud Abdullah Abdul Hamid,RC Lens,Ligue 1,DEF,FB,25,75.0,73.0,75.0,23.9,70.0
+H,Saudi Arabia,Sultan Abdullah Salem Al Ghannam,Al Nassr,Pro League,DEF,FB,31,72.0,71.9,72.0,33.9,69.8
+H,Saudi Arabia,Musab Fahd Al Juwayr,Al Qadsiah FC,Pro League,MID,CM,22,75.0,72.1,75.0,18.9,68.9
+H,Saudi Arabia,Mohamed Ibrahim Abdullah Kanno,Al Hilal,Pro League,MID,CM,30,72.0,70.8,72.0,32.2,68.9
+H,Saudi Arabia,Hassan Mohammed Tambakti,Al Hilal,Pro League,DEF,CB,26,72.0,71.4,72.0,25.5,68.6
+H,Saudi Arabia,Hassan Kadesh Mahboob,Al Ittihad,Pro League,DEF,FB,32,71.0,69.5,71.0,35.5,68.2
+H,Saudi Arabia,Salman Al Faraj,NEOM SC,Pro League,MID,CM,35,69.0,69.5,69.0,37.2,68.0
+H,Saudi Arabia,Ahmed Mohammed Sharahili,Al Ittihad,Pro League,DEF,CB,31,71.0,69.4,71.0,33.9,67.9
+H,Saudi Arabia,Ali Mohammed Ali Lajami,Al Hilal,Pro League,DEF,CB,29,70.0,69.3,70.0,30.5,67.4
+H,Saudi Arabia,Mohammed Ibrahim Mohammed Al Burayk,NEOM SC,Pro League,DEF,FB,32,70.0,68.3,70.0,35.5,67.2
+H,Saudi Arabia,Abdulrahman Ali Hassan Al Aboud,Al Ittihad,Pro League,MID,WM,30,70.0,68.4,70.0,32.2,67.0
+H,Saudi Arabia,Muhannad Mustafa Al Shanqeeti,Al Ittihad,Pro League,DEF,FB,26,70.0,69.1,70.0,25.5,66.7
+H,Saudi Arabia,Firas Tariq Nasser Al Buraikan,Al Ahli SFC,Pro League,MID,WM,25,75.0,67.6,75.0,23.9,66.4
+H,Saudi Arabia,Abdulelah Ali Awadh Al Amri,Al Nassr,Pro League,DEF,CB,28,70.0,68.1,70.0,28.9,66.4
+H,Saudi Arabia,Sultan Ahmed Mohammed Mandash,Al Taawoun FC,Pro League,FWD,W,30,67.0,68.3,67.0,32.2,66.4
+H,Saudi Arabia,Abdulrahman Abdullah Ghareeb,Al Nassr,Pro League,MID,WM,28,70.0,67.3,70.0,28.9,65.9
+H,Saudi Arabia,Abdullah Al Salem,Al Qadsiah FC,Pro League,FWD,ST,32,67.0,67.1,67.0,35.5,65.9
+H,Saudi Arabia,Saleh Al Jamaan Al Amri,Al Khaleej,Pro League,MID,WM,31,69.0,66.4,69.0,33.9,65.6
+H,Saudi Arabia,Nawaf Dhahi Faisal Al Suwaiti Al Aqidi,Al Nassr,Pro League,GK,GK,25,72.0,67.1,72.0,23.9,65.5
+H,Saudi Arabia,Saleh Khalid Mohammed Al Shehri,Al Ittihad,Pro League,FWD,ST,31,69.0,66.3,69.0,33.9,65.5
+H,Saudi Arabia,Abdulfattah Mohamed Adam,Al Taawoun FC,Pro League,FWD,ST,30,66.0,66.3,66.0,32.2,64.9
+H,Saudi Arabia,Abdullah Abdulrahman Al Hamdan,Al Hilal,Pro League,FWD,ST,25,64.0,65.6,64.0,23.9,63.2
+H,Saudi Arabia,Abdulquddus Atiah Mohammed Qawod,Al Taawoun FC,Pro League,GK,GK,28,65.0,62.2,65.0,28.9,61.6
+H,Saudi Arabia,Mustafa Reda Malayekah,NEOM SC,Pro League,GK,GK,39,64.0,60.3,64.0,37.2,61.0
+H,Saudi Arabia,Ahmed Abdu Jaber,NEOM SC,Pro League,FWD,ST,28,64.0,61.3,64.0,28.9,60.8
+C,Scotland,Scott Francis McTominay,Napoli,Serie A,MID,CM,28,85.0,80.0,85.0,68.1,80.8
+C,Scotland,Andrew Henry Robertson,Liverpool,Premier League,DEF,FB,31,82.0,77.3,82.0,73.1,79.0
+C,Scotland,John McGinn,Aston Villa,Premier League,MID,WM,30,81.0,76.3,81.0,71.4,78.0
+C,Scotland,Ryan Gauld,Vancouver Whitecaps FC,Major League Soccer,FWD,W,29,78.0,78.1,78.0,30.5,74.7
+C,Scotland,Kieran Tierney,Celtic,Premiership,DEF,FB,28,77.0,75.1,77.0,53.2,74.7
+C,Scotland,Ché Zach Everton Fred Adams,Torino,Serie A,FWD,ST,28,77.0,77.7,77.0,28.9,74.1
+C,Scotland,Callum William McGregor,Celtic,Premiership,MID,DM,32,79.0,76.2,79.0,35.5,74.0
+C,Scotland,Ryan Christie,AFC Bournemouth,Premier League,MID,DM,30,79.0,76.0,79.0,32.2,73.6
+C,Scotland,Lewis Ferguson,Bologna,Serie A,MID,CM,25,78.0,75.1,78.0,23.9,71.9
+C,Scotland,Oliver Jasen Burke,1. FC Union Berlin,Bundesliga,FWD,ST,28,73.0,75.1,73.0,28.9,71.6
+C,Scotland,Lewis Morgan,New York Red Bulls,Major League Soccer,FWD,ST,28,73.0,74.7,73.0,28.9,71.4
+C,Scotland,Thomas Cairney,Fulham FC,Premier League,MID,CM,34,74.0,71.7,74.0,37.2,70.3
+C,Scotland,Jack William Hendry,Al Ettifaq,Pro League,DEF,CB,30,74.0,72.5,74.0,32.2,70.3
+C,Scotland,Lawrence Shankland,Hearts,Premiership,FWD,ST,29,73.0,72.2,73.0,30.5,69.8
+C,Scotland,Greg John Taylor,PAOK,Super League,DEF,FB,27,74.0,72.0,74.0,27.2,69.5
+C,Scotland,John Souttar,Rangers FC,Premiership,DEF,CB,28,73.0,71.7,73.0,28.9,69.3
+C,Scotland,Scott Fraser McKenna,Dinamo Zagreb,Hrvatska nogometna liga,DEF,CB,28,75.0,70.3,75.0,28.9,68.7
+C,Scotland,Barry Ryan Bannan,Sheffield Wednesday,Championship,MID,CM,35,73.0,69.4,73.0,37.2,68.6
+C,Scotland,Oliver Robert McBurnie,Hull City,Championship,FWD,ST,29,74.0,70.0,74.0,30.5,68.5
+C,Scotland,Aaron Buchanan Hickey,Brentford,Premier League,DEF,FB,23,74.0,70.7,74.0,20.5,68.0
+C,Scotland,Billy Clifford Gilmour,Napoli,Serie A,MID,CM,24,74.0,70.3,74.0,22.2,67.9
+C,Scotland,Josh Thomas Doig,Sassuolo,Serie A,DEF,FB,23,73.0,70.6,73.0,20.5,67.8
+C,Scotland,Ryan Porteous,Los Angeles FC,Major League Soccer,DEF,CB,26,71.0,70.1,71.0,25.5,67.6
+C,Scotland,Angus Fraser James Gunn,Nottingham Forest,Premier League,GK,GK,29,72.0,68.0,72.0,30.5,66.8
+C,Scotland,Zander Clark,Hearts,Premiership,GK,GK,33,70.0,66.0,70.0,37.2,65.8
+C,Scotland,Craig Sinclair Gordon,Hearts,Premiership,GK,GK,42,67.0,63.5,67.0,37.2,63.6
+I,Senegal,Sadio Mané,Al Nassr,Pro League,MID,WM,33,83.0,77.7,83.0,76.4,79.7
+I,Senegal,Kalidou Koulibaly,Al Hilal,Pro League,DEF,CB,34,82.0,77.8,82.0,76.4,79.6
+I,Senegal,Nicolas Jackson,FC Bayern München,Bundesliga,FWD,ST,24,80.0,78.0,80.0,61.4,78.0
+I,Senegal,Édouard Osoque Mendy,Al Ahli SFC,Pro League,GK,GK,33,80.0,73.7,80.0,76.4,76.5
+I,Senegal,Boulaye Dia,Lazio,Serie A,FWD,ST,28,80.0,79.1,80.0,28.9,75.5
+I,Senegal,Idrissa Gana Gueye,Everton,Premier League,MID,DM,35,79.0,74.3,79.0,61.5,75.3
+I,Senegal,Ismaïla Sarr,Crystal Palace,Premier League,MID,AM,27,79.0,79.2,79.0,27.2,75.2
+I,Senegal,Moussa Niakhaté,Olympique Lyonnais,Ligue 1,DEF,CB,29,77.0,74.0,77.0,54.8,74.1
+I,Senegal,Pape Matar Sarr,Tottenham Hotspur,Premier League,MID,CM,22,79.0,75.9,79.0,18.9,72.2
+I,Senegal,Pape Alassane Gueye,Villarreal CF,La Liga,MID,CM,26,78.0,75.1,78.0,25.5,72.1
+I,Senegal,Iliman Cheikh Baroy Ndiaye,Everton,Premier League,MID,WM,25,79.0,74.5,79.0,23.9,71.7
+I,Senegal,Pathé Ismaël Ciss,Rayo Vallecano,La Liga,MID,DM,31,77.0,73.2,77.0,33.9,71.5
+I,Senegal,Mame Baba Thiam,Eyüpspor,Süper Lig,FWD,ST,32,75.0,73.1,75.0,35.5,71.3
+I,Senegal,Lamine Camara,AS Monaco,Ligue 1,MID,CM,21,77.0,74.6,77.0,17.2,70.8
+I,Senegal,Ismail Joshua Jakobs,Galatasaray SK,Süper Lig,DEF,FB,25,75.0,74.0,75.0,23.9,70.7
+I,Senegal,Yehvann Diouf,OGC Nice,Ligue 1,GK,GK,25,78.0,72.4,78.0,23.9,70.1
+I,Senegal,El Hadji Malick Diouf,West Ham United,Premier League,DEF,FB,20,75.0,73.7,75.0,15.5,69.6
+I,Senegal,Cheikh Tidiane Sabaly,FC Metz,Ligue 1,FWD,ST,26,72.0,72.0,72.0,25.5,69.0
+I,Senegal,Habibou Mouhamadou Diallo,FC Metz,Ligue 1,FWD,ST,30,72.0,70.6,72.0,32.2,68.7
+I,Senegal,Ousseynou Ba,Medipol Başakşehir FK,Süper Lig,DEF,CB,29,74.0,69.5,74.0,30.5,68.2
+I,Senegal,Adama Boiro Boiro,Athletic Club,La Liga,DEF,FB,23,73.0,70.6,73.0,20.5,67.8
+I,Senegal,Cheikh Ahmadou Bamba Mbacké Dieng,FC Lorient,Ligue 1,FWD,ST,25,71.0,70.2,71.0,23.9,67.5
+I,Senegal,Abdoulaye Niakhate Ndiaye,Parma,Serie A,DEF,CB,23,75.0,69.5,75.0,20.5,67.3
+I,Senegal,Moussa N'Diaye,RSC Anderlecht,Pro League,DEF,FB,23,72.0,69.3,72.0,20.5,66.7
+I,Senegal,Arouna Sangante,Le Havre AC,Ligue 1,DEF,CB,23,73.0,68.6,73.0,20.5,66.4
+I,Senegal,Seny Timothy Dieng,Middlesbrough,Championship,GK,GK,30,70.0,65.6,70.0,32.2,65.0
+A,South Africa,Lyle Brent Foster,Burnley,Premier League,FWD,ST,24,72.0,73.1,72.0,22.2,69.5
+A,South Africa,Gift Links,Aarhus Gymnastikforening,Superliga,DEF,FB,26,72.0,72.0,72.0,25.5,69.1
+A,South Africa,Siyabonga Ngezana,FCSB,Liga I,DEF,CB,27,73.0,70.4,73.0,27.2,68.3
+A,South Africa,Bongokuhle Hlongwane,Minnesota United FC,Major League Soccer,DEF,FB,25,71.0,69.5,71.0,23.9,67.0
+A,South Africa,Kobamelo Kodisang,AVS Futebol SAD,Primeira Liga,MID,WM,25,68.0,66.1,68.0,23.9,64.2
+A,South Africa,Mohau Nkota,Al Ettifaq,Pro League,FWD,W,20,64.0,67.9,64.0,15.5,63.9
+A,South Africa,Shandre Miguel Campbell,Club Brugge KV,Pro League,FWD,W,19,65.0,67.5,65.0,13.9,63.7
+A,South Africa,Ime Okon,Hannover 96,2. Bundesliga,DEF,CB,21,67.0,65.0,67.0,17.2,62.7
+A,South Africa,Sphephelo Sithole,CD Tondela,Primeira Liga,MID,DM,26,65.0,64.0,65.0,25.5,62.5
+A,South Africa,Luke Gareth Le Roux,Portsmouth,Championship,MID,CM,25,66.0,63.7,66.0,23.9,62.2
+A,South Africa,Moegamat Yusuf Maart,SV Ried,Bundesliga,MID,CM,29,67.0,62.0,67.0,30.5,62.0
+A,South Africa,Antonio van Wyk,SV Ried,Bundesliga,FWD,W,23,62.0,63.4,62.0,20.5,61.1
+A,South Africa,Samukelo Kabini,Molde FK,Eliteserien,DEF,FB,21,63.0,61.2,63.0,17.2,59.4
+A,South Africa,Kgaogelo Chauke,Burton Albion,League One,MID,CM,22,61.0,59.2,61.0,18.9,57.9
+A,South Africa,Olwethu Makhanya,Philadelphia Union,Major League Soccer,DEF,CB,21,57.0,57.5,57.0,17.2,55.9
+A,South Africa,Elias Mokwana,Al Hazem FC,Pro League,FWD,W,25,51.0,53.3,51.0,23.9,52.8
+A,South Korea,Heung-min Son,Los Angeles FC,Major League Soccer,FWD,W,32,85.0,83.1,85.0,74.7,83.6
+A,South Korea,Min-jae Kim,FC Bayern München,Bundesliga,DEF,CB,28,82.0,77.3,82.0,68.1,78.5
+A,South Korea,Kang-in Lee,Paris Saint-Germain,Ligue 1,FWD,W,24,79.0,77.4,79.0,46.5,75.9
+A,South Korea,Jae-sung Lee,1. FSV Mainz 05,Bundesliga,MID,AM,32,77.0,74.3,77.0,59.8,74.8
+A,South Korea,Hee-chan Hwang,Wolverhampton Wanderers,Premier League,FWD,ST,29,75.0,74.9,75.0,30.5,72.0
+A,South Korea,Dong-gyeong Lee,Gimcheon Sangmu FC,K League 1,MID,AM,27,75.0,74.6,75.0,27.2,71.4
+A,South Korea,In-beom Hwang,Feyenoord,Eredivisie,MID,CM,28,77.0,72.4,77.0,28.9,70.4
+A,South Korea,Ui-jo Hwang,Alanyaspor,Süper Lig,FWD,ST,32,71.0,72.4,71.0,35.5,70.1
+A,South Korea,Hyeon-woo Jo,Ulsan HD FC,K League 1,GK,GK,33,75.0,70.7,75.0,37.2,69.8
+A,South Korea,Min-kyu Joo,Daejeon Citizen,K League 1,FWD,ST,35,74.0,70.9,74.0,37.2,69.8
+A,South Korea,Hyeon-seok Hong,FC Nantes,Ligue 1,MID,AM,26,73.0,72.6,73.0,25.5,69.6
+A,South Korea,Jin-woo Jeon,Jeonbuk Hyundai Motors,K League 1,FWD,W,25,72.0,72.6,72.0,23.9,69.3
+A,South Korea,Seung-wook Park,Pohang Steelers,K League 1,DEF,CB,28,71.0,71.8,71.0,28.9,69.1
+A,South Korea,Jin-seob Park,Jeonbuk Hyundai Motors,K League 1,DEF,CB,29,71.0,71.1,71.0,30.5,68.8
+A,South Korea,Chang-geun Lee,Daejeon Citizen,K League 1,GK,GK,31,74.0,69.7,74.0,33.9,68.6
+A,South Korea,Min-kwang Jeon,Pohang Steelers,K League 1,DEF,CB,32,70.0,69.9,70.0,35.5,68.3
+A,South Korea,Woo-yeong Jeong,1. FC Union Berlin,Bundesliga,MID,AM,25,73.0,70.7,73.0,23.9,68.2
+A,South Korea,Seung-ho Paik,Birmingham City,Championship,MID,DM,28,72.0,70.0,72.0,28.9,68.0
+A,South Korea,Seung-beom Ko,Ulsan HD FC,K League 1,MID,CM,31,71.0,69.3,71.0,33.9,67.9
+A,South Korea,Young-gwon Kim,Ulsan HD FC,K League 1,DEF,CB,35,70.0,68.9,70.0,37.2,67.8
+A,South Korea,Kyung-won Kwon,FC Anyang,K League 1,DEF,CB,33,70.0,68.9,70.0,37.2,67.8
+A,South Korea,Bum-keun Song,Jeonbuk Hyundai Motors,K League 1,GK,GK,27,74.0,69.0,74.0,27.2,67.5
+A,South Korea,Jae-won Hwang,Daegu FC,K League 1,DEF,FB,22,70.0,70.8,70.0,18.9,67.2
+A,South Korea,Ji-su Park,Wuhan Three Towns,Super League,DEF,CB,31,70.0,68.3,70.0,33.9,67.0
+A,South Korea,Bong-soo Kim,Daejeon Citizen,K League 1,MID,DM,25,72.0,68.4,72.0,23.9,66.4
+A,South Korea,Seung-hyun Jung,Ulsan HD FC,K League 1,DEF,CB,31,70.0,65.9,70.0,33.9,65.4
+H,Spain,Rodrigo Hernández Cascante,Manchester City,Premier League,MID,DM,29,90.0,85.9,90.0,84.5,87.2
+H,Spain,Pedro González López,FC Barcelona,La Liga,MID,CM,22,89.0,83.3,89.0,67.2,83.6
+H,Spain,Daniel Carvajal Ramos,Real Madrid,La Liga,DEF,FB,33,85.0,80.2,85.0,85.5,82.7
+H,Spain,Marcos Llorente Moreno,Atlético Madrid,La Liga,DEF,FB,30,84.0,81.8,84.0,71.4,82.2
+H,Spain,Iago Aspas Juncal,RC Celta,La Liga,FWD,W,37,83.0,81.2,83.0,76.4,82.2
+H,Spain,Daniel Olmo Carvajal,FC Barcelona,La Liga,MID,AM,27,85.0,82.0,85.0,66.4,82.0
+H,Spain,David Raya Martín,Arsenal,Premier League,GK,GK,29,87.0,79.4,87.0,78.8,81.8
+H,Spain,Ayoze Pérez Gutiérrez,Villarreal CF,La Liga,FWD,ST,31,83.0,80.9,83.0,73.1,81.6
+H,Spain,Íñigo Martínez Berridi,Al Nassr,Pro League,DEF,CB,34,85.0,79.7,85.0,76.4,81.4
+H,Spain,Lamine Yamal Nasraoui Ebana,FC Barcelona,La Liga,MID,WM,17,89.0,80.1,89.0,66.1,81.3
+H,Spain,Ferran Torres García,FC Barcelona,La Liga,FWD,W,25,83.0,81.7,83.0,63.1,81.1
+H,Spain,Alejandro Grimaldo García,Bayer 04 Leverkusen,Bundesliga,MID,WM,29,84.0,80.3,84.0,69.7,81.0
+H,Spain,Álvaro Borja Morata Martín,Como,Serie A,FWD,ST,32,81.0,79.3,81.0,74.7,80.4
+H,Spain,Nicholas Williams Arthuer,Athletic Club,La Liga,MID,WM,22,86.0,80.3,86.0,58.1,80.2
+H,Spain,David de Gea Quintana,Fiorentina,Serie A,GK,GK,34,85.0,77.7,85.0,76.4,80.1
+H,Spain,Fabián Ruiz Peña,Paris Saint-Germain,Ligue 1,MID,CM,29,85.0,78.6,85.0,69.7,80.0
+H,Spain,Gerard Moreno Balagueró,Villarreal CF,La Liga,FWD,ST,33,81.0,78.6,81.0,76.4,80.0
+H,Spain,Marc Cucurella Saseta,Chelsea,Premier League,DEF,FB,26,84.0,79.1,84.0,64.7,79.7
+H,Spain,Alejandro Baena Rodríguez,Atlético Madrid,La Liga,MID,WM,23,84.0,79.8,84.0,59.7,79.7
+H,Spain,Daniel Vivian Moreno,Athletic Club,La Liga,DEF,CB,25,84.0,79.2,84.0,63.1,79.6
+H,Spain,José Ignacio Fernández Iglesias,Al Qadsiah FC,Pro League,DEF,CB,35,82.0,77.6,82.0,76.4,79.5
+H,Spain,Mikel Oyarzabal Ugarte,Real Sociedad,La Liga,FWD,ST,28,82.0,78.5,82.0,68.1,79.3
+H,Spain,Unai Simón Mendibil,Athletic Club,La Liga,GK,GK,28,85.0,77.5,85.0,68.1,79.1
+H,Spain,Alejandro Balde Martínez,FC Barcelona,La Liga,DEF,FB,21,83.0,79.0,83.0,56.4,78.6
+H,Spain,Robin Le Normand,Atlético Madrid,La Liga,DEF,CB,28,83.0,76.0,83.0,68.1,77.8
+H,Spain,Pau Cubarsí Paredes,FC Barcelona,La Liga,DEF,CB,18,82.0,77.0,82.0,51.4,76.6
+F,Sweden,Viktor Einar Gyökeres,Arsenal,Premier League,FWD,ST,27,87.0,86.3,87.0,75.5,86.2
+F,Sweden,Alexander Isak,Liverpool,Premier League,FWD,ST,25,88.0,84.1,88.0,72.2,84.5
+F,Sweden,Anthony David Junior Elanga,Newcastle United,Premier League,FWD,W,23,81.0,81.2,81.0,59.7,80.1
+F,Sweden,Dejan Kulusevski,Tottenham Hotspur,Premier League,MID,CM,25,83.0,79.8,83.0,63.1,79.8
+F,Sweden,Emil Peter Forsberg,New York Red Bulls,Major League Soccer,MID,AM,33,79.0,76.8,79.0,76.4,78.5
+F,Sweden,Mattias Olof Svanberg,VfL Wolfsburg,Bundesliga,MID,CM,26,76.0,72.8,76.0,49.8,72.6
+F,Sweden,Gabriel Gudmundsson,Leeds United,Premier League,DEF,FB,26,77.0,75.8,77.0,25.5,72.4
+F,Sweden,Carl Anders Theodor Starfelt,RC Celta,La Liga,DEF,CB,30,78.0,73.4,78.0,32.2,71.6
+F,Sweden,Daniel Svensson,Borussia Dortmund,Bundesliga,DEF,FB,23,77.0,75.0,77.0,20.5,71.4
+F,Sweden,Niclas Eliasson Santana,AEK Athens,Super League,MID,WM,29,76.0,73.8,76.0,30.5,71.4
+F,Sweden,Victor Jörgen Nilsson Lindelöf,Aston Villa,Premier League,DEF,CB,30,75.0,70.2,75.0,56.5,71.4
+F,Sweden,Mikael Ishak,Lech Poznań,Ekstraklasa,FWD,ST,32,74.0,73.1,74.0,35.5,71.1
+F,Sweden,Isak Malcolm Kwaku Hien,Atalanta,Serie A,DEF,CB,26,78.0,72.8,78.0,25.5,70.6
+F,Sweden,Hugo Emanuel Larsson,Eintracht Frankfurt,Bundesliga,MID,CM,21,78.0,73.6,78.0,17.2,70.3
+F,Sweden,Håkan Gustaf Nilsson,Club Brugge KV,Pro League,FWD,ST,28,75.0,72.6,75.0,28.9,70.2
+F,Sweden,Emil Alfons Holm,Bologna,Serie A,DEF,FB,25,74.0,73.5,74.0,23.9,70.2
+F,Sweden,Lucas Erik Holger Bergvall,Tottenham Hotspur,Premier League,MID,CM,19,77.0,74.0,77.0,13.9,70.1
+F,Sweden,Algot Sebastian Nanasi,RC Strasbourg Alsace,Ligue 1,MID,AM,23,76.0,73.3,76.0,20.5,70.1
+F,Sweden,Eric Anders Smith,FC St. Pauli,Bundesliga,MID,DM,28,75.0,71.6,75.0,28.9,69.6
+F,Sweden,Williot Theo Swedberg,RC Celta,La Liga,FWD,W,21,74.0,72.8,74.0,17.2,69.1
+F,Sweden,Samuel Elias Dahl,SL Benfica,Primeira Liga,DEF,FB,22,73.0,71.8,73.0,18.9,68.4
+F,Sweden,Pontus Sven Gustav Jansson,Malmö FF,Allsvenskan,DEF,CB,34,73.0,68.9,73.0,37.2,68.2
+F,Sweden,Robin Patrick Olsen,Malmö FF,Allsvenskan,GK,GK,35,73.0,68.6,73.0,37.2,68.0
+F,Sweden,Viktor Tobias Johansson,Stoke City,Championship,GK,GK,26,74.0,69.7,74.0,25.5,67.8
+F,Sweden,Emil Henry ­Kristoffer Krafth,Newcastle United,Premier League,DEF,CB,30,73.0,68.8,73.0,32.2,67.7
+F,Sweden,Bo Kristoffer Nordfeldt,AIK,Allsvenskan,GK,GK,36,72.0,66.2,72.0,37.2,66.3
+B,Switzerland,Yann Sommer,Inter,Serie A,GK,GK,36,87.0,79.2,87.0,85.5,82.3
+B,Switzerland,Granit Xhaka,Sunderland,Premier League,MID,DM,32,85.0,81.0,85.0,74.7,82.1
+B,Switzerland,Gregor Kobel,Borussia Dortmund,Bundesliga,GK,GK,27,86.0,79.6,86.0,75.5,81.5
+B,Switzerland,Denis Lemi Zakaria Lako Lado,AS Monaco,Ligue 1,MID,DM,28,82.0,78.8,82.0,68.1,79.5
+B,Switzerland,Fabian Lukas Schär,Newcastle United,Premier League,DEF,CB,33,82.0,77.5,82.0,76.4,79.5
+B,Switzerland,Manuel Obafemi Akanji,Inter,Serie A,DEF,CB,29,82.0,78.4,82.0,69.7,79.4
+B,Switzerland,Remo Marco Freuler,Bologna,Serie A,MID,DM,33,81.0,76.4,81.0,76.4,78.6
+B,Switzerland,Renato Steffen,FC Lugano,Super League,FWD,W,33,75.0,76.1,75.0,61.5,75.9
+B,Switzerland,Xherdan Shaqiri,FC Basel 1893,Super League,MID,AM,33,78.0,78.5,78.0,37.2,75.6
+B,Switzerland,Breel Donald Embolo,Stade Rennais FC,Ligue 1,FWD,ST,28,77.0,76.2,77.0,53.2,75.5
+B,Switzerland,Roman Bürki,St. Louis CITY SC,Major League Soccer,GK,GK,34,77.0,71.8,77.0,76.4,74.8
+B,Switzerland,Mohameth Djibril Ibrahima Sow,Sevilla FC,La Liga,MID,CM,28,76.0,74.2,76.0,53.2,73.9
+B,Switzerland,Nico Elvedi,Borussia Mönchengladbach,Bundesliga,DEF,CB,28,77.0,73.7,77.0,53.2,73.8
+B,Switzerland,Dan Assane Ndoye,Nottingham Forest,Premier League,MID,WM,24,79.0,76.9,79.0,22.2,73.2
+B,Switzerland,Noah Arinzechukwu Okafor,Leeds United,Premier League,FWD,ST,25,76.0,77.3,76.0,23.9,73.1
+B,Switzerland,Steven Zuber,FC Zürich,Super League,FWD,ST,33,74.0,74.8,74.0,37.2,72.5
+B,Switzerland,Ardon Jashari,AC Milan,Serie A,MID,DM,22,77.0,75.2,77.0,18.9,71.3
+B,Switzerland,Filip Ugrinić,Valencia CF,La Liga,MID,CM,26,75.0,74.7,75.0,25.5,71.3
+B,Switzerland,Ulisses Alexandre Garcia Lopes,Olympique de Marseille,Ligue 1,DEF,FB,29,75.0,72.2,75.0,30.5,70.2
+B,Switzerland,Mohamed Zeki Amdouni,Burnley,Premier League,FWD,ST,24,75.0,73.5,75.0,22.2,70.2
+B,Switzerland,Miro Max Maria Muheim,Hamburger SV,Bundesliga,DEF,FB,27,75.0,72.5,75.0,27.2,70.1
+B,Switzerland,Dominik Robin Schmid,FC Basel 1893,Super League,DEF,FB,27,74.0,72.8,74.0,27.2,70.1
+B,Switzerland,Cédric Zesiger,FC Augsburg,Bundesliga,DEF,CB,27,76.0,72.1,76.0,27.2,69.9
+B,Switzerland,Jordan Mvula Lotomba,Feyenoord,Eredivisie,DEF,FB,26,75.0,70.9,75.0,25.5,68.8
+B,Switzerland,Bećir Omeragić,Montpellier HSC,Ligue 2,DEF,CB,23,74.0,71.8,74.0,20.5,68.7
+B,Switzerland,Andi Avdi Zeqiri,Widzew Łódź,Ekstraklasa,FWD,ST,26,72.0,70.9,72.0,25.5,68.3
+F,Tunisia,Ellyes Joris Skhiri,Eintracht Frankfurt,Bundesliga,MID,DM,30,80.0,76.5,80.0,71.4,78.0
+F,Tunisia,Ali Abdi,OGC Nice,Ligue 1,DEF,FB,31,76.0,74.9,76.0,33.9,72.5
+F,Tunisia,Amor Yonas Layouni,BK Häcken,Allsvenskan,FWD,W,32,72.0,74.7,72.0,35.5,71.9
+F,Tunisia,Hannibal Mejbri,Burnley,Premier League,MID,CM,22,74.0,73.0,74.0,18.9,69.4
+F,Tunisia,Elias Saad,FC Augsburg,Bundesliga,FWD,W,25,72.0,71.7,72.0,23.9,68.7
+F,Tunisia,Ismaël Gharbi Álvarez,FC Augsburg,Bundesliga,MID,WM,21,73.0,70.7,73.0,17.2,67.4
+F,Tunisia,Mohamed Elias Achouri,FC København,Superliga,MID,WM,26,72.0,68.8,72.0,25.5,66.9
+F,Tunisia,Mortadha Ben Ouanes,Kasımpaşa SK,Süper Lig,DEF,FB,30,69.0,68.0,69.0,32.2,66.5
+F,Tunisia,Dylan Daniel Mahmoud Bronn,Servette FC,Super League,DEF,CB,30,68.0,68.2,68.0,32.2,66.5
+F,Tunisia,Saîf-Eddine Khaoui,Red Star FC,Ligue 2,MID,AM,30,70.0,67.4,70.0,32.2,66.3
+F,Tunisia,Yan Valery,Sheffield Wednesday,Championship,DEF,FB,26,71.0,67.1,71.0,25.5,65.5
+F,Tunisia,Montassar Omar Talbi,FC Lorient,Ligue 1,DEF,CB,27,73.0,65.9,73.0,27.2,65.2
+F,Tunisia,Sayfallah Ltaief,Sparta Rotterdam,Eredivisie,MID,WM,25,68.0,66.3,68.0,23.9,64.3
+F,Tunisia,Alaa Ghram,Shakhtar Donetsk,Premier League,DEF,CB,23,67.0,66.2,67.0,20.5,63.8
+F,Tunisia,Hamza Rafia,Lecce,Serie A,MID,CM,26,68.0,65.1,68.0,25.5,63.7
+F,Tunisia,Mohamed Belhadj Mahmoud,FC Lugano,Super League,MID,DM,25,67.0,65.2,67.0,23.9,63.4
+F,Tunisia,Rami Kaib,Halmstads BK,Allsvenskan,DEF,FB,28,65.0,64.8,65.0,28.9,63.3
+F,Tunisia,Idris El Mizouni,Leyton Orient,League One,MID,CM,24,68.0,64.8,68.0,22.2,63.2
+F,Tunisia,Sebastian Tounekti,Celtic,Premiership,MID,WM,22,69.0,64.2,69.0,18.9,62.6
+F,Tunisia,Anis Ben Slimane,Norwich City,Championship,MID,CM,24,67.0,64.2,67.0,22.2,62.6
+F,Tunisia,Mohamed Dräger,Eintracht Braunschweig,2. Bundesliga,DEF,FB,29,65.0,63.0,65.0,30.5,62.3
+F,Tunisia,Louey Ben Farhat,Karlsruher SC,2. Bundesliga,FWD,ST,18,64.0,65.2,64.0,12.2,61.8
+F,Tunisia,Mohammed Amin Cherni,Göztepe SK,Süper Lig,DEF,FB,23,66.0,63.2,66.0,20.5,61.6
+F,Tunisia,Chiheb Labidi,CD Nacional,Primeira Liga,MID,CM,24,65.0,62.6,65.0,22.2,61.2
+F,Tunisia,Adel Bettaieb,FC Argeș,Liga I,FWD,ST,28,61.0,61.6,61.0,28.9,60.5
+F,Tunisia,Anisse Saidi,San Diego FC,Major League Soccer,FWD,ST,17,48.0,48.3,48.0,12.2,47.7
+D,Turkey,Hakan Çalhanoğlu,Inter,Serie A,MID,DM,31,86.0,81.9,86.0,82.2,83.7
+D,Turkey,Orkun Kökçü,Beşiktaş JK,Süper Lig,MID,CM,24,82.0,80.0,82.0,61.4,79.7
+D,Turkey,Barış Alper Yılmaz,Galatasaray SK,Süper Lig,MID,WM,25,80.0,79.2,80.0,63.1,79.0
+D,Turkey,Abdülkerim Bardakcı,Galatasaray SK,Süper Lig,DEF,CB,30,80.0,77.2,80.0,71.4,78.4
+D,Turkey,Ferdi Erenay Kadıoğlu,Brighton & Hove Albion,Premier League,DEF,FB,25,79.0,76.1,79.0,63.1,76.7
+D,Turkey,Muhammed Kerem Aktürkoğlu,Fenerbahçe SK,Süper Lig,FWD,W,26,80.0,79.2,80.0,25.5,75.2
+D,Turkey,İrfan Can Kahveci,Fenerbahçe SK,Süper Lig,FWD,W,29,78.0,77.7,78.0,30.5,74.4
+D,Turkey,Enes Ünal,AFC Bournemouth,Premier League,FWD,ST,28,77.0,74.0,77.0,53.2,73.9
+D,Turkey,Kenan Yıldız,Juventus,Serie A,MID,AM,20,79.0,78.6,79.0,15.5,73.6
+D,Turkey,Oğuz Aydın,Fenerbahçe SK,Süper Lig,FWD,W,24,77.0,77.0,77.0,22.2,72.9
+D,Turkey,Cengiz Ünder,Beşiktaş JK,Süper Lig,FWD,W,27,76.0,76.4,76.0,27.2,72.8
+D,Turkey,Mehmet Zeki Çelik,Roma,Serie A,DEF,FB,28,76.0,72.2,76.0,53.2,72.6
+D,Turkey,Arda Güler,Real Madrid,La Liga,MID,WM,20,81.0,76.2,81.0,15.5,72.3
+D,Turkey,Yunus Akgün,Galatasaray SK,Süper Lig,MID,WM,24,78.0,75.8,78.0,22.2,72.3
+D,Turkey,Uğurcan Çakır,Galatasaray SK,Süper Lig,GK,GK,29,80.0,73.9,80.0,30.5,72.1
+D,Turkey,Fehmi Mert Günok,Beşiktaş JK,Süper Lig,GK,GK,36,78.0,72.0,78.0,37.2,71.2
+D,Turkey,Çağlar Söyüncü,Fenerbahçe SK,Süper Lig,DEF,CB,29,77.0,73.2,77.0,30.5,71.1
+D,Turkey,Evren Eren Elmalı,Galatasaray SK,Süper Lig,DEF,FB,24,75.0,74.8,75.0,22.2,71.1
+D,Turkey,Merih Demiral,Al Ahli SFC,Pro League,DEF,CB,27,78.0,73.1,78.0,27.2,70.9
+D,Turkey,İsmail Yüksek,Fenerbahçe SK,Süper Lig,MID,DM,26,77.0,73.5,77.0,25.5,70.9
+D,Turkey,Ozan Muhammed Kabak,TSG 1899 Hoffenheim,Bundesliga,DEF,CB,25,75.0,70.7,75.0,48.2,70.9
+D,Turkey,Kaan Ayhan,Galatasaray SK,Süper Lig,DEF,FB,30,76.0,71.6,76.0,32.2,70.1
+D,Turkey,Doğuhan Aral Şimşir,FC Midtjylland,Superliga,FWD,W,23,73.0,73.3,73.0,20.5,69.6
+D,Turkey,Berke Özer,Lille OSC,Ligue 1,GK,GK,25,77.0,71.6,77.0,23.9,69.4
+D,Turkey,Atakan Karazor,VfB Stuttgart,Bundesliga,MID,DM,28,76.0,71.1,76.0,28.9,69.4
+D,Turkey,Mert Müldür,Fenerbahçe SK,Süper Lig,DEF,FB,26,74.0,71.9,74.0,25.5,69.3
+D,United States,Christian Mate Pulišić,AC Milan,Serie A,FWD,W,26,84.0,84.3,84.0,64.7,83.2
+D,United States,Antonee Robinson,Fulham FC,Premier League,DEF,FB,27,82.0,80.1,82.0,66.4,80.2
+D,United States,Malik Leon Tillman,Bayer 04 Leverkusen,Bundesliga,MID,AM,23,82.0,79.6,82.0,59.7,79.2
+D,United States,Tyler Shaan Adams,AFC Bournemouth,Premier League,MID,DM,26,79.0,75.4,79.0,64.7,76.4
+D,United States,Weston James Earl McKennie,Juventus,Serie A,MID,CM,26,78.0,77.4,78.0,49.8,76.1
+D,United States,João Lucas de Souza Cardoso,Atlético Madrid,La Liga,MID,DM,23,81.0,78.1,81.0,20.5,74.1
+D,United States,Sergiño Gianni Dest,PSV,Eredivisie,DEF,FB,24,79.0,77.5,79.0,22.2,73.6
+D,United States,Timothy Tarpeh Weah,Olympique de Marseille,Ligue 1,MID,WM,25,77.0,77.1,77.0,23.9,73.1
+D,United States,Cameron Robert Carter-Vickers,Celtic,Premiership,DEF,CB,27,79.0,75.5,79.0,27.2,72.7
+D,United States,Folarin Jolaoluwa Jerry Balogun,AS Monaco,Ligue 1,FWD,ST,23,77.0,76.2,77.0,20.5,72.2
+D,United States,Walker Dwain Zimmerman,Nashville SC,Major League Soccer,DEF,CB,32,75.0,70.3,75.0,59.8,71.8
+D,United States,Alejandro Zendejas Saavedra,,nan,MID,WM,27,76.0,74.2,76.0,27.2,71.4
+D,United States,Joshua Thomas Sargent,Norwich City,Championship,FWD,ST,25,75.0,74.8,75.0,23.9,71.3
+D,United States,Brian White,Vancouver Whitecaps FC,Major League Soccer,FWD,ST,29,75.0,73.3,75.0,30.5,70.9
+D,United States,Haji Amir Wright,Coventry City,Championship,FWD,ST,27,73.0,74.0,73.0,27.2,70.7
+D,United States,Ricardo Daniel Pepi,PSV,Eredivisie,FWD,ST,22,76.0,74.2,76.0,18.9,70.5
+D,United States,Christopher Jeffrey Richards,Crystal Palace,Premier League,DEF,CB,25,77.0,72.5,77.0,23.9,70.0
+D,United States,Auston Levi-Jesaiah Trusty,Celtic,Premiership,DEF,CB,26,74.0,72.4,74.0,25.5,69.6
+D,United States,Giovanni Alejandro Reyna,Borussia Mönchengladbach,Bundesliga,MID,WM,22,75.0,69.4,75.0,43.2,69.5
+D,United States,Joseph Michael Scally,Borussia Mönchengladbach,Bundesliga,DEF,FB,22,74.0,72.3,74.0,18.9,68.9
+D,United States,Mark Alexander McKenzie,Toulouse FC,Ligue 1,DEF,CB,26,74.0,70.7,74.0,25.5,68.5
+D,United States,Matthew Charles Turner,New England Revolution,Major League Soccer,GK,GK,31,74.0,69.0,74.0,33.9,68.2
+D,United States,Paxten Reid Aaronson,Colorado Rapids,Major League Soccer,MID,CM,21,75.0,70.2,75.0,17.2,67.5
+D,United States,Zackary Thomas Steffen,Colorado Rapids,Major League Soccer,GK,GK,30,73.0,68.6,73.0,32.2,67.5
+D,United States,Stefan Frei,Seattle Sounders FC,Major League Soccer,GK,GK,39,72.0,67.7,72.0,37.2,67.3
+D,United States,Bryan Keith Reynolds Jr,KVC Westerlo,Pro League,DEF,FB,24,73.0,69.1,73.0,22.2,66.9
+H,Uruguay,Federico Santiago Valverde Dipetta,Real Madrid,La Liga,MID,CM,26,89.0,84.4,89.0,73.8,85.0
+H,Uruguay,Lucas Sebastián Torreira di Pascua,Galatasaray SK,Süper Lig,MID,DM,29,83.0,79.6,83.0,69.7,80.4
+H,Uruguay,Darwin Gabriel Núñez Ribeiro,Al Hilal,Pro League,FWD,ST,26,79.0,80.7,79.0,64.7,80.0
+H,Uruguay,José María Giménez de Vargas,Atlético Madrid,La Liga,DEF,CB,30,83.0,78.1,83.0,71.4,79.5
+H,Uruguay,Ronald Federico Araújo da Silva,FC Barcelona,La Liga,DEF,CB,26,83.0,78.0,83.0,64.7,78.8
+H,Uruguay,Rodrigo Bentancur Colmán,Tottenham Hotspur,Premier League,MID,DM,28,80.0,77.1,80.0,68.1,78.1
+H,Uruguay,Sebastián Coates Nión,Club Nacional de Football,Primera División,DEF,CB,34,79.0,74.1,79.0,76.4,76.6
+H,Uruguay,Néstor Fernando Muslera Micol,Estudiantes de La Plata,Liga Profesional de Fútbol,GK,GK,39,79.0,73.9,79.0,76.4,76.5
+H,Uruguay,Luis Alberto Suárez Díaz,Inter Miami,Major League Soccer,FWD,ST,38,79.0,73.2,79.0,76.4,76.0
+H,Uruguay,Manuel Ugarte Ribeiro,Manchester United,Premier League,MID,DM,24,79.0,75.1,79.0,61.4,75.8
+H,Uruguay,Rodrigo Zalazar Martínez,Sporting Clube de Braga,Primeira Liga,MID,AM,25,79.0,79.3,79.0,23.9,74.9
+H,Uruguay,Mauro Wilney Arambarri Rosa,Getafe CF,La Liga,MID,CM,29,80.0,77.6,80.0,30.5,74.6
+H,Uruguay,Leonardo Cecilio Fernández López,Peñarol,Primera División,MID,AM,26,78.0,78.3,78.0,25.5,74.3
+H,Uruguay,Édinson Roberto Cavani Gómez,Boca Juniors,Liga Profesional de Fútbol,FWD,ST,38,76.0,70.0,76.0,85.5,74.3
+H,Uruguay,Cristhian Ricardo Stuani Curbelo,Girona FC,La Liga,FWD,ST,38,77.0,72.8,77.0,61.5,74.0
+H,Uruguay,Miguel Ángel Merentiel Serrano,Boca Juniors,Liga Profesional de Fútbol,FWD,ST,29,76.0,75.4,76.0,30.5,72.5
+H,Uruguay,Nicolás Federico López Alonso,Club Nacional de Football,Primera División,FWD,ST,31,76.0,74.2,76.0,33.9,72.0
+H,Uruguay,Maximiliano Javier Araújo Vilches,Sporting CP,Primeira Liga,MID,WM,25,77.0,75.3,77.0,23.9,71.9
+H,Uruguay,Mathías Olivera Miramontes,Napoli,Serie A,DEF,FB,27,78.0,72.5,78.0,27.2,70.5
+H,Uruguay,Pedro Gastón Álvarez Sosa,Al Qadsiah FC,Pro League,DEF,CB,25,75.0,73.0,75.0,23.9,70.0
+H,Uruguay,Gastón Nicolás Martirena Torres,Racing Club,Liga Profesional de Fútbol,DEF,FB,25,75.0,72.7,75.0,23.9,69.8
+H,Uruguay,Leandro Daniel Cabrera Sasía,RCD Espanyol,La Liga,DEF,CB,34,75.0,70.1,75.0,37.2,69.4
+H,Uruguay,Franco Israel Wibmer,Torino,Serie A,GK,GK,25,75.0,71.3,75.0,23.9,68.9
+H,Uruguay,Santiago Ignacio Bueno Sciutto,Wolverhampton Wanderers,Premier League,DEF,CB,26,76.0,69.8,76.0,25.5,68.2
+H,Uruguay,Martín Nicolás Campaña Delgado,Peñarol,Primera División,GK,GK,36,74.0,68.6,74.0,37.2,68.2
+H,Uruguay,Álvaro Santiago Mouriño González,Villarreal CF,La Liga,DEF,CB,23,74.0,70.1,74.0,20.5,67.5
+K,Uzbekistan,Abdukodir Khusanov,Manchester City,Premier League,DEF,CB,21,77.0,74.3,77.0,17.2,70.6
+K,Uzbekistan,Eldor Shomurodov,Medipol Başakşehir FK,Süper Lig,FWD,ST,30,74.0,72.1,74.0,32.2,70.1
+K,Uzbekistan,Khusniddin Alikulov,Çaykur Rizespor,Süper Lig,DEF,CB,26,68.0,64.3,68.0,25.5,63.2
+K,Uzbekistan,Abbosbek Fayzullaev,Medipol Başakşehir FK,Süper Lig,MID,AM,21,65.0,65.4,65.0,17.2,62.6
+K,Uzbekistan,Mukhammadali Urinboev,Royal Antwerp FC,Pro League,FWD,W,20,63.0,63.8,63.0,15.5,61.0

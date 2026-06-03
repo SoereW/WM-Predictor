@@ -1,15 +1,18 @@
 """Ingest echter Spielerdaten im FIFA/EA-Format -> Bewertungs-Schema.
 
-Quelle: offen verfuegbarer FIFA-20-Spielerdatensatz (committet, kein
+Quelle: offen verfuegbarer EA-SPORTS-FC-Spielerdatensatz (committet, kein
 Login/LFS noetig). Enthaelt fuer ~18k Spieler die Attribute, die das
 Bewertungssystem braucht (pace, shooting, passing, dribbling, defending,
 physic) plus Verein, Liga, Nationalitaet, Alter und Overall.
 
+Standardquelle ist jetzt **EA FC 26** (Spielstand 2025/26 - echte, aktuelle
+Werte: korrekte Vereine inkl. Sommertransfers 2025, aktuelle Overalls).
+Das ist der naheste real verfuegbare Stand zur WM 2026. Der aeltere
+FIFA-20-Datensatz bleibt als Fallback erhalten (``FIFA20_URL``).
+
 WICHTIG / EHRLICHKEIT:
-- Es sind **FIFA-20**-Werte (Saison 2019/20), nicht der aktuelle Stand.
-  Sie dienen dazu, das Bewertungssystem mit *echten* Spielerattributen zu
-  fuettern und die Logik zu pruefen - nicht als tagesaktuelle Wahrheit.
-  Fuer die WM 2026 sollten aktuelle Kader/Ratings eingespeist werden.
+- Es bleiben **Spielratings** (EA/SoFIFA-Niveau), keine offiziellen FIFA-
+  Werte. Sie fuettern das Bewertungssystem mit *echten* Attributen.
 - ``caps`` (Laenderspiele) sind im Datensatz nicht enthalten und werden aus
   ``international_reputation`` (1-5) genaehert; ``form`` wird aus dem Overall
   abgeleitet. Beides ist klar markiert und konservativ gewaehlt.
@@ -28,8 +31,13 @@ import pandas as pd
 
 from ..teams import normalize_team
 
-# Committeter FIFA-20-Datensatz (raw, ~9 MB, 18k Spieler, inkl. league_name).
+# Committeter EA-FC-26-Datensatz (raw, ~11 MB, ~18k Spieler, Stand 2025/26,
+# inkl. league_name, club_name, nationality_name und allen Attributen).
+FC26_URL = "https://raw.githubusercontent.com/ismailoksuz/EAFC26-DataHub/main/data/players.csv"
+# Aelterer FIFA-20-Datensatz (Saison 2019/20) als Fallback.
 FIFA20_URL = "https://raw.githubusercontent.com/305kishan/FIFA/main/data/FIFA20.csv"
+# Standardquelle fuer den WM-2026-Build.
+DEFAULT_URL = FC26_URL
 
 # FIFA-Detailposition -> unser Positions-Kuerzel (criteria._POSITION_MAP kennt diese).
 _POS_FIRST = {
@@ -73,7 +81,22 @@ def _map_league(name: object) -> str:
     return _LEAGUE_MAP.get(s, s)
 
 
-def fetch_fifa_players(dest, url: str = FIFA20_URL, retries: int = 4, timeout: int = 90) -> Path:
+def _clean_name(name: object) -> str:
+    """Namen auf lateinische Schrift reduzieren (entfernt z. B. angehaengte
+    arabische/kyrillische Schreibweisen aus ``long_name``).
+
+    Beibehalten werden ASCII, Latin-1, Latin Extended-A/B und Latin Extended
+    Additional (europaeische Diakritika wie a/o/e/c bleiben erhalten).
+    """
+    s = str(name or "")
+    kept = [
+        ch for ch in s
+        if ord(ch) <= 0x024F or 0x1E00 <= ord(ch) <= 0x1EFF
+    ]
+    return " ".join("".join(kept).split()).strip()
+
+
+def fetch_fifa_players(dest, url: str = DEFAULT_URL, retries: int = 4, timeout: int = 120) -> Path:
     """Laedt den FIFA-Spielerdatensatz herunter (mit Exponential-Backoff)."""
     import requests
 
@@ -114,17 +137,31 @@ def _gk_rating(row: pd.Series) -> float:
     return float(row.get("overall", 70) or 70)
 
 
-def load_fifa_as_squads(csv_path) -> pd.DataFrame:
-    """Wandelt den FIFA-CSV in das Bewertungs-Schema (eine Zeile pro Spieler)."""
-    df = pd.read_csv(csv_path, low_memory=False)
+def load_fifa_as_squads(csv_path, prefer_long_name: bool = False) -> pd.DataFrame:
+    """Wandelt den FIFA-CSV in das Bewertungs-Schema (eine Zeile pro Spieler).
 
-    name_col = "short_name" if "short_name" in df.columns else "long_name"
+    ``prefer_long_name`` nutzt den vollen Spielernamen (``long_name``) statt
+    der Kurzform - praktisch fuer lesbare Spielertabellen.
+    """
+    df = pd.read_csv(csv_path, low_memory=False)
+    # Manche Datensaetze fuehren mehrere Editionen je Spieler; auf die
+    # aktuellste (hoechste fifa_version) reduzieren.
+    if "fifa_version" in df.columns and df["fifa_version"].nunique() > 1:
+        df = df.sort_values("fifa_version").drop_duplicates("player_id", keep="last")
+
+    short_col = "short_name" if "short_name" in df.columns else "long_name"
+    long_col = "long_name" if "long_name" in df.columns else short_col
+    name_col = long_col if prefer_long_name else short_col
     nat_col = "nationality_name" if "nationality_name" in df.columns else "nationality"
     pos_col = "player_positions" if "player_positions" in df.columns else "team_position"
     club_col = "club_name" if "club_name" in df.columns else "club"
 
     out = pd.DataFrame()
-    out["player"] = df[name_col].astype(str)
+    out["player"] = df[name_col].astype(str).map(_clean_name)
+    # Falls die Bereinigung einen Namen leert (rein nicht-lateinisch), auf die
+    # ASCII-Kurzform zurueckfallen.
+    short_clean = df[short_col].astype(str).map(_clean_name)
+    out.loc[out["player"] == "", "player"] = short_clean[out["player"] == ""].values
     out["name"] = out["player"]
     out["team"] = df[nat_col].map(normalize_team)
     out["position"] = df[pos_col].map(_first_position)
@@ -142,6 +179,7 @@ def load_fifa_as_squads(csv_path) -> pd.DataFrame:
 
     # vision: FIFA hat kein direktes Feld -> aus Passing/Overall genaehert.
     overall = pd.to_numeric(df.get("overall"), errors="coerce").fillna(65)
+    out["overall"] = overall.values  # roher EA-Overall (fuer die Kaderauswahl)
     out["vision"] = (0.6 * out["passing"].fillna(overall) + 0.4 * overall).clip(0, 99)
     out["gk"] = df.apply(_gk_rating, axis=1)
 

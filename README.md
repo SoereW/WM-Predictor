@@ -26,6 +26,18 @@ python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
+# EMPFOHLEN: komplette WM-2026-Prognose mit ECHTEN Daten in einem Befehl
+python scripts/build_wm2026.py     # lädt echte Spieler + Historie, baut Tabellen + Vorhersagen
+streamlit run app.py               # Dashboard nutzt dieselben echten Daten
+```
+
+`build_wm2026.py` lädt echte EA-FC-26-Spielerdaten und die ~49k echten
+Länderspiele (martj42), baut je WM-Nation den stärksten verfügbaren Kader,
+bewertet jeden Spieler und jedes Team, koppelt das in den Predictor ein und
+sagt **alle 72 Gruppenspiele der echten Auslosung** vorher. Details unten
+unter „WM 2026 mit echten Daten". Alternativ der klassische Pfad:
+
+```bash
 python scripts/init_db.py --fetch  # lädt echte Historie (martj42); ohne --fetch: Beispieldaten
 python scripts/train_model.py      # trainiert + gibt Backtest-Metriken aus
 streamlit run app.py
@@ -35,6 +47,44 @@ streamlit run app.py
 auch mit den (synthetischen) Beispieldaten – diese werden bei Bedarf
 automatisch erzeugt (`src/sample_data.py`, deterministisch). Wer sie als
 CSV braucht: `python scripts/make_sample_data.py`.
+
+## WM 2026 mit echten Daten
+
+`python scripts/build_wm2026.py` ist die End-to-End-Pipeline mit echten,
+online geladenen Daten:
+
+1. **Echte Spieler** – EA FC 26 (Stand 2025/26: aktuelle Vereine inkl.
+   Sommertransfers 2025, echte Attribute). Je WM-Nation wird der **stärkste
+   verfügbare Kader** positionsbewusst zusammengestellt
+   (`src/rating/squad_builder.py`).
+2. **Ratings** – jeder Spieler bekommt ein Gesamtrating (positionsgewichtetes
+   Skill + Form + Erfahrung + Fitness), jedes Team ein Gesamtrating (beste Elf
+   + Tiefe + Chemie + Trainer) über das Bewertungssystem `src/rating/`.
+3. **Modell** – die ~49k echten Länderspiele (martj42) liefern Elo/Form;
+   trainiert wird **strikt vor WM-Beginn (11.06.2026)**, also leak-frei. Die
+   Team-Ratings werden als Kaderstärke eingekoppelt.
+4. **Vorhersage** – alle 72 Gruppenspiele der **echten Auslosung** (Stand
+   Final-Draw 5.12.2025 inkl. Playoff-Sieger) mit 1X2 + xG; je Gruppe eine
+   Monte-Carlo-Simulation der Weiterkommens-Wahrscheinlichkeiten.
+
+Ergebnis-Tabellen (im Repo eingecheckt, reproduzierbar):
+
+| Datei | Inhalt |
+|-------|--------|
+| `data/wm2026_squads.csv` | alle Spieler je Nation mit Roh-Attributen |
+| `data/wm2026_player_ratings.csv` | **Spielertabelle mit Gesamtrating** |
+| `data/wm2026_team_ratings.csv` | **Team-Rangliste** (Overall, XI, Chemie …) |
+| `data/wm2026_fixtures.csv` | echter Gruppenspielplan (72 Spiele) |
+| `data/wm2026_predictions.csv` | 1X2-Wahrscheinlichkeiten + xG je Spiel |
+| `data/wm2026_group_sim.csv` | P(Platz 1)/P(Top 2) je Team und Gruppe |
+
+> Ehrlichkeit: Die Kader sind der *stärkste verfügbare* Satz echter Spieler
+> je Nation laut Datensatz – nicht zwingend die offiziell nominierte
+> 26er-Liste. Spieler aus weniger abgedeckten Ligen fehlen in den Quelldaten;
+> betroffene Nationen (z. B. Iran, Jordanien, Usbekistan) haben dünnere Kader,
+> ausgewiesen über `n_players`. Die Auslosung wurde per Web-Recherche
+> zusammengetragen (`src/wm2026.py`) – vor produktivem Einsatz gegen die
+> offizielle FIFA-Quelle abgleichen.
 
 ## Vorhersagequalität (Out-of-Sample-Backtest)
 
@@ -162,20 +212,24 @@ Kaderstärke greift er **erst zur Vorhersage** – die trainierten ML-Modelle
 sehen ihn nie und können nicht overfitten.
 
 **Echte Spielerdaten:** `src/rating/fifa_ingest.py` lädt einen offenen
-FIFA-Spielerdatensatz (echte Attribute) und übersetzt ihn ins Bewertungs-
-Schema. Eigene Kaderdaten via `src/rating/io.load_squads_csv` (Format:
-`team, player, position` + Attribute oder `overall`; optional `club, league,
-age, caps, form, available`).
+EA-SPORTS-FC-Spielerdatensatz (echte Attribute) und übersetzt ihn ins
+Bewertungs-Schema. Standardquelle ist **EA FC 26** (Stand 2025/26 – echte,
+aktuelle Werte); der ältere FIFA-20-Datensatz bleibt als Fallback. Eigene
+Kaderdaten via `src/rating/io.load_squads_csv` (Format: `team, player,
+position` + Attribute oder `overall`; optional `club, league, age, caps,
+form, available`).
 
 ## Projektstruktur
 
 ```text
-app.py                          Streamlit-Dashboard
+app.py                          Streamlit-Dashboard (nutzt echte Daten, falls vorhanden)
+scripts/build_wm2026.py         End-to-End-Pipeline WM 2026 mit echten Daten
 scripts/make_sample_data.py     Erzeugt Beispieldaten + WM-2026-Fixtures
 scripts/init_db.py              Baut SQLite-DB (--fetch lädt echte Historie)
 scripts/train_model.py          Trainiert Modell, speichert es, zeigt Backtest
 scripts/evaluate_ratings.py     Stichproben-Auswertung des Bewertungssystems
 scripts/validate_predictions.py Vorhersage vs. echtes Ergebnis (out-of-sample)
+src/wm2026.py                   Echte Gruppen-Auslosung + Spielplan-Generator
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen
 src/elo.py                      World-Football-Elo
@@ -194,17 +248,22 @@ src/rating/player.py            Spielerbewertung (Attribute→Skill→Score)
 src/rating/chemistry.py         Team-Chemie (5 gewichtete Teilkriterien)
 src/rating/team.py              Team-Aggregation inkl. Chemie + Trainer
 src/rating/sample.py            Kuratierte bekannte Spieler (für Stichproben)
+src/rating/squad_builder.py     Stärksten Kader je Nation aus Spielerpool bauen
 src/rating/io.py                Loader für echte Kader-CSVs
-src/rating/fifa_ingest.py       Echte FIFA-Spielerdaten → Bewertungs-Schema
+src/rating/fifa_ingest.py       Echte EA-FC-Spielerdaten → Bewertungs-Schema
 tests/test_rating.py            Unit-Tests des Bewertungssystems
 tests/test_context_tactics.py   Unit-Tests für Kontext- und Taktik-Faktoren
-data/sample_matches.csv         Synthetische Beispiel-Historie
-data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)
+tests/test_wm2026.py            Unit-Tests für Auslosung, Spielplan, Kaderbau
+data/wm2026_player_ratings.csv  Alle Spieler je Nation mit Gesamtrating
+data/wm2026_team_ratings.csv    Team-Rangliste (Overall, XI, Tiefe, Chemie)
+data/wm2026_predictions.csv     1X2 + xG für alle 72 Gruppenspiele
+data/wm2026_group_sim.csv       Weiterkommens-Wahrscheinlichkeiten je Gruppe
 ```
 
-> Hinweis: Die mitgelieferte WM-2026-Gruppeneinteilung ist ein
-> plausibles Beispiel und sollte vor echtem Einsatz durch die offizielle
-> Auslosung ersetzt werden (`data/sample_fixtures_2026.csv`).
+> Hinweis: `src/wm2026.py` enthält die echte WM-2026-Auslosung (Final-Draw
+> 5.12.2025 inkl. Playoff-Sieger), per Web-Recherche zusammengetragen. Vor
+> produktivem Einsatz gegen die offizielle FIFA-Quelle abgleichen – eine
+> Änderung in `GROUPS` genügt, der Spielplan wird daraus generiert.
 
 ## Datenquellen zum Anschließen
 
@@ -219,7 +278,9 @@ data/sample_fixtures_2026.csv   Beispiel-Fixtures (12 Gruppen)
 
 ## Nächste Schritte zur weiteren Verbesserung
 
-1. Echte Kaderdaten + erwartete Startelf statt der Näherungs-Demokader.
+1. ✅ Echte Spielerdaten (EA FC 26) + echte Auslosung integriert
+   (`scripts/build_wm2026.py`). Offen: die offiziell **nominierte** 26er-Liste
+   bzw. erwartete Startelf je Spiel statt des stärksten verfügbaren Kaders.
 2. Wetterdaten automatisiert pro Stadion und Anstoßzeit ziehen.
 3. Gegen Wettmarktquoten benchmarken (Markt ist ein starker Maßstab).
 4. K.-o.-Phase (Verlängerung/Elfmeter) zusätzlich simulieren.

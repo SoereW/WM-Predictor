@@ -1,0 +1,73 @@
+match_id,date,home_team,away_team,city,country,neutral,group_name,stage
+1,2026-06-11,Mexico,South Africa,Mexico City,Mexico,0,A,group
+2,2026-06-11,South Korea,Czech Republic,Mexico City,Mexico,1,A,group
+3,2026-06-16,Mexico,South Korea,Mexico City,Mexico,0,A,group
+4,2026-06-16,Czech Republic,South Africa,Mexico City,Mexico,1,A,group
+5,2026-06-21,Mexico,Czech Republic,Mexico City,Mexico,0,A,group
+6,2026-06-21,South Africa,South Korea,Mexico City,Mexico,1,A,group
+7,2026-06-12,Canada,Bosnia-Herzegovina,Toronto,Canada,0,B,group
+8,2026-06-12,Qatar,Switzerland,Toronto,Canada,1,B,group
+9,2026-06-17,Canada,Qatar,Toronto,Canada,0,B,group
+10,2026-06-17,Switzerland,Bosnia-Herzegovina,Toronto,Canada,1,B,group
+11,2026-06-22,Canada,Switzerland,Toronto,Canada,0,B,group
+12,2026-06-22,Bosnia-Herzegovina,Qatar,Toronto,Canada,1,B,group
+13,2026-06-13,Brazil,Morocco,Los Angeles,United States,1,C,group
+14,2026-06-13,Haiti,Scotland,Los Angeles,United States,1,C,group
+15,2026-06-18,Brazil,Haiti,Los Angeles,United States,1,C,group
+16,2026-06-18,Scotland,Morocco,Los Angeles,United States,1,C,group
+17,2026-06-23,Brazil,Scotland,Los Angeles,United States,1,C,group
+18,2026-06-23,Morocco,Haiti,Los Angeles,United States,1,C,group
+19,2026-06-14,United States,Paraguay,Los Angeles,United States,0,D,group
+20,2026-06-14,Australia,Turkey,Los Angeles,United States,1,D,group
+21,2026-06-19,United States,Australia,Los Angeles,United States,0,D,group
+22,2026-06-19,Turkey,Paraguay,Los Angeles,United States,1,D,group
+23,2026-06-24,United States,Turkey,Los Angeles,United States,0,D,group
+24,2026-06-24,Paraguay,Australia,Los Angeles,United States,1,D,group
+25,2026-06-15,Germany,Curacao,New York,United States,1,E,group
+26,2026-06-15,Ivory Coast,Ecuador,New York,United States,1,E,group
+27,2026-06-20,Germany,Ivory Coast,New York,United States,1,E,group
+28,2026-06-20,Ecuador,Curacao,New York,United States,1,E,group
+29,2026-06-25,Germany,Ecuador,New York,United States,1,E,group
+30,2026-06-25,Curacao,Ivory Coast,New York,United States,1,E,group
+31,2026-06-11,Netherlands,Japan,San Francisco,United States,1,F,group
+32,2026-06-11,Sweden,Tunisia,San Francisco,United States,1,F,group
+33,2026-06-16,Netherlands,Sweden,San Francisco,United States,1,F,group
+34,2026-06-16,Tunisia,Japan,San Francisco,United States,1,F,group
+35,2026-06-21,Netherlands,Tunisia,San Francisco,United States,1,F,group
+36,2026-06-21,Japan,Sweden,San Francisco,United States,1,F,group
+37,2026-06-12,Belgium,Egypt,Dallas,United States,1,G,group
+38,2026-06-12,Iran,New Zealand,Dallas,United States,1,G,group
+39,2026-06-17,Belgium,Iran,Dallas,United States,1,G,group
+40,2026-06-17,New Zealand,Egypt,Dallas,United States,1,G,group
+41,2026-06-22,Belgium,New Zealand,Dallas,United States,1,G,group
+42,2026-06-22,Egypt,Iran,Dallas,United States,1,G,group
+43,2026-06-13,Spain,Cape Verde,Miami,United States,1,H,group
+44,2026-06-13,Saudi Arabia,Uruguay,Miami,United States,1,H,group
+45,2026-06-18,Spain,Saudi Arabia,Miami,United States,1,H,group
+46,2026-06-18,Uruguay,Cape Verde,Miami,United States,1,H,group
+47,2026-06-23,Spain,Uruguay,Miami,United States,1,H,group
+48,2026-06-23,Cape Verde,Saudi Arabia,Miami,United States,1,H,group
+49,2026-06-14,France,Senegal,Atlanta,United States,1,I,group
+50,2026-06-14,Norway,Iraq,Atlanta,United States,1,I,group
+51,2026-06-19,France,Norway,Atlanta,United States,1,I,group
+52,2026-06-19,Iraq,Senegal,Atlanta,United States,1,I,group
+53,2026-06-24,France,Iraq,Atlanta,United States,1,I,group
+54,2026-06-24,Senegal,Norway,Atlanta,United States,1,I,group
+55,2026-06-15,Argentina,Algeria,Houston,United States,1,J,group
+56,2026-06-15,Austria,Jordan,Houston,United States,1,J,group
+57,2026-06-20,Argentina,Austria,Houston,United States,1,J,group
+58,2026-06-20,Jordan,Algeria,Houston,United States,1,J,group
+59,2026-06-25,Argentina,Jordan,Houston,United States,1,J,group
+60,2026-06-25,Algeria,Austria,Houston,United States,1,J,group
+61,2026-06-11,Portugal,DR Congo,Vancouver,Canada,1,K,group
+62,2026-06-11,Uzbekistan,Colombia,Vancouver,Canada,1,K,group
+63,2026-06-16,Portugal,Uzbekistan,Vancouver,Canada,1,K,group
+64,2026-06-16,Colombia,DR Congo,Vancouver,Canada,1,K,group
+65,2026-06-21,Portugal,Colombia,Vancouver,Canada,1,K,group
+66,2026-06-21,DR Congo,Uzbekistan,Vancouver,Canada,1,K,group
+67,2026-06-12,England,Croatia,Seattle,United States,1,L,group
+68,2026-06-12,Ghana,Panama,Seattle,United States,1,L,group
+69,2026-06-17,England,Ghana,Seattle,United States,1,L,group
+70,2026-06-17,Panama,Croatia,Seattle,United States,1,L,group
+71,2026-06-22,England,Panama,Seattle,United States,1,L,group
+72,2026-06-22,Croatia,Ghana,Seattle,United States,1,L,group
