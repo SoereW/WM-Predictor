@@ -143,6 +143,21 @@ class ChemistryWeights:
 # Ziel-Formation fuer die beste Elf (Anzahl je Linie).
 FORMATION: Dict[str, int] = {"GK": 1, "DEF": 4, "MID": 3, "FWD": 3}
 
+# Positions-Wichtigkeit der besten Elf ("wie es in echt ist"): die Achse
+# (Torwart, Innenverteidigung, Sechser, Mittelstuermer) entscheidet Spiele
+# staerker als die aeusseren Positionen. Gewichte sind bewusst mild (um 1.0),
+# damit sie die Rangfolge nur fein justieren. Validiert: senkt den
+# Out-of-Sample-Log-Loss der Kader-Vorhersage leicht und konsistent.
+ROLE_IMPORTANCE: Dict[str, float] = {
+    "GK": 1.25, "CB": 1.15, "FB": 0.85, "DM": 1.15, "CM": 1.05,
+    "AM": 1.05, "WM": 0.90, "W": 0.95, "ST": 1.15,
+}
+
+# Star-Gewichtung: zusaetzlich werden die staerksten Spieler der Elf etwas
+# hoeher gewichtet (Spitzenqualitaet entscheidet, besonders im K.o.). 0 =
+# reiner positionsgewichteter Mittelwert, 1 = rein an Spitzenstaerke. Mild.
+STAR_ALPHA: float = 0.25
+
 # Neutrale Chemie: ab diesem Wert wirkt Chemie weder hebend noch daempfend.
 # Chemie wird als Abweichung hiervon (gekoppelt ans Niveau) verrechnet,
 # damit perfekte Chemie eines schwachen Kaders ihn nicht kuenstlich hochzieht.

@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.rating.criteria import normalize_position
-from src.rating.squad_builder import build_squads, select_squad
+from src.rating.squad_builder import build_squads, coverage_confidence, select_squad
 from src.teams import normalize_team
-from src.wm2026 import GROUPS, HOSTS, all_teams, build_fixtures, team_group
+from src.wm2026 import GROUPS, HOSTS, TEAM_COORD, all_teams, build_fixtures, team_group, venue_coord
 
 _RESULTS = []
 
@@ -77,11 +77,24 @@ def test_squad_builder() -> None:
     _check("test_build_two_teams", set(both["team"]) == {"Testland", "Andere"})
 
 
+def test_coords_and_coverage() -> None:
+    # Jede WM-Nation hat Heimat-Koordinaten, jede Gruppe einen Spielort.
+    _check("test_all_teams_have_coords", all(t in TEAM_COORD for t in all_teams()))
+    _check("test_coords_plausible",
+           all(-90 <= la <= 90 and -180 <= lo <= 180 for la, lo in TEAM_COORD.values()))
+    _check("test_all_groups_have_venue", all(venue_coord(g) is not None for g in GROUPS))
+    # Coverage-Konfidenz: voll abgedeckt -> 1.0, duenn -> klar < 1.
+    conf = coverage_confidence({"Voll": 26, "Duenn": 3}, full=18)
+    _check("test_coverage_full_is_one", conf["Voll"] == 1.0)
+    _check("test_coverage_thin_low", conf["Duenn"] < 0.3)
+
+
 def main() -> None:
     print("WM-2026-Tests")
     test_groups_structure()
     test_fixtures()
     test_squad_builder()
+    test_coords_and_coverage()
     passed = sum(1 for _, ok in _RESULTS if ok)
     print(f"\n{passed}/{len(_RESULTS)} Tests bestanden.")
     if passed != len(_RESULTS):

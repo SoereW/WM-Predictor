@@ -75,7 +75,7 @@ Ergebnis-Tabellen (im Repo eingecheckt, reproduzierbar):
 | `data/wm2026_player_ratings.csv` | **Spielertabelle mit Gesamtrating** |
 | `data/wm2026_team_ratings.csv` | **Team-Rangliste** (Overall, XI, Chemie …) |
 | `data/wm2026_fixtures.csv` | echter Gruppenspielplan (72 Spiele) |
-| `data/wm2026_predictions.csv` | 1X2-Wahrscheinlichkeiten + xG je Spiel |
+| `data/wm2026_predictions.csv` | 1X2 + xG je Spiel, plus Ensemble (`ens_*`) und Reise/Ruhe (`context_elo`) |
 | `data/wm2026_group_sim.csv` | P(Platz 1)/P(Top 2) je Team und Gruppe |
 
 > Ehrlichkeit: Die Kader sind der *stärkste verfügbare* Satz echter Spieler
@@ -218,17 +218,40 @@ Spielen (Standard: 2024 bis WM-Start, nur WM-Nationen). Typisches Bild:
 | System | Log-Loss ↓ | Brier ↓ | Treffer ↑ |
 |--------|-----------:|--------:|----------:|
 | Basisrate (naiv) | 1.106 | 0.671 | 40.8 % |
-| Score (Kader, EA FC 26) | 1.043 | 0.628 | 45.9 % |
+| Score (Kader, EA FC 26) | 1.043 | 0.628 | 46.2 % |
 | Historie (ML, ~49k Spiele) | 1.067 | 0.649 | 44.5 % |
-| Hybrid (Score→Elo→ML) | 1.049 | 0.636 | **46.2 %** |
+| Hybrid (Score→Elo→ML) | 1.049 | 0.636 | **45.9 %** |
+| Hybrid + Coverage-Konfidenz | 1.052 | 0.638 | 45.2 % |
+| Hybrid + Ruhetage | 1.049 | 0.636 | 45.9 % |
 | Ensemble Ø(Score, Historie) | **1.039** | **0.628** | 44.2 % |
 
 Beide Systeme schlagen die Basisrate und sind **komplementär** (Tipps stimmen
-nur zu ~76 % überein): der Kader bildet *Talent* ab, die Historie *Resultate/
-Form*. Das Ensemble liefert die beste Wahrscheinlichkeits-Qualität (Log-Loss/
-Brier), der Hybrid die beste Trefferquote. Das Skript zeigt zusätzlich, **wo**
-sich die Systeme uneinig sind (z. B. unterschätzt der Kader Nationen mit vielen
-Heimliga-Spielern wie Japan/Iran, deren Spieler im Datensatz fehlen).
+nur zu ~75 % überein): der Kader bildet *Talent* ab, die Historie *Resultate/
+Form*. Das **Ensemble** liefert die beste Wahrscheinlichkeits-Qualität
+(Log-Loss/Brier), der Hybrid die beste Trefferquote. Das Skript zeigt zudem,
+**wo** sich die Systeme uneinig sind (z. B. unterschätzt der Kader Nationen mit
+vielen Heimliga-Spielern wie Japan/Iran, deren Spieler im Datensatz fehlen).
+
+**Was die Score-Analyse zusätzlich nutzt** (jeweils am Vergleichs-Harness
+geprüft – es bleibt nur, was misst):
+
+- **Positionsgewichtung** (`ROLE_IMPORTANCE`, `STAR_ALPHA` in
+  `criteria.py`): die Achse (TW/IV/Sechser/Stürmer) und die stärksten Spieler
+  zählen etwas mehr – „wie es in echt ist". Senkt den Score-Log-Loss leicht und
+  konsistent (1.0433 → 1.0426) und ist jetzt Standard.
+- **Reiseweg + Ruhetage** (`src/context.py`, auto pro Spiel): interkontinental
+  weit gereiste Teams sind leicht im Nachteil, Gastgeber lokal im Vorteil;
+  Ruhetage aus dem Spielplan-Abstand. Greift „immer" in den WM-Vorhersagen
+  (Spalte `context_elo`). Aggregat-Effekt klein (Belastung ist meist
+  symmetrisch), aber football-korrekt für asymmetrische Fälle.
+- **Ensemble** (Spalten `ens_*` in `wm2026_predictions.csv`): Mittel aus
+  Score- und Hybrid-Vorhersage – die im Backtest beste Wahrscheinlichkeits-
+  Qualität.
+- **Coverage-Konfidenz** (optional, `--coverage`): bei dünn abgedeckten Kadern
+  (wenige Spieler im Datensatz) wird die Kaderstärke vorsichtiger eingekoppelt.
+  Ehrlich: senkt den Log-Loss auf aktuellen Daten *nicht* (es war eher besser,
+  dem Kader zu vertrauen) – daher standardmäßig aus, aber als robuste Option
+  vorhanden.
 
 **Echte Spielerdaten:** `src/rating/fifa_ingest.py` lädt einen offenen
 EA-SPORTS-FC-Spielerdatensatz (echte Attribute) und übersetzt ihn ins

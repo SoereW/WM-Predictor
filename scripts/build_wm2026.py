@@ -28,19 +28,29 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from sklearn.linear_model import LogisticRegression
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from src.context import rest_delta, travel_delta
 from src.database import connect, init_schema, load_fixtures, load_matches, read_table
 from src.ingest import fetch_international_results
 from src.model import WMPredictor
 from src.rating.fifa_ingest import fetch_fifa_players, load_fifa_as_squads
 from src.rating.player import rate_player
-from src.rating.squad_builder import build_squads
+from src.rating.squad_builder import build_squads, coverage_confidence, squad_counts
 from src.rating.team import rate_all_teams
 from src.simulation import simulate_group
-from src.wm2026 import GROUPS, GROUP_STAGE_START, all_teams, team_group, write_fixtures
+from src.wm2026 import (
+    GROUPS,
+    GROUP_STAGE_START,
+    TEAM_COORD,
+    all_teams,
+    team_group,
+    venue_coord,
+    write_fixtures,
+)
 
 DATA = ROOT / "data"
 DB_PATH = ROOT / "db" / "wm_predictor.sqlite"
@@ -131,13 +141,67 @@ def _rate_teams_table(team_scores: dict, squads: pd.DataFrame, tg: dict) -> pd.D
     return df
 
 
-def _predict_fixtures(predictor: WMPredictor, fixtures: pd.DataFrame, hist: pd.DataFrame, tg: dict) -> pd.DataFrame:
-    """Alle Gruppenspiele vorhersagen (1X2 + erwartete Tore)."""
+def _fixture_contexts(fixtures: pd.DataFrame) -> dict:
+    """Kontext-Elo je Spiel: Reiseweg (Heimat->Spielort) + Ruhetage.
+
+    Reiseweg wirkt immer (interkontinentale Teams reisen weiter, Gastgeber
+    sind lokal im Vorteil); Ruhetage ergeben sich aus dem Spielplan-Abstand
+    zum vorigen Spiel je Team (in der Gruppenphase meist symmetrisch ~0).
+    """
+    from datetime import datetime
+
+    last: dict = {}
+    ctx: dict = {}
+    for fx in fixtures.sort_values("date").itertuples(index=False):
+        home, away, group = fx.home_team, fx.away_team, fx.group_name
+        d = datetime.strptime(fx.date, "%Y-%m-%d")
+        hr = (d - last[home]).days if home in last else None
+        ar = (d - last[away]).days if away in last else None
+        ce = rest_delta(hr, ar)
+        ce += travel_delta(TEAM_COORD.get(home), TEAM_COORD.get(away), venue_coord(group))
+        ctx[int(fx.match_id)] = round(float(ce), 1)
+        last[home] = d
+        last[away] = d
+    return ctx
+
+
+def _fit_score_model(train: pd.DataFrame, overall: dict) -> LogisticRegression:
+    """Score-Differenz (+ Heimfeld) -> 1X2 (fuer das Ensemble), auf Historie."""
+    rows, ys = [], []
+    for r in train.itertuples(index=False):
+        oh, oa = overall.get(r.home_team), overall.get(r.away_team)
+        if oh is None or oa is None:
+            continue
+        hf = 0 if int(getattr(r, "neutral", 0) or 0) else 1
+        rows.append([oh - oa, hf])
+        ys.append(2 if r.home_score > r.away_score else (0 if r.away_score > r.home_score else 1))
+    clf = LogisticRegression(max_iter=2000).fit(np.asarray(rows, float), np.asarray(ys, int))
+    return clf
+
+
+def _score_probs(clf: LogisticRegression, score_diff: float, neutral: int):
+    """(p_home, p_draw, p_away) aus dem Score-Modell."""
+    proba = clf.predict_proba(np.array([[score_diff, 0 if neutral else 1]], float))[0]
+    out = {int(c): proba[i] for i, c in enumerate(clf.classes_)}
+    return out.get(2, 0.0), out.get(1, 0.0), out.get(0, 0.0)
+
+
+def _predict_fixtures(predictor, fixtures, hist, tg, contexts, score_clf, overall) -> pd.DataFrame:
+    """Alle Gruppenspiele vorhersagen: Hybrid (mit Kontext) + Ensemble.
+
+    - ``p_*``     : Hybrid (Elo + Kader + Tor-Modell + Logit) inkl. Reise/Ruhe.
+    - ``ens_*``   : Ensemble aus Hybrid und reinem Score-Modell (im Backtest
+                    bester Log-Loss/Brier - beste Wahrscheinlichkeits-Qualitaet).
+    """
     rows = []
     for _, fx in fixtures.iterrows():
-        pred = predictor.predict_fixture(fx.to_dict(), hist)
+        ce = contexts.get(int(fx["match_id"]), 0.0)
+        pred = predictor.predict_fixture(fx.to_dict(), hist, context_elo=ce)
+        sd = overall.get(fx["home_team"], 0.0) - overall.get(fx["away_team"], 0.0)
+        sh, sx, sa = _score_probs(score_clf, sd, int(fx["neutral"]))
+        eh, ex, ea = 0.5 * pred.home_win + 0.5 * sh, 0.5 * pred.draw + 0.5 * sx, 0.5 * pred.away_win + 0.5 * sa
         probs = {"1": pred.home_win, "X": pred.draw, "2": pred.away_win}
-        tip = max(probs, key=probs.get)
+        ens = {"1": eh, "X": ex, "2": ea}
         rows.append({
             "date": fx["date"],
             "group": fx["group_name"],
@@ -148,7 +212,12 @@ def _predict_fixtures(predictor: WMPredictor, fixtures: pd.DataFrame, hist: pd.D
             "p_away": round(pred.away_win, 3),
             "xg_home": round(pred.expected_home_goals, 2),
             "xg_away": round(pred.expected_away_goals, 2),
-            "tip": tip,
+            "tip": max(probs, key=probs.get),
+            "ens_home": round(eh, 3),
+            "ens_draw": round(ex, 3),
+            "ens_away": round(ea, 3),
+            "ens_tip": max(ens, key=ens.get),
+            "context_elo": ce,
             "neutral": int(fx["neutral"]),
         })
     return pd.DataFrame(rows)
@@ -169,6 +238,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="WM-2026-Pipeline mit echten Daten")
     parser.add_argument("--refresh", action="store_true", help="Quelldaten neu herunterladen")
     parser.add_argument("--sims", type=int, default=2000, help="Monte-Carlo-Durchlaeufe je Gruppe")
+    parser.add_argument("--coverage", action="store_true",
+                        help="Kader-Pull mit Datenabdeckung skalieren (duenne Kader vorsichtiger)")
     args = parser.parse_args()
 
     _ensure_sources(args.refresh)
@@ -192,6 +263,8 @@ def main() -> None:
     player_tbl.to_csv(PLAYERS_OUT, index=False)
 
     team_scores = rate_all_teams(squads)
+    overall = {t: s.overall for t, s in team_scores.items()}
+    coverage = coverage_confidence(squad_counts(squads))
     team_tbl = _rate_teams_table(team_scores, squads, tg)
     team_tbl.to_csv(TEAMS_OUT, index=False)
     print(f"[2] Spieler bewertet -> {PLAYERS_OUT.name}; Teams bewertet -> {TEAMS_OUT.name}")
@@ -201,11 +274,13 @@ def main() -> None:
     train = matches[matches["date"] < CUTOFF].reset_index(drop=True)
     print(f"[3] Training auf {len(train)} echten Spielen VOR {CUTOFF} (out-of-sample) ...")
     predictor = WMPredictor().fit(train)
-    predictor.attach_team_scores(team_scores)
+    predictor.attach_team_scores(team_scores, coverage=coverage if args.coverage else None)
     predictor.save(MODEL_PATH)
 
-    # --- Schritt 4: Vorhersagen + Gruppensimulation ------------------------
-    preds = _predict_fixtures(predictor, fixtures, train, tg)
+    # --- Schritt 4: Vorhersagen (+ Reise/Ruhe + Ensemble) + Simulation -----
+    contexts = _fixture_contexts(fixtures)
+    score_clf = _fit_score_model(train, overall)
+    preds = _predict_fixtures(predictor, fixtures, train, tg, contexts, score_clf, overall)
     preds.to_csv(PRED_OUT, index=False)
     sim = _simulate_groups(predictor, fixtures, train, args.sims)
     sim.to_csv(SIM_OUT, index=False)

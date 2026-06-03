@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -40,10 +41,11 @@ from sklearn.linear_model import LogisticRegression
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from src.context import rest_delta
 from src.database import connect, read_table
 from src.model import WMPredictor
 from src.rating.fifa_ingest import load_fifa_as_squads
-from src.rating.squad_builder import build_squads
+from src.rating.squad_builder import build_squads, coverage_confidence, squad_counts
 from src.rating.team import rate_all_teams
 from src.squad import calibrate_to_elo
 from src.wm2026 import GROUP_STAGE_START, all_teams, build_fixtures
@@ -58,6 +60,10 @@ _CLASSES = [0, 1, 2]
 
 def _outcome_code(hs: int, as_: int) -> int:
     return 2 if hs > as_ else (0 if as_ > hs else 1)
+
+
+def _days_between(d_old: str, d_new: str) -> float:
+    return (datetime.strptime(d_new, "%Y-%m-%d") - datetime.strptime(d_old, "%Y-%m-%d")).days
 
 
 def _metrics(y: np.ndarray, P: np.ndarray) -> dict:
@@ -76,7 +82,8 @@ def _metrics(y: np.ndarray, P: np.ndarray) -> dict:
 def _team_scores():
     players = load_fifa_as_squads(FC26_CSV, prefer_long_name=True)
     squads = build_squads(players, all_teams())
-    return rate_all_teams(squads)
+    coverage = coverage_confidence(squad_counts(squads))
+    return rate_all_teams(squads), coverage
 
 
 def _fit_score_model(train: pd.DataFrame, overall: dict) -> LogisticRegression:
@@ -116,7 +123,7 @@ def main() -> None:
     con.close()
     matches = matches.sort_values("date").reset_index(drop=True)
 
-    team_scores = _team_scores()
+    team_scores, coverage = _team_scores()
     overall = {t: s.overall for t, s in team_scores.items()}
 
     train = matches[matches["date"] < args.cutoff].reset_index(drop=True)
@@ -141,9 +148,17 @@ def main() -> None:
     base_vec = np.array([(base_counts == c).mean() for c in _CLASSES])
     base_vec = base_vec / base_vec.sum()
 
-    P_score, P_hist, P_hybrid, P_base, Y = [], [], [], [], []
+    P_score, P_hist, P_hybrid, P_hybcov, P_rest, P_base, Y = [], [], [], [], [], [], []
     agree = 0
     n_test = 0
+
+    # Letztes Spieldatum je Team (fuer Ruhetage); aus dem Training vorbelegt.
+    last_seen: dict = (
+        train.groupby("home_team")["date"].max().to_dict()
+    )
+    for t, d in train.groupby("away_team")["date"].max().to_dict().items():
+        if d > last_seen.get(t, ""):
+            last_seen[t] = d
 
     forward = matches[matches["date"] >= args.cutoff]
     for mrow in forward.itertuples(index=False):
@@ -169,10 +184,27 @@ def main() -> None:
             pc = base.predict_fixture(fx, hist_form)
             pc_vec = np.array([pc.away_win, pc.draw, pc.home_win])
 
+            # (D) Hybrid + Coverage-Konfidenz (duenne Kader schwaecher gekoppelt)
+            base.attach_team_scores(team_scores, coverage=coverage)
+            pcc = base.predict_fixture(fx, hist_form)
+            pcc_vec = np.array([pcc.away_win, pcc.draw, pcc.home_win])
+
+            # (E) Hybrid + Ruhetage (Regeneration seit letztem Spiel)
+            hr = _days_between(last_seen[home], d) if home in last_seen else None
+            ar = _days_between(last_seen[away], d) if away in last_seen else None
+            ctx = rest_delta(hr, ar)
+            base.attach_team_scores(team_scores)
+            pr = base.predict_fixture(fx, hist_form, context_elo=ctx)
+            pr_vec = np.array([pr.away_win, pr.draw, pr.home_win])
+
             P_score.append(ps); P_hist.append(ph_vec); P_hybrid.append(pc_vec)
+            P_hybcov.append(pcc_vec); P_rest.append(pr_vec)
             P_base.append(base_vec); Y.append(y)
             agree += int(np.argmax(ps) == np.argmax(ph_vec))
             n_test += 1
+
+        last_seen[home] = d
+        last_seen[away] = d
 
         elo_running.update({"home_team": home, "away_team": away,
                             "home_score": mrow.home_score, "away_score": mrow.away_score,
@@ -187,6 +219,8 @@ def main() -> None:
         "Score-System (Kader)":      _metrics(Y, A_score),
         "Historie-System (ML)":      _metrics(Y, A_hist),
         "Hybrid (Score->Elo->ML)":   _metrics(Y, np.asarray(P_hybrid)),
+        "Hybrid + Coverage-Konfidenz": _metrics(Y, np.asarray(P_hybcov)),
+        "Hybrid + Ruhetage":         _metrics(Y, np.asarray(P_rest)),
         "Ensemble O(Score,Historie)": _metrics(Y, ensemble),
     }
 

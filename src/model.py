@@ -134,6 +134,9 @@ class WMPredictor:
         # Optionale Kaderschicht (wird erst zum Vorhersagezeitpunkt genutzt).
         self.squad_overall: Dict[str, float] = {}
         self.squad_calib: Tuple[float, float] | None = None
+        # Vertrauen je Team in die Kaderstaerke (0..1, aus Datenabdeckung).
+        # Duenn abgedeckte Nationen ziehen den Score nur abgeschwaecht.
+        self.squad_confidence: Dict[str, float] = {}
         self.training_summary: Dict = {}
 
     # ----------------------------------------------------------------- fit
@@ -267,7 +270,7 @@ class WMPredictor:
         self.training_summary = summary
         return self
 
-    def attach_team_scores(self, team_scores: Dict) -> "WMPredictor":
+    def attach_team_scores(self, team_scores: Dict, coverage: Dict | None = None) -> "WMPredictor":
         """Bindet das volle Bewertungssystem (Spieler+Chemie+Trainer) an.
 
         Reichhaltigere Alternative zu ``attach_squads``: statt des reinen
@@ -278,16 +281,26 @@ class WMPredictor:
 
         ``team_scores`` ist ein Dict ``{team_name: objekt_mit_.overall}``
         (z. B. die Ausgabe von ``rate_all_teams``).
+
+        ``coverage`` ist optional ``{team_name: konfidenz 0..1}`` aus der
+        Datenabdeckung (z. B. Anzahl verfuegbarer Spieler / voller Kader).
+        Bei duenner Abdeckung (wenige Spieler im Datensatz) wird der
+        Kader-Score nur abgeschwaecht eingekoppelt - das Modell vertraut dann
+        staerker der historischen Elo. Ohne Angabe gilt volles Vertrauen (1.0).
         """
         from .squad import calibrate_to_elo
 
         if not team_scores:
             self.squad_overall = {}
             self.squad_calib = None
+            self.squad_confidence = {}
             return self
 
         self.squad_overall = {
             t: float(getattr(s, "overall", s)) for t, s in team_scores.items()
+        }
+        self.squad_confidence = {
+            t: float(np.clip(c, 0.0, 1.0)) for t, c in (coverage or {}).items()
         }
         self.squad_calib = calibrate_to_elo(self.squad_overall, self.elo.ratings)
         summary = dict(self.training_summary)
@@ -296,6 +309,7 @@ class WMPredictor:
             "n_teams_with_squad": int(len(self.squad_overall)),
             "calibrated": self.squad_calib is not None,
             "squad_pull": round(self.squad_pull, 2),
+            "coverage_confidence": bool(self.squad_confidence),
         }
         if self.squad_calib is not None:
             a, b = self.squad_calib
@@ -318,7 +332,11 @@ class WMPredictor:
         if ovr is None or ovr != ovr:  # fehlend oder NaN
             return elo_rating
         squad_elo = squad_to_elo(ovr, self.squad_calib)
-        return (1.0 - self.squad_pull) * elo_rating + self.squad_pull * squad_elo
+        # Pull je Team mit der Datenabdeckung skalieren: duenn abgedeckte
+        # Kader (wenige Spieler im Datensatz) ziehen die Elo nur abgeschwaecht.
+        conf = getattr(self, "squad_confidence", {}).get(team, 1.0)
+        pull = self.squad_pull * conf
+        return (1.0 - pull) * elo_rating + pull * squad_elo
 
     # ------------------------------------------------------------- predict
     def _core(self, home_elo, away_elo, hs, as_, neutral: int, adj_total: float = 0.0,

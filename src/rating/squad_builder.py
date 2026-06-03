@@ -25,6 +25,21 @@ from .criteria import normalize_position
 DEFAULT_QUOTA: Dict[str, int] = {"GK": 3, "DEF": 9, "MID": 8, "FWD": 6}
 DEFAULT_SIZE = 26
 
+# Ab so vielen verfuegbaren Spielern gilt ein Kader als "voll abgedeckt"
+# (Konfidenz 1.0). Darunter sinkt das Vertrauen linear - betroffen sind
+# Nationen mit vielen Heimliga-Spielern, die im Datensatz fehlen.
+COVERAGE_FULL = 18
+
+
+def coverage_confidence(counts: Dict[str, int], full: int = COVERAGE_FULL) -> Dict[str, float]:
+    """Datenabdeckung je Team -> Konfidenz 0..1 (linear, bei ``full`` = 1.0)."""
+    return {t: min(1.0, n / float(full)) for t, n in counts.items()}
+
+
+def squad_counts(squads) -> Dict[str, int]:
+    """Anzahl Spieler je Team in einem Kader-DataFrame."""
+    return {t: int(n) for t, n in squads.groupby("team").size().items()}
+
 
 def _rank_col(df: pd.DataFrame) -> pd.Series:
     """Bestimmt die Spalte, nach der die Staerke sortiert wird."""

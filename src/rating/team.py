@@ -21,7 +21,15 @@ import numpy as np
 import pandas as pd
 
 from .chemistry import ChemistryScore, compute_chemistry
-from .criteria import FORMATION, NEUTRAL_CHEMISTRY, ChemistryWeights, PlayerWeights, TeamWeights
+from .criteria import (
+    FORMATION,
+    NEUTRAL_CHEMISTRY,
+    ROLE_IMPORTANCE,
+    STAR_ALPHA,
+    ChemistryWeights,
+    PlayerWeights,
+    TeamWeights,
+)
 from .player import PlayerScore, rate_player
 
 
@@ -47,6 +55,26 @@ def _coach_score(coach: Dict | None) -> float:
     majors = float(coach.get("major_tournaments", 0) or 0)
     base = 62.0 + 18.0 * (1.0 - np.exp(-tenure / 3.0)) + min(majors * 2.5, 15.0)
     return float(np.clip(base, 0, 100))
+
+
+def best_xi_strength(best_xi: List[PlayerScore]) -> float:
+    """Staerke der besten Elf - positions- und spitzengewichtet.
+
+    Statt eines flachen Mittels werden (a) die Achsen-Positionen
+    (TW/IV/Sechser/Stuermer) ueber ``ROLE_IMPORTANCE`` etwas hoeher gewichtet
+    und (b) die staerksten Spieler ueber ``STAR_ALPHA`` zusaetzlich betont -
+    so wie reale Mannschaftsstaerke entsteht. Beides ist mild gehalten.
+    """
+    if not best_xi:
+        return 0.0
+    ov = np.array([p.overall for p in best_xi], dtype=float)
+    role_w = np.array([ROLE_IMPORTANCE.get(p.role, 1.0) for p in best_xi], dtype=float)
+    role_w = role_w / role_w.sum()
+    star_w = ov ** 2
+    star_w = star_w / star_w.sum() if star_w.sum() > 0 else role_w
+    w = (1.0 - STAR_ALPHA) * role_w + STAR_ALPHA * star_w
+    w = w / w.sum()
+    return float((ov * w).sum())
 
 
 def build_best_xi(scored: List[PlayerScore], formation: Dict[str, int] | None = None) -> List[PlayerScore]:
@@ -93,7 +121,7 @@ def rate_team(
     scored.sort(key=lambda p: p.overall, reverse=True)
 
     best_xi = build_best_xi(scored)
-    best_xi_score = float(np.mean([p.overall for p in best_xi])) if best_xi else 0.0
+    best_xi_score = best_xi_strength(best_xi)
 
     depth = scored[:depth_n]
     depth_score = float(np.mean([p.overall for p in depth])) if depth else best_xi_score
