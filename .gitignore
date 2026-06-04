@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Generierte Artefakte (werden lokal erzeugt, gehoeren nicht ins Repo).
+# Beispieldaten entstehen deterministisch aus src/sample_data.py (von
+# init_db.py / app.py automatisch); echte Historie via --fetch.
+db/
+models/
+data/*.csv
+
+# Grosse echte Roh-Quelldaten bleiben draussen (online ladbar via
+# scripts/build_wm2026.py): EA-FC-26-Spieler + martj42-Historie.
+/data/fc26_players.csv
+/data/international_results.csv
+/data/fifa_players.csv
+
+# ...aber die WM-2026-ERGEBNIS-Tabellen werden eingecheckt (das Deliverable:
+# alle Spieler + Ratings, Team-Ratings, Spielplan, Vorhersagen, Simulation).
+!data/wm2026_squads.csv
+!data/wm2026_player_ratings.csv
+!data/wm2026_team_ratings.csv
+!data/wm2026_fixtures.csv
+!data/wm2026_predictions.csv
+!data/wm2026_group_sim.csv
+
+# Logs/Tooling
+*.log
+pip-debug.log
+.streamlit/secrets.toml
+
+# OS/IDE
+.DS_Store
+.idea/
+.vscode/
