@@ -13,20 +13,23 @@ db/
 models/
 data/*.csv
 
-# Grosse echte Roh-Quelldaten bleiben draussen (online ladbar via
-# scripts/build_wm2026.py): EA-FC-26-Spieler + martj42-Historie.
+# Grosse Roh-Spielerdaten bleiben draussen (11 MB; online ladbar via
+# scripts/build_wm2026.py --refresh). Die fertig bewerteten Kader inkl. aller
+# Attribute liegen ohnehin in data/wm2026_squads.csv vor.
 /data/fc26_players.csv
-/data/international_results.csv
 /data/fifa_players.csv
 
-# ...aber die WM-2026-ERGEBNIS-Tabellen werden eingecheckt (das Deliverable:
-# alle Spieler + Ratings, Team-Ratings, Spielplan, Vorhersagen, Simulation).
+# ...aber die WM-2026-ERGEBNIS-Tabellen UND die echte Historie werden
+# eingecheckt, damit alles ohne Download laeuft ("alle Daten vorhanden"):
+!data/international_results.csv
 !data/wm2026_squads.csv
 !data/wm2026_player_ratings.csv
 !data/wm2026_team_ratings.csv
 !data/wm2026_fixtures.csv
 !data/wm2026_predictions.csv
 !data/wm2026_group_sim.csv
+!data/wm2026_knockout_probs.csv
+!data/wm2026_bracket.csv
 
 # Logs/Tooling
 *.log

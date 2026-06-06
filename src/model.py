@@ -482,6 +482,56 @@ class WMPredictor:
         m = np.clip(m, 0.0, None)
         return m / m.sum()
 
+    # ------------------------------------------------- schnelle Turniersicht
+    def prepare_states(self, matches: pd.DataFrame, teams: List[str]) -> Dict[str, "object"]:
+        """Berechnet je Team einmalig den Zustand (Elo + Form).
+
+        Fuer die Turnier-Simulation, in der sehr viele Paarungen ausgewertet
+        werden, ist es entscheidend, ``team_state`` (scannt die Historie) nur
+        **einmal pro Team** aufzurufen statt pro Spiel. Rueckgabe: ``{team:
+        TeamState}`` in kanonischer Schreibweise.
+        """
+        from .teams import normalize_team
+
+        out: Dict[str, object] = {}
+        for t in teams:
+            ct = normalize_team(t)
+            if ct not in out:
+                out[ct] = team_state(matches, self.elo, ct)
+        return out
+
+    def matchup_from_states(self, home: str, away: str, neutral: int, states: Dict,
+                            extra_elo: float = 0.0):
+        """Schnelle 1X2 + xG-Vorhersage aus vorberechneten Team-Zustaenden.
+
+        Identische Rechnung wie ``predict_fixture`` (inkl. Kaderstaerke ueber
+        ``effective_elo``), aber ohne erneuten Historien-Scan - die Zustaende
+        kommen aus ``prepare_states``. Gibt ``(p_home, p_draw, p_away, lh, la)``
+        zurueck.
+        """
+        from .teams import normalize_team
+
+        home = normalize_team(home)
+        away = normalize_team(away)
+        hs = states[home]
+        as_ = states[away]
+        home_elo = self.effective_elo(home, hs.elo)
+        away_elo = self.effective_elo(away, as_.elo)
+        probs, lh, la, _ = self._core(home_elo, away_elo, hs, as_, int(neutral), 0.0, extra_elo)
+        return float(probs[2]), float(probs[1]), float(probs[0]), float(lh), float(la)
+
+    def score_grid_from_lams(self, lh: float, la: float) -> np.ndarray:
+        """Korrektergebnis-Gitter aus erwarteten Toren (Dixon-Coles)."""
+        pmf_h = _poisson_pmf([lh], self.max_goals)[0]
+        pmf_a = _poisson_pmf([la], self.max_goals)[0]
+        m = np.outer(pmf_h, pmf_a)
+        m[0, 0] *= 1.0 - lh * la * self.rho
+        m[0, 1] *= 1.0 + lh * self.rho
+        m[1, 0] *= 1.0 + la * self.rho
+        m[1, 1] *= 1.0 - self.rho
+        m = np.clip(m, 0.0, None)
+        return m / m.sum()
+
     # ---------------------------------------------------------------- io
     def save(self, path) -> None:
         path = Path(path)

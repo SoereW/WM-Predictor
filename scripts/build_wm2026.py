@@ -65,6 +65,14 @@ TEAMS_OUT = DATA / "wm2026_team_ratings.csv"
 FIXTURES_OUT = DATA / "wm2026_fixtures.csv"
 PRED_OUT = DATA / "wm2026_predictions.csv"
 SIM_OUT = DATA / "wm2026_group_sim.csv"
+KO_PROBS_OUT = DATA / "wm2026_knockout_probs.csv"
+BRACKET_OUT = DATA / "wm2026_bracket.csv"
+
+# Kaderstaerke-Gewicht: wie stark der AKTUELLE Kader das historische Elo
+# korrigiert. Bewusst hoeher als die backtest-validierten 0.35 - alte
+# Laenderspielergebnisse spiegeln die Spieler von damals; fuer die Prognose
+# eines Turniers mit den heutigen Kadern zaehlt der aktuelle Kader staerker.
+SQUAD_PULL_DEFAULT = 0.50
 
 # Trainingsschnitt: nur Spiele VOR dem WM-Eroeffnungsspiel fliessen ins
 # Training und in die Form ein - so bleibt jede Prognose echt out-of-sample.
@@ -238,8 +246,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="WM-2026-Pipeline mit echten Daten")
     parser.add_argument("--refresh", action="store_true", help="Quelldaten neu herunterladen")
     parser.add_argument("--sims", type=int, default=2000, help="Monte-Carlo-Durchlaeufe je Gruppe")
-    parser.add_argument("--coverage", action="store_true",
-                        help="Kader-Pull mit Datenabdeckung skalieren (duenne Kader vorsichtiger)")
+    parser.add_argument("--squad-pull", type=float, default=SQUAD_PULL_DEFAULT,
+                        help="Gewicht des aktuellen Kaders auf das effektive Elo (0..1)")
+    parser.add_argument("--no-coverage", action="store_true",
+                        help="Kader-Pull NICHT mit Datenabdeckung skalieren (sonst Standard: an)")
     args = parser.parse_args()
 
     _ensure_sources(args.refresh)
@@ -273,9 +283,11 @@ def main() -> None:
     matches = _build_database(fixtures)
     train = matches[matches["date"] < CUTOFF].reset_index(drop=True)
     print(f"[3] Training auf {len(train)} echten Spielen VOR {CUTOFF} (out-of-sample) ...")
-    predictor = WMPredictor().fit(train)
-    predictor.attach_team_scores(team_scores, coverage=coverage if args.coverage else None)
+    predictor = WMPredictor(squad_pull=args.squad_pull).fit(train)
+    predictor.attach_team_scores(team_scores, coverage=None if args.no_coverage else coverage)
     predictor.save(MODEL_PATH)
+    print(f"    Kaderstaerke-Gewicht (squad_pull) = {args.squad_pull:.0%}"
+          f"{' ohne' if args.no_coverage else ' mit'} Abdeckungs-Skalierung")
 
     # --- Schritt 4: Vorhersagen (+ Reise/Ruhe + Ensemble) + Simulation -----
     contexts = _fixture_contexts(fixtures)
@@ -287,12 +299,37 @@ def main() -> None:
     print(f"[4] {len(preds)} Gruppenspiele vorhergesagt -> {PRED_OUT.name}; "
           f"Gruppensimulation ({args.sims}x) -> {SIM_OUT.name}")
 
-    _print_summary(player_tbl, team_tbl, preds, sim)
+    # --- Schritt 5: komplettes Turnier (K.-o.-Baum + Titelchancen) ----------
+    from src import knockout as ko
+
+    prepared = ko.prepare_tournament(predictor, train, GROUPS)
+    ko_sims = max(args.sims, 4000)
+    tour = ko.simulate_tournament(predictor, train, GROUPS, fixtures=fixtures,
+                                  n=ko_sims, prepared=prepared)
+    tour.probs.to_csv(KO_PROBS_OUT, index=False)
+    bracket, _ = ko.most_likely_bracket(predictor, train, GROUPS, fixtures=fixtures, prepared=prepared)
+    ko.bracket_to_frame(bracket).to_csv(BRACKET_OUT, index=False)
+    final = next(b for b in bracket if b.match_id == 104)
+    print(f"[5] Turnier simuliert ({ko_sims}x) -> {KO_PROBS_OUT.name}; "
+          f"wahrscheinlichster Baum -> {BRACKET_OUT.name}")
+    print(f"    Prognostizierter Weltmeister (bester Baum): {final.winner}")
+
+    _print_summary(player_tbl, team_tbl, preds, sim, tour)
 
 
-def _print_summary(players: pd.DataFrame, teams: pd.DataFrame, preds: pd.DataFrame, sim: pd.DataFrame) -> None:
+def _print_summary(players: pd.DataFrame, teams: pd.DataFrame, preds: pd.DataFrame,
+                   sim: pd.DataFrame, tour=None) -> None:
     """Kompakte, lesbare Zusammenfassung in die Konsole."""
     pd.set_option("display.width", 120)
+
+    if tour is not None:
+        print("\n" + "=" * 78)
+        print("TITELCHANCEN (Monte Carlo, komplettes Turnier)")
+        print("=" * 78)
+        for _, r in tour.probs.head(12).iterrows():
+            print(f"  {r['rank']:2d}. [{r['group']}] {r['team']:<16} "
+                  f"Titel {r['P(Titel)']*100:4.1f}%  | Finale {r['P(Finale)']*100:4.1f}%  "
+                  f"| Halbf. {r['P(SF)']*100:4.1f}%  | Viertelf. {r['P(QF)']*100:4.1f}%")
 
     print("\n" + "=" * 78)
     print("TOP-15 SPIELER (Gesamtrating)")

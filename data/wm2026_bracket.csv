@@ -1,0 +1,32 @@
+match_id,round,round_label,date,home,away,p_home_advance,winner
+73,R32,Sechzehntelfinale,2026-06-28,Czech Republic,Canada,0.468,Canada
+74,R32,Sechzehntelfinale,2026-06-29,Germany,Paraguay,0.765,Germany
+75,R32,Sechzehntelfinale,2026-06-29,Netherlands,Morocco,0.565,Netherlands
+76,R32,Sechzehntelfinale,2026-06-29,Brazil,Japan,0.741,Brazil
+77,R32,Sechzehntelfinale,2026-06-30,France,Scotland,0.847,France
+78,R32,Sechzehntelfinale,2026-06-30,Ecuador,Norway,0.446,Norway
+79,R32,Sechzehntelfinale,2026-06-30,Mexico,Ivory Coast,0.683,Mexico
+80,R32,Sechzehntelfinale,2026-07-01,England,Senegal,0.792,England
+81,R32,Sechzehntelfinale,2026-07-01,Turkey,Bosnia-Herzegovina,0.809,Turkey
+82,R32,Sechzehntelfinale,2026-07-01,Belgium,South Korea,0.747,Belgium
+83,R32,Sechzehntelfinale,2026-07-02,Colombia,Croatia,0.621,Colombia
+84,R32,Sechzehntelfinale,2026-07-02,Spain,Austria,0.885,Spain
+85,R32,Sechzehntelfinale,2026-07-02,Switzerland,Egypt,0.81,Switzerland
+86,R32,Sechzehntelfinale,2026-07-03,Argentina,Uruguay,0.802,Argentina
+87,R32,Sechzehntelfinale,2026-07-03,Portugal,Algeria,0.751,Portugal
+88,R32,Sechzehntelfinale,2026-07-03,United States,Iran,0.441,Iran
+89,R16,Achtelfinale,2026-07-04,Germany,France,0.39,France
+90,R16,Achtelfinale,2026-07-04,Canada,Netherlands,0.246,Netherlands
+91,R16,Achtelfinale,2026-07-05,Brazil,Norway,0.667,Brazil
+92,R16,Achtelfinale,2026-07-05,Mexico,England,0.267,England
+93,R16,Achtelfinale,2026-07-06,Colombia,Spain,0.196,Spain
+94,R16,Achtelfinale,2026-07-06,Turkey,Belgium,0.408,Belgium
+95,R16,Achtelfinale,2026-07-07,Argentina,Iran,0.857,Argentina
+96,R16,Achtelfinale,2026-07-07,Switzerland,Portugal,0.381,Portugal
+97,QF,Viertelfinale,2026-07-09,France,Netherlands,0.586,France
+98,QF,Viertelfinale,2026-07-10,Spain,Belgium,0.789,Spain
+99,QF,Viertelfinale,2026-07-11,Brazil,England,0.494,England
+100,QF,Viertelfinale,2026-07-11,Argentina,Portugal,0.688,Argentina
+101,SF,Halbfinale,2026-07-14,France,Spain,0.329,Spain
+102,SF,Halbfinale,2026-07-15,England,Argentina,0.371,Argentina
+104,Final,Finale,2026-07-19,Spain,Argentina,0.599,Spain
