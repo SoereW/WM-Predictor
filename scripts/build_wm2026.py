@@ -69,7 +69,7 @@ KNOCKOUT_OUT = DATA / "wm2026_knockout_probs.csv"
 BRACKET_OUT = DATA / "wm2026_bracket.csv"
 
 # Standardgewicht der Kaderstaerke (deckungsgleich mit dem Dashboard-Default).
-DEFAULT_SQUAD_PULL = 0.5
+DEFAULT_SQUAD_PULL = 0.7
 
 # Trainingsschnitt: nur Spiele VOR dem WM-Eroeffnungsspiel fliessen ins
 # Training und in die Form ein - so bleibt jede Prognose echt out-of-sample.

@@ -43,9 +43,10 @@ BRACKET_CSV = DATA / "wm2026_bracket.csv"
 
 # Leak-frei: nur Spiele VOR dem WM-Eroeffnungsspiel fliessen ins Training.
 CUTOFF = GROUP_STAGE_START.strftime("%Y-%m-%d")
-# Standardgewicht der aktuellen Kaderstaerke (50 %: der aktuelle Kader zaehlt
-# bewusst stark gegenueber alten Laenderspielergebnissen).
-DEFAULT_SQUAD_PULL = 0.5
+# Standardgewicht der aktuellen Kaderstaerke. Bewusst hoch (70 %): der aktuelle
+# Kader inkl. Chemie/Tiefe/Trainer dominiert die Prognose, die Historie/Elo
+# korrigiert nur noch. Im Dashboard bis 0.9 regelbar.
+DEFAULT_SQUAD_PULL = 0.7
 # Monte-Carlo-Durchlaeufe fuer die vorgerechneten Standard-Artefakte.
 DEFAULT_SIMS = 4000
 
@@ -170,16 +171,20 @@ def _predict_group_games(predictor, fixtures, prepared, contexts) -> pd.DataFram
     """Alle Gruppenspiele aus den vorbereiteten Zustaenden vorhersagen."""
     from src.teams import normalize_team
 
+    from src import knockout as ko
+
     rows = []
     for _, fx in fixtures.iterrows():
         home, away = normalize_team(fx["home_team"]), normalize_team(fx["away_team"])
         ce = contexts.get(int(fx["match_id"]), 0.0)
         ph, pdr, pa, lh, la = predictor.matchup_from_states(home, away, int(fx["neutral"]), prepared.states, extra_elo=ce)
         probs = {"1": ph, "X": pdr, "2": pa}
+        sh, sa = ko.argmax_scoreline(predictor._score_grid(lh, la))
         rows.append({
             "date": fx["date"], "group": fx["group_name"], "home_team": home, "away_team": away,
             "p_home": round(ph, 3), "p_draw": round(pdr, 3), "p_away": round(pa, 3),
             "xg_home": round(lh, 2), "xg_away": round(la, 2),
+            "score_home": sh, "score_away": sa,
             "tip": max(probs, key=probs.get), "context_elo": ce, "neutral": int(fx["neutral"]),
         })
     return pd.DataFrame(rows)

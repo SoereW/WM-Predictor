@@ -1,32 +1,32 @@
-match_id,round,round_label,date,home,away,p_home_advance,winner
-73,R32,Sechzehntelfinale,2026-06-28,Mexico,Ivory Coast,0.683,Mexico
-74,R32,Sechzehntelfinale,2026-06-28,Switzerland,Morocco,0.477,Morocco
-75,R32,Sechzehntelfinale,2026-06-28,Turkey,South Korea,0.7,Turkey
-76,R32,Sechzehntelfinale,2026-06-29,Germany,Japan,0.693,Germany
-77,R32,Sechzehntelfinale,2026-06-29,Belgium,Algeria,0.75,Belgium
-78,R32,Sechzehntelfinale,2026-06-29,Uruguay,Norway,0.419,Norway
-79,R32,Sechzehntelfinale,2026-06-30,Argentina,Paraguay,0.909,Argentina
-80,R32,Sechzehntelfinale,2026-06-30,Portugal,Croatia,0.716,Portugal
-81,R32,Sechzehntelfinale,2026-06-30,Canada,Senegal,0.512,Canada
-82,R32,Sechzehntelfinale,2026-06-31,Brazil,Czech Republic,0.862,Brazil
-83,R32,Sechzehntelfinale,2026-06-31,Netherlands,Scotland,0.78,Netherlands
-84,R32,Sechzehntelfinale,2026-06-31,United States,Ecuador,0.322,Ecuador
-85,R32,Sechzehntelfinale,2026-06-32,Spain,Egypt,0.957,Spain
-86,R32,Sechzehntelfinale,2026-06-32,France,Iran,0.879,France
-87,R32,Sechzehntelfinale,2026-06-32,England,Bosnia-Herzegovina,0.936,England
-88,R32,Sechzehntelfinale,2026-06-33,Austria,Colombia,0.355,Colombia
-89,R16,Achtelfinale,2026-07-04,Mexico,Morocco,0.424,Morocco
-90,R16,Achtelfinale,2026-07-04,Turkey,Germany,0.343,Germany
-91,R16,Achtelfinale,2026-07-05,Belgium,Norway,0.571,Belgium
-92,R16,Achtelfinale,2026-07-05,Argentina,Portugal,0.697,Argentina
-93,R16,Achtelfinale,2026-07-06,Canada,Brazil,0.199,Brazil
-94,R16,Achtelfinale,2026-07-06,Netherlands,Ecuador,0.659,Netherlands
-95,R16,Achtelfinale,2026-07-07,Spain,France,0.68,Spain
-96,R16,Achtelfinale,2026-07-07,England,Colombia,0.665,England
-97,QF,Viertelfinale,2026-07-09,Morocco,Germany,0.442,Germany
-98,QF,Viertelfinale,2026-07-09,Belgium,Argentina,0.293,Argentina
-99,QF,Viertelfinale,2026-07-10,Brazil,Netherlands,0.622,Brazil
-100,QF,Viertelfinale,2026-07-10,Spain,England,0.701,Spain
-101,SF,Halbfinale,2026-07-14,Germany,Argentina,0.323,Argentina
-102,SF,Halbfinale,2026-07-15,Brazil,Spain,0.319,Spain
-104,Final,Finale,2026-07-19,Argentina,Spain,0.458,Spain
+match_id,round,round_label,date,home,away,p_home_advance,winner,score_home,score_away
+73,R32,Sechzehntelfinale,2026-06-28,Mexico,Ivory Coast,0.627,Mexico,1,0
+74,R32,Sechzehntelfinale,2026-06-28,Canada,Morocco,0.316,Morocco,0,1
+75,R32,Sechzehntelfinale,2026-06-28,Turkey,South Korea,0.699,Turkey,1,0
+76,R32,Sechzehntelfinale,2026-06-29,Germany,Japan,0.736,Germany,1,0
+77,R32,Sechzehntelfinale,2026-06-29,Belgium,Algeria,0.756,Belgium,1,0
+78,R32,Sechzehntelfinale,2026-06-29,Uruguay,Norway,0.439,Norway,0,1
+79,R32,Sechzehntelfinale,2026-06-30,Argentina,Senegal,0.876,Argentina,1,0
+80,R32,Sechzehntelfinale,2026-06-30,Portugal,Croatia,0.72,Portugal,1,0
+81,R32,Sechzehntelfinale,2026-06-30,Switzerland,Paraguay,0.74,Switzerland,1,0
+82,R32,Sechzehntelfinale,2026-06-31,Brazil,Czech Republic,0.86,Brazil,1,0
+83,R32,Sechzehntelfinale,2026-06-31,Netherlands,Scotland,0.78,Netherlands,1,0
+84,R32,Sechzehntelfinale,2026-06-31,United States,Ecuador,0.369,Ecuador,0,1
+85,R32,Sechzehntelfinale,2026-06-32,Spain,Egypt,0.952,Spain,2,0
+86,R32,Sechzehntelfinale,2026-06-32,France,Iran,0.891,France,1,0
+87,R32,Sechzehntelfinale,2026-06-32,England,Bosnia-Herzegovina,0.923,England,1,0
+88,R32,Sechzehntelfinale,2026-06-33,Austria,Colombia,0.386,Colombia,0,1
+89,R16,Achtelfinale,2026-07-04,Mexico,Morocco,0.401,Morocco,0,1
+90,R16,Achtelfinale,2026-07-04,Turkey,Germany,0.319,Germany,0,1
+91,R16,Achtelfinale,2026-07-05,Belgium,Norway,0.607,Belgium,1,0
+92,R16,Achtelfinale,2026-07-05,Argentina,Portugal,0.669,Argentina,1,0
+93,R16,Achtelfinale,2026-07-06,Switzerland,Brazil,0.317,Brazil,0,1
+94,R16,Achtelfinale,2026-07-06,Netherlands,Ecuador,0.7,Netherlands,1,0
+95,R16,Achtelfinale,2026-07-07,Spain,France,0.653,Spain,1,0
+96,R16,Achtelfinale,2026-07-07,England,Colombia,0.689,England,1,0
+97,QF,Viertelfinale,2026-07-09,Morocco,Germany,0.413,Germany,0,1
+98,QF,Viertelfinale,2026-07-09,Belgium,Argentina,0.336,Argentina,0,1
+99,QF,Viertelfinale,2026-07-10,Brazil,Netherlands,0.626,Brazil,1,0
+100,QF,Viertelfinale,2026-07-10,Spain,England,0.671,Spain,1,0
+101,SF,Halbfinale,2026-07-14,Germany,Argentina,0.37,Argentina,0,1
+102,SF,Halbfinale,2026-07-15,Brazil,Spain,0.363,Spain,0,1
+104,Final,Finale,2026-07-19,Argentina,Spain,0.463,Spain,0,1

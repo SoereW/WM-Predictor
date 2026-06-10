@@ -50,6 +50,14 @@ ersten Start automatisch (offline-Fallback: deterministische Beispieldaten).
   (Sechzehntelfinale → Finale). **Auf ein Spiel zeigen** zeigt die Kurzinfo,
   **klicken** (oder im Spiel-Center auswählen) öffnet die Detail-Prognose
   (1X2, xG, wahrscheinlichste Ergebnisse, Weiterkommens-Chance, Modell-Faktoren).
+- **Prognostizierter Endstand je Spiel:** Jedes Spiel – Gruppe **und** K.-o. –
+  zeigt das wahrscheinlichste Ergebnis (z. B. `2:1`): im Turnierbaum, in den
+  Tabellen „Alle Spiele" und in der Detail-Prognose. Bei K.-o.-Spielen wird ein
+  **entschiedener** Endstand passend zum weiterkommenden Team gezeigt.
+- **Kaderstärke & Chemie zählen stark:** Standardgewicht jetzt **70 %**
+  (Regler bis 90 %). Der Team-Score (beste Elf + Tiefe + **Chemie** + Trainer)
+  dominiert die Prognose; je Spiel ist der direkte Kader-/Chemie-Vergleich beider
+  Teams sichtbar.
 - **Schlicht, modern, clean:** helles Theme, ruhige Typografie, ein klar
   lesbarer Turnierbaum als Mittelpunkt.
 

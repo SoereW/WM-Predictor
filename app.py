@@ -266,10 +266,12 @@ def _predict_group_games(pred, fixtures, prepared, contexts) -> pd.DataFrame:
         ce = contexts.get(int(fx["match_id"]), 0.0)
         ph, pdr, pa, lh, la = pred.matchup_from_states(home, away, int(fx["neutral"]), prepared.states, extra_elo=ce)
         probs = {"1": ph, "X": pdr, "2": pa}
+        sh, sa = ko.argmax_scoreline(pred._score_grid(lh, la))
         rows.append({
             "date": fx["date"], "group": fx["group_name"], "home_team": home, "away_team": away,
             "p_home": round(ph, 3), "p_draw": round(pdr, 3), "p_away": round(pa, 3),
             "xg_home": round(lh, 2), "xg_away": round(la, 2),
+            "score_home": sh, "score_away": sa,
             "tip": max(probs, key=probs.get), "context_elo": ce, "neutral": int(fx["neutral"]),
         })
     return pd.DataFrame(rows)
@@ -330,7 +332,8 @@ def bracket_figure(bracket_df: pd.DataFrame) -> go.Figure:
     for mid, r in by_id.items():
         home, away, winner = r["home"], r["away"], r["winner"]
         p = float(r["p_home_advance"])
-        ph, pa = f"{p*100:.0f}%", f"{(1-p)*100:.0f}%"
+        sh = int(r["score_home"]) if pd.notna(r.get("score_home")) else ""
+        sa = int(r["score_away"]) if pd.notna(r.get("score_away")) else ""
         x0, x1 = x[mid] + 0.02, x[mid] + cw
         y0, y1 = -y[mid] - ch, -y[mid] + ch
         is_final = mid == ko.FINAL
@@ -338,13 +341,13 @@ def bracket_figure(bracket_df: pd.DataFrame) -> go.Figure:
         fig.add_shape(type="rect", x0=x0, y0=y0, x1=x1, y1=y1,
                       line=dict(color=GOLD if is_final else LINE, width=1.6 if is_final else 1),
                       fillcolor="#fffdf5" if is_final else CARD, layer="below")
-        # Sieger oben hervorgehoben, Verlierer gedaempft.
+        # Sieger oben hervorgehoben, Verlierer gedaempft. Endstand rechts.
         h_color, h_w = (WIN, "bold") if winner == home else (NEUTRAL, "normal")
         a_color, a_w = (WIN, "bold") if winner == away else (NEUTRAL, "normal")
         txt = (f"<span style='color:{h_color};font-weight:{h_w}'>{home}</span>"
-               f"<span style='color:#9ca3af'> {ph}</span><br>"
+               f"<span style='color:#111827;font-weight:bold'>  {sh}</span><br>"
                f"<span style='color:{a_color};font-weight:{a_w}'>{away}</span>"
-               f"<span style='color:#9ca3af'> {pa}</span>")
+               f"<span style='color:#111827;font-weight:bold'>  {sa}</span>")
         fig.add_annotation(x=x0 + 0.03, y=-y[mid], text=txt, showarrow=False,
                            xanchor="left", align="left", font=dict(size=11, color=INK),
                            captureevents=False)
@@ -352,8 +355,8 @@ def bracket_figure(bracket_df: pd.DataFrame) -> go.Figure:
         node_x.append((x0 + x1) / 2.0)
         node_y.append(-y[mid])
         node_cd.append([mid])
-        node_hover.append(f"{ko.ROUND_LABEL[r['round']]}<br><b>{home}</b> {ph}  ·  <b>{away}</b> {pa}"
-                          f"<br>→ weiter: <b>{winner}</b>")
+        node_hover.append(f"{ko.ROUND_LABEL[r['round']]}<br>Endstand <b>{home} {sh}:{sa} {away}</b>"
+                          f"<br>→ weiter: <b>{winner}</b> ({p*100:.0f}%)")
 
     fig.add_trace(go.Scatter(
         x=node_x, y=node_y, mode="markers", marker=dict(size=30, symbol="square", color="rgba(0,0,0,0)"),
@@ -398,16 +401,30 @@ def render_match_detail(pred, history, home, away, neutral, *, is_ko=False,
     fixture = {"home_team": home, "away_team": away, "neutral": int(neutral)}
     adjustments = adjustments or {}
     p = pred.predict_fixture(fixture, history, adjustments=adjustments, context_elo=context_elo)
+    grid = pred.score_matrix(fixture, history, adjustments=adjustments)
 
     if header:
         st.markdown(f"#### {header}")
-    st.markdown(f"### {home} &nbsp;–&nbsp; {away}")
 
+    # Prognostizierter Endstand (bei K.-o. entschieden in Richtung des Siegers).
     if is_ko:
         adv = ko._advance_prob(p.home_win, p.draw, p.away_win)
-        c1, c2 = st.columns(2)
-        c1.metric(f"➡️ {home} kommt weiter", pct(adv))
-        c2.metric(f"➡️ {away} kommt weiter", pct(1 - adv))
+        sh, sa = ko.decisive_scoreline(grid, adv >= 0.5)
+    else:
+        sh, sa = ko.argmax_scoreline(grid)
+    st.markdown(
+        f"<div style='text-align:center;padding:6px 0 2px'>"
+        f"<span style='font-size:1.05rem;color:#6b7280'>Prognostizierter Endstand</span><br>"
+        f"<span style='font-size:2.2rem;font-weight:800;color:{INK}'>"
+        f"{home} &nbsp;{sh}<span style='color:#9ca3af'> : </span>{sa}&nbsp; {away}</span></div>",
+        unsafe_allow_html=True,
+    )
+
+    if is_ko:
+        winner = home if adv >= 0.5 else away
+        st.markdown(f"<div style='text-align:center;color:{WIN};font-weight:600'>"
+                    f"➡️ {winner} kommt weiter ({pct(adv if winner == home else 1 - adv)})</div>",
+                    unsafe_allow_html=True)
 
     m1, m2, m3 = st.columns(3)
     m1.metric(f"Sieg {home}", pct(p.home_win))
@@ -429,11 +446,29 @@ def render_match_detail(pred, history, home, away, neutral, *, is_ko=False,
         st.metric(f"Erwartete Tore {home}", f"{p.expected_home_goals:.2f}")
         st.metric(f"Erwartete Tore {away}", f"{p.expected_away_goals:.2f}")
     with g2:
-        grid = pred.score_matrix(fixture, history, adjustments=adjustments)
         st.caption("**Wahrscheinlichste Ergebnisse**")
         lines = [f"<span class='pill'>{h}:{a}</span> &nbsp;{pr*100:.1f}%"
                  for (h, a), pr in _top_scorelines(grid, 4)]
         st.markdown("<br>".join(lines), unsafe_allow_html=True)
+
+    # Kaderstaerke & Chemie der beiden Teams (so fliesst die Kaderwertung ein).
+    tr = load_csv("wm2026_team_ratings.csv")
+    if not tr.empty and "team" in tr.columns:
+        rh = tr[tr["team"] == home]
+        ra = tr[tr["team"] == away]
+        if len(rh) and len(ra):
+            rh, ra = rh.iloc[0], ra.iloc[0]
+            st.caption(f"**Kaderstärke & Chemie** (EA-FC-26, fließt mit {pred.squad_pull:.0%} ins Rating ein)")
+            comp = pd.DataFrame({
+                "Kriterium": ["Gesamt", "Beste XI", "Kadertiefe", "Chemie", "Trainer"],
+                home: [rh.get("overall"), rh.get("best_xi"), rh.get("depth"), rh.get("chemistry"), rh.get("coach")],
+                away: [ra.get("overall"), ra.get("best_xi"), ra.get("depth"), ra.get("chemistry"), ra.get("coach")],
+            })
+            st.dataframe(
+                comp, hide_index=True, width="stretch",
+                column_config={home: st.column_config.ProgressColumn(home, min_value=40.0, max_value=90.0, format="%.1f"),
+                               away: st.column_config.ProgressColumn(away, min_value=40.0, max_value=90.0, format="%.1f")},
+            )
 
     with st.expander("Modell-Faktoren"):
         ff = pd.DataFrame(p.top_factors, columns=["Faktor", "Wert"])
@@ -461,9 +496,9 @@ st.caption(
 # ---- Sidebar: Szenario --------------------------------------------------
 with st.sidebar:
     st.header("⚙️ Szenario")
-    st.caption("Wie stark zählt der **aktuelle Kader**? Höher = aktuelle "
-               "Spielerstärke dominiert, niedriger = mehr Historie/Elo.")
-    squad_pull = st.slider("Kaderstärke-Gewicht", 0.0, 0.8, DEFAULT_SQUAD_PULL, 0.05)
+    st.caption("Wie stark zählt der **aktuelle Kader** (inkl. Chemie/Tiefe/Trainer)? "
+               "Höher = Kaderstärke dominiert, niedriger = mehr Historie/Elo.")
+    squad_pull = st.slider("Kaderstärke-Gewicht", 0.0, 0.9, DEFAULT_SQUAD_PULL, 0.05)
 
     st.subheader("🧑‍⚕️ Aktuelle Ereignisse")
     st.caption("Optional. Eine Zeile je Spieler: **`Team; Spielername`** "
@@ -592,25 +627,35 @@ with tab_tour:
 
 # ---- Tab: Alle Spiele ---------------------------------------------------
 with tab_games:
-    st.subheader("Alle 72 Gruppenspiele")
-    pv = predictions.rename(columns={
+    st.subheader("Alle 72 Gruppenspiele – mit prognostiziertem Endstand")
+    pv = predictions.copy()
+    if {"score_home", "score_away"} <= set(pv.columns):
+        pv["Endstand"] = (pv["score_home"].astype("Int64").astype(str) + ":"
+                          + pv["score_away"].astype("Int64").astype(str))
+    pv = pv.rename(columns={
         "date": "Datum", "group": "Gr.", "home_team": "Heim", "away_team": "Gast",
         "p_home": "1", "p_draw": "X", "p_away": "2", "xg_home": "xG H", "xg_away": "xG G", "tip": "Tipp",
     })
-    cols = [c for c in ["Datum", "Gr.", "Heim", "Gast", "1", "X", "2", "xG H", "xG G", "Tipp"] if c in pv.columns]
+    cols = [c for c in ["Datum", "Gr.", "Heim", "Gast", "1", "X", "2", "Endstand", "xG H", "xG G", "Tipp"]
+            if c in pv.columns]
     st.dataframe(
         pv[cols], hide_index=True, width="stretch", height=460,
         column_config={c: st.column_config.ProgressColumn(c, min_value=0.0, max_value=1.0, format="%.0f%%")
                        for c in ["1", "X", "2"] if c in pv.columns},
     )
-    st.subheader("K.-o.-Spiele (durchgerechneter Baum)")
+    st.subheader("K.-o.-Spiele (durchgerechneter Baum) – mit Endstand")
     if not bracket_df.empty:
-        kv = bracket_df.rename(columns={
+        kv = bracket_df.copy()
+        if {"score_home", "score_away"} <= set(kv.columns):
+            kv["Endstand"] = (kv["score_home"].astype("Int64").astype(str) + ":"
+                              + kv["score_away"].astype("Int64").astype(str))
+        kv = kv.rename(columns={
             "round_label": "Runde", "date": "Datum", "home": "Heim", "away": "Gast",
             "p_home_advance": "P(Heim weiter)", "winner": "Weiter",
         })
-        st.dataframe(kv[["Runde", "Datum", "Heim", "Gast", "P(Heim weiter)", "Weiter"]],
-                     hide_index=True, width="stretch",
+        kcols = [c for c in ["Runde", "Datum", "Heim", "Gast", "Endstand", "P(Heim weiter)", "Weiter"]
+                 if c in kv.columns]
+        st.dataframe(kv[kcols], hide_index=True, width="stretch",
                      column_config={"P(Heim weiter)": st.column_config.ProgressColumn(
                          "P(Heim weiter)", min_value=0.0, max_value=1.0, format="%.0f%%")})
 

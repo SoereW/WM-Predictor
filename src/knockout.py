@@ -162,6 +162,26 @@ def _advance_prob(p_home: float, p_draw: float, p_away: float) -> float:
     return p_home + p_draw * (p_home / denom)
 
 
+def argmax_scoreline(grid: np.ndarray):
+    """Wahrscheinlichster Endstand (Heim:Gast) eines Korrektergebnis-Gitters."""
+    h, a = np.unravel_index(int(np.argmax(grid)), grid.shape)
+    return int(h), int(a)
+
+
+def decisive_scoreline(grid: np.ndarray, home_wins: bool):
+    """Wahrscheinlichster **entschiedener** Endstand in Richtung des Siegers.
+
+    Fuer K.-o.-Spiele: das Ergebnis passt zum weiterkommenden Team (Sieger
+    erzielt mehr Tore) - keine Remis-Anzeige im Turnierbaum.
+    """
+    n = grid.shape[0]
+    ii, jj = np.indices((n, n))
+    mask = ii > jj if home_wins else jj > ii
+    g = np.where(mask, grid, -1.0)
+    h, a = np.unravel_index(int(np.argmax(g)), g.shape)
+    return int(h), int(a)
+
+
 # ===========================================================================
 # Gruppenstruktur aus dem Spielplan.
 # ===========================================================================
@@ -287,15 +307,17 @@ def most_likely_bracket(predictor, history, groups, fixtures=None, prepared=None
     for mid in sorted(R32) + [89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, FINAL]:
         home, away = teams_of(mid)
         # K.-o.-Spiele finden auf neutralem Platz statt (kein Heimvorteil).
-        ph, pdr, pa, _lh, _la = predictor.matchup_from_states(home, away, 1, prepared.states)
+        ph, pdr, pa, lh, la = predictor.matchup_from_states(home, away, 1, prepared.states)
         p_adv = _advance_prob(ph, pdr, pa)
         winner = home if p_adv >= 0.5 else away
         result_winner[mid] = winner
+        sh, sa = decisive_scoreline(predictor._score_grid(lh, la), winner == home)
         rnd = ROUND_OF[mid]
         rows.append({
             "match_id": mid, "round": rnd, "round_label": ROUND_LABEL[rnd],
             "date": _KO_DATE[mid], "home": home, "away": away,
             "p_home_advance": round(float(p_adv), 3), "winner": winner,
+            "score_home": sh, "score_away": sa,
         })
 
     return rows, result_winner[FINAL]
@@ -303,7 +325,8 @@ def most_likely_bracket(predictor, history, groups, fixtures=None, prepared=None
 
 def bracket_to_frame(bracket) -> pd.DataFrame:
     """Bringt den Turnierbaum (Liste von Zeilen oder DataFrame) auf ein Schema."""
-    cols = ["match_id", "round", "round_label", "date", "home", "away", "p_home_advance", "winner"]
+    cols = ["match_id", "round", "round_label", "date", "home", "away",
+            "p_home_advance", "winner", "score_home", "score_away"]
     df = bracket if isinstance(bracket, pd.DataFrame) else pd.DataFrame(bracket)
     for c in cols:
         if c not in df.columns:
