@@ -65,6 +65,11 @@ TEAMS_OUT = DATA / "wm2026_team_ratings.csv"
 FIXTURES_OUT = DATA / "wm2026_fixtures.csv"
 PRED_OUT = DATA / "wm2026_predictions.csv"
 SIM_OUT = DATA / "wm2026_group_sim.csv"
+KNOCKOUT_OUT = DATA / "wm2026_knockout_probs.csv"
+BRACKET_OUT = DATA / "wm2026_bracket.csv"
+
+# Standardgewicht der Kaderstaerke (deckungsgleich mit dem Dashboard-Default).
+DEFAULT_SQUAD_PULL = 0.5
 
 # Trainingsschnitt: nur Spiele VOR dem WM-Eroeffnungsspiel fliessen ins
 # Training und in die Form ein - so bleibt jede Prognose echt out-of-sample.
@@ -273,7 +278,7 @@ def main() -> None:
     matches = _build_database(fixtures)
     train = matches[matches["date"] < CUTOFF].reset_index(drop=True)
     print(f"[3] Training auf {len(train)} echten Spielen VOR {CUTOFF} (out-of-sample) ...")
-    predictor = WMPredictor().fit(train)
+    predictor = WMPredictor(squad_pull=DEFAULT_SQUAD_PULL).fit(train)
     predictor.attach_team_scores(team_scores, coverage=coverage if args.coverage else None)
     predictor.save(MODEL_PATH)
 
@@ -286,6 +291,17 @@ def main() -> None:
     sim.to_csv(SIM_OUT, index=False)
     print(f"[4] {len(preds)} Gruppenspiele vorhergesagt -> {PRED_OUT.name}; "
           f"Gruppensimulation ({args.sims}x) -> {SIM_OUT.name}")
+
+    # --- Schritt 5: komplette K.-o.-Phase (Titelchancen + Turnierbaum) -----
+    from src import knockout as ko
+
+    prepared = ko.prepare_tournament(predictor, train, GROUPS)
+    tour = ko.simulate_tournament(predictor, train, GROUPS, fixtures=fixtures, n=args.sims, prepared=prepared)
+    tour.probs.to_csv(KNOCKOUT_OUT, index=False)
+    bracket, champion = ko.most_likely_bracket(predictor, train, GROUPS, fixtures=fixtures, prepared=prepared)
+    ko.bracket_to_frame(bracket).to_csv(BRACKET_OUT, index=False)
+    print(f"[5] Turnier simuliert ({args.sims}x) -> {KNOCKOUT_OUT.name}; "
+          f"Turnierbaum bis zum Finale -> {BRACKET_OUT.name} (Weltmeister-Prognose: {champion})")
 
     _print_summary(player_tbl, team_tbl, preds, sim)
 

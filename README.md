@@ -32,7 +32,26 @@ streamlit run app.py               # App baut fehlende Artefakte selbst
 (`international_results.csv`, ~49k Länderspiele), die fertig bewerteten Kader
 inkl. aller Attribute (`wm2026_squads.csv`), Team-/Spieler-Ratings, der echte
 offizielle Gruppenspielplan, die Gruppenvorhersagen, Titelchancen und der Turnierbaum. Es läuft
-also offline sofort.
+also offline sofort. Fehlt die Historie einmal, lädt der Bootstrap sie beim
+ersten Start automatisch (offline-Fallback: deterministische Beispieldaten).
+
+## Was diese Überarbeitung gefixt & verbessert hat
+
+- **Startfehler behoben:** `app.py`/`run.py` verwiesen auf `src/bootstrap.py`
+  und `src/knockout.py`, die im Upload fehlten. Beide Module sind nun ergänzt
+  (Erststart-Bootstrap bzw. komplette K.-o.-Phase), ebenso die vom Dashboard
+  genutzten Funktionen `WMPredictor.matchup_from_states` und
+  `wm2026.fixture_venue_coord`.
+- **Echte Daten:** Beim ersten `python run.py` wird die echte Länderspiel-
+  Historie geladen, eine leak-freie Modellbasis trainiert und alle Artefakte
+  (Vorhersagen, Gruppen, Titelchancen, Turnierbaum) erzeugt – **mit einem
+  Befehl**, falls noch nicht vorhanden, dann Start des Dashboards.
+- **Turnierbaum bis zum Finale:** Der Baum ist vollständig durchgerechnet
+  (Sechzehntelfinale → Finale). **Auf ein Spiel zeigen** zeigt die Kurzinfo,
+  **klicken** (oder im Spiel-Center auswählen) öffnet die Detail-Prognose
+  (1X2, xG, wahrscheinlichste Ergebnisse, Weiterkommens-Chance, Modell-Faktoren).
+- **Schlicht, modern, clean:** helles Theme, ruhige Typografie, ein klar
+  lesbarer Turnierbaum als Mittelpunkt.
 
 ### Alles neu mit frischen Online-Daten bauen
 

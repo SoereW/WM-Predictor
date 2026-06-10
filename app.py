@@ -1,10 +1,18 @@
-"""WM-2026-Prognose-Dashboard.
+"""WM-2026-Prognose-Dashboard – schlicht, modern, clean.
 
-Ein Befehl, alles laeuft: ``streamlit run app.py`` (oder ``python run.py``).
-Zeigt Titelchancen, einen kompletten Turnierbaum, alle Gruppen- und K.-o.-
-Vorhersagen, eine Einzelspiel-Analyse und eine optionale Eingabe fuer aktuelle
-Ereignisse (Verletzungen/Sperren). Vorhersagen gewichten bewusst den
-**aktuellen Kader** staerker als alte Laenderspielergebnisse.
+Ein Befehl, alles laeuft: ``python run.py`` (oder ``streamlit run app.py``).
+Beim ersten Start baut der Bootstrap aus **echten Daten** Datenbank, Modell und
+alle Prognose-Artefakte; danach zeigt das Dashboard:
+
+* die Titelchancen jeder Nation,
+* einen **kompletten Turnierbaum** (Sechzehntelfinale → Finale) mit den
+  durchgerechneten Ergebnissen,
+* eine **Detail-Prognose je Spiel** (auf ein Spiel im Baum klicken oder im
+  Spiel-Center auswaehlen) und
+* alle Gruppen-, K.-o.- und Kader-Tabellen.
+
+Vorhersagen gewichten bewusst den **aktuellen Kader** staerker als alte
+Laenderspielergebnisse.
 """
 
 from __future__ import annotations
@@ -35,6 +43,35 @@ from src.teams import normalize_team
 from src.wm2026 import GROUPS, TEAM_COORD, fixture_venue_coord, team_group
 
 st.set_page_config(page_title="WM 2026 Predictor", page_icon="🏆", layout="wide")
+
+# --- Palette (schlicht, modern, clean) -------------------------------------
+ACCENT = "#4f46e5"      # Indigo (Primaerfarbe)
+WIN = "#059669"         # Smaragd (Sieger/positiv)
+NEUTRAL = "#94a3b8"     # Schiefer (Remis/gedaempft)
+GOLD = "#d97706"        # Bernstein (Weltmeister)
+INK = "#1f2937"         # Text
+LINE = "#e5e7eb"        # Rahmen/Linien
+CARD = "#ffffff"
+
+st.markdown(
+    """
+    <style>
+      .block-container {padding-top: 2.1rem; max-width: 1300px;}
+      h1, h2, h3 {letter-spacing: -0.01em;}
+      [data-testid="stMetric"] {
+          background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px;
+          padding: 14px 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04);
+      }
+      [data-testid="stMetricLabel"] {color: #6b7280;}
+      .stTabs [data-baseweb="tab-list"] {gap: 4px;}
+      .stTabs [data-baseweb="tab"] {border-radius: 10px 10px 0 0; padding: 8px 14px;}
+      div[data-testid="stExpander"] {border-radius: 12px; border-color: #e5e7eb;}
+      .pill {display:inline-block; padding:2px 10px; border-radius:999px;
+             background:#eef2ff; color:#4f46e5; font-size:0.78rem; font-weight:600;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 # ===========================================================================
@@ -82,7 +119,7 @@ def fixture_contexts() -> dict:
     last: dict = {}
     ctx: dict = {}
     for fx in fixtures.sort_values("date").itertuples(index=False):
-        home, away, group = normalize_team(fx.home_team), normalize_team(fx.away_team), fx.group_name
+        home, away = normalize_team(fx.home_team), normalize_team(fx.away_team)
         d = datetime.strptime(fx.date, "%Y-%m-%d")
         hr = (d - last[home]).days if home in last else None
         ar = (d - last[away]).days if away in last else None
@@ -144,6 +181,23 @@ def apply_injuries(squads: pd.DataFrame, text: str):
     return df, report
 
 
+@st.cache_resource(show_spinner=False)
+def scenario_predictor(squad_pull: float, injuries_text: str) -> WMPredictor:
+    """Predictor fuer ein Szenario (Kadergewicht + Verletzungen), gecacht.
+
+    Wird sowohl fuer die Turnier-Berechnung als auch fuer jede Einzelspiel-
+    Detailprognose genutzt, damit beides exakt zusammenpasst.
+    """
+    pred = copy.deepcopy(base_predictor())
+    pred.squad_pull = float(squad_pull)
+    squads = load_squads_df()
+    if injuries_text.strip() and not squads.empty:
+        edited, _ = apply_injuries(squads, injuries_text)
+        avail = edited[edited["available"].astype(str).str.lower().isin(["1", "true", "yes", "t", "ja"])]
+        pred.attach_team_scores(rate_all_teams(avail), coverage=coverage_confidence(squad_counts(avail)))
+    return pred
+
+
 # ===========================================================================
 # Szenario berechnen (Kader-Gewicht + Verletzungen) -> alle Vorhersagen.
 # ===========================================================================
@@ -152,9 +206,8 @@ def compute_scenario(squad_pull: float, injuries_text: str, n_sims: int) -> dict
     """Erzeugt fuer ein Szenario: Gruppenspiel-Vorhersagen, Gruppentabellen-
     Wahrscheinlichkeiten, Titelchancen und den wahrscheinlichsten Turnierbaum.
 
-    Greift fuer das Standardszenario (Default-Gewicht, keine Verletzungen) auf
-    die vorgerechneten, eingecheckten CSVs zurueck (sofort), sonst wird live
-    gerechnet.
+    Standardszenario (Default-Gewicht, keine Verletzungen) -> vorgerechnete,
+    eingecheckte CSVs (sofort); sonst wird live gerechnet.
     """
     history = load_history()
     fixtures = load_fixtures_df()
@@ -176,20 +229,14 @@ def compute_scenario(squad_pull: float, injuries_text: str, n_sims: int) -> dict
         }
 
     # --- Live: Predictor fuer dieses Szenario aufbauen ---------------------
-    pred = copy.deepcopy(base_predictor())
-    pred.squad_pull = float(squad_pull)
-    squads = load_squads_df()
-    if injuries_text.strip() and not squads.empty:
-        edited, report = apply_injuries(squads, injuries_text)
-        avail = edited[edited["available"].astype(str).str.lower().isin(["1", "true", "yes", "t", "ja"])]
-        team_scores = rate_all_teams(avail)
-        cov = coverage_confidence(squad_counts(avail))
-        pred.attach_team_scores(team_scores, coverage=cov)
+    pred = scenario_predictor(squad_pull, injuries_text)
+    if injuries_text.strip():
+        _, report = apply_injuries(load_squads_df(), injuries_text)
 
     prepared = ko.prepare_tournament(pred, history, GROUPS)
     preds = _predict_group_games(pred, fixtures, prepared, contexts)
     tour = ko.simulate_tournament(pred, history, GROUPS, fixtures=fixtures, n=n_sims, prepared=prepared)
-    bracket, _ = ko.most_likely_bracket(pred, history, GROUPS, fixtures=fixtures, prepared=prepared)
+    bracket, _champ = ko.most_likely_bracket(pred, history, GROUPS, fixtures=fixtures, prepared=prepared)
     bracket_df = ko.bracket_to_frame(bracket)
     return {
         "predictions": preds, "knockout": tour.probs, "bracket": bracket_df,
@@ -204,7 +251,7 @@ def _group_probs_from_sim(group_sim: pd.DataFrame) -> pd.DataFrame:
     """Bringt die vorgerechnete Gruppensimulation auf das einheitliche Schema."""
     if group_sim.empty:
         return group_sim
-    df = group_sim.rename(columns={"P(Platz 1)": "P(Platz 1)", "P(Top 2)": "P(Top 2)"})
+    df = group_sim.copy()
     df["P(weiter)"] = df["P(Top 2)"]
     if "P(Platz 2)" not in df.columns and {"P(Platz 1)", "P(Top 2)"} <= set(df.columns):
         df["P(Platz 2)"] = (df["P(Top 2)"] - df["P(Platz 1)"]).clip(lower=0).round(3)
@@ -228,8 +275,12 @@ def _predict_group_games(pred, fixtures, prepared, contexts) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def pct(v: float) -> str:
+    return f"{float(v) * 100:.1f}%"
+
+
 # ===========================================================================
-# Turnierbaum als Plotly-Figur.
+# Turnierbaum als Plotly-Figur (clean, hover-/klickbar).
 # ===========================================================================
 def _bracket_layout():
     """Baum-Positionen je Spiel-ID: x = Runde, y = vertikale Position."""
@@ -243,7 +294,7 @@ def _bracket_layout():
         collect(vh)
         collect(va)
 
-    collect(104)
+    collect(ko.FINAL)
     y = {mid: float(i) for i, mid in enumerate(leaves)}
 
     def ypos(mid):
@@ -254,69 +305,144 @@ def _bracket_layout():
         y[mid] = yy
         return yy
 
-    ypos(104)
+    ypos(ko.FINAL)
     x = {mid: ko.ROUND_ORDER.index(ko.ROUND_OF[mid]) for mid in y}
     return x, y
 
 
 def bracket_figure(bracket_df: pd.DataFrame) -> go.Figure:
-    """Zeichnet den wahrscheinlichsten Turnierbaum (R32 -> Finale)."""
+    """Zeichnet den durchgerechneten Turnierbaum (R32 -> Finale), clean & klickbar."""
     x, y = _bracket_layout()
     by_id = {int(r["match_id"]): r for _, r in bracket_df.iterrows()}
     fig = go.Figure()
+    cw, ch = 0.92, 0.40  # Kartenbreite/-hoehe (in Datenkoordinaten)
 
-    # Verbindungslinien Kind -> Eltern.
+    # Verbindungslinien (Kind-Rechts -> Eltern-Links).
     for mid, ((_, vh), (_, va)) in ko.LATER.items():
         for child in (vh, va):
             fig.add_trace(go.Scatter(
-                x=[x[child], x[mid]], y=[-y[child], -y[mid]],
-                mode="lines", line=dict(color="#3a4a63", width=1),
+                x=[x[child] + cw, x[mid]], y=[-y[child], -y[mid]],
+                mode="lines", line=dict(color=LINE, width=1.4, shape="spline"),
                 hoverinfo="skip", showlegend=False,
             ))
 
-    # Match-Kaesten (Heim/Gast, Sieger hervorgehoben).
-    ann = []
+    node_x, node_y, node_cd, node_hover = [], [], [], []
     for mid, r in by_id.items():
         home, away, winner = r["home"], r["away"], r["winner"]
         p = float(r["p_home_advance"])
-        ph = f"{p*100:.0f}%"
-        pa = f"{(1-p)*100:.0f}%"
-        hs = (f"<b>{home}</b>" if winner == home else f"<span style='color:#8895a7'>{home}</span>")
-        as_ = (f"<b>{away}</b>" if winner == away else f"<span style='color:#8895a7'>{away}</span>")
-        txt = f"{hs}  <i>{ph}</i><br>{as_}  <i>{pa}</i>"
-        ann.append(dict(
-            x=x[mid], y=-y[mid], text=txt, showarrow=False,
-            xanchor="left", align="left", font=dict(size=10),
-            bgcolor="#10192b", bordercolor="#2a3a55", borderwidth=1, borderpad=3,
-        ))
+        ph, pa = f"{p*100:.0f}%", f"{(1-p)*100:.0f}%"
+        x0, x1 = x[mid] + 0.02, x[mid] + cw
+        y0, y1 = -y[mid] - ch, -y[mid] + ch
+        is_final = mid == ko.FINAL
+        # Karte.
+        fig.add_shape(type="rect", x0=x0, y0=y0, x1=x1, y1=y1,
+                      line=dict(color=GOLD if is_final else LINE, width=1.6 if is_final else 1),
+                      fillcolor="#fffdf5" if is_final else CARD, layer="below")
+        # Sieger oben hervorgehoben, Verlierer gedaempft.
+        h_color, h_w = (WIN, "bold") if winner == home else (NEUTRAL, "normal")
+        a_color, a_w = (WIN, "bold") if winner == away else (NEUTRAL, "normal")
+        txt = (f"<span style='color:{h_color};font-weight:{h_w}'>{home}</span>"
+               f"<span style='color:#9ca3af'> {ph}</span><br>"
+               f"<span style='color:{a_color};font-weight:{a_w}'>{away}</span>"
+               f"<span style='color:#9ca3af'> {pa}</span>")
+        fig.add_annotation(x=x0 + 0.03, y=-y[mid], text=txt, showarrow=False,
+                           xanchor="left", align="left", font=dict(size=11, color=INK),
+                           captureevents=False)
+        # Transparenter Klick-/Hover-Punkt in der Kartenmitte.
+        node_x.append((x0 + x1) / 2.0)
+        node_y.append(-y[mid])
+        node_cd.append([mid])
+        node_hover.append(f"{ko.ROUND_LABEL[r['round']]}<br><b>{home}</b> {ph}  ·  <b>{away}</b> {pa}"
+                          f"<br>→ weiter: <b>{winner}</b>")
+
+    fig.add_trace(go.Scatter(
+        x=node_x, y=node_y, mode="markers", marker=dict(size=30, symbol="square", color="rgba(0,0,0,0)"),
+        customdata=node_cd, hovertext=node_hover, hoverinfo="text", showlegend=False,
+    ))
+
     # Runden-Ueberschriften.
     for r in ko.ROUND_ORDER:
         xi = ko.ROUND_ORDER.index(r)
-        ann.append(dict(x=xi, y=1.0, yref="paper", text=f"<b>{ko.ROUND_LABEL[r]}</b>",
-                        showarrow=False, xanchor="left", font=dict(size=12, color="#cdd6e4")))
-    # Weltmeister hervorheben.
-    if 104 in by_id:
-        champ = by_id[104]["winner"]
-        ann.append(dict(x=len(ko.ROUND_ORDER) - 1, y=-y[104] - 1.1,
-                        text=f"🏆 <b>{champ}</b>", showarrow=False, xanchor="left",
-                        font=dict(size=15, color="#e0b341")))
+        fig.add_annotation(x=xi + 0.45, y=1.012, yref="paper", text=ko.ROUND_LABEL[r],
+                           showarrow=False, xanchor="center",
+                           font=dict(size=12, color=ACCENT, family="sans serif"))
+    # Weltmeister.
+    if ko.FINAL in by_id:
+        fig.add_annotation(x=len(ko.ROUND_ORDER) - 1 + 0.45, y=-y[ko.FINAL] - 1.25,
+                           text=f"🏆 {by_id[ko.FINAL]['winner']}", showarrow=False, xanchor="center",
+                           font=dict(size=17, color=GOLD))
 
     fig.update_layout(
-        annotations=ann,
-        xaxis=dict(visible=False, range=[-0.2, len(ko.ROUND_ORDER) + 0.3]),
-        yaxis=dict(visible=False, range=[-16.2, 1.4]),
-        height=1150, margin=dict(l=8, r=8, t=10, b=8),
-        plot_bgcolor="#0b1220", paper_bgcolor="#0b1220",
+        xaxis=dict(visible=False, range=[-0.1, len(ko.ROUND_ORDER) + 0.05], fixedrange=True),
+        yaxis=dict(visible=False, range=[-16.4, 1.2], fixedrange=True),
+        height=1120, margin=dict(l=6, r=6, t=18, b=6),
+        plot_bgcolor=CARD, paper_bgcolor=CARD, hovermode="closest",
+        hoverlabel=dict(bgcolor="white", bordercolor=LINE, font_size=12),
     )
     return fig
 
 
-def pct(v: float) -> str:
-    return f"{float(v) * 100:.1f}%"
+# ===========================================================================
+# Detail-Prognose fuer ein einzelnes Spiel.
+# ===========================================================================
+def _top_scorelines(grid: np.ndarray, k: int = 4):
+    flat = [((h, a), float(grid[h, a])) for h in range(grid.shape[0]) for a in range(grid.shape[1])]
+    flat.sort(key=lambda t: t[1], reverse=True)
+    return flat[:k]
+
+
+def render_match_detail(pred, history, home, away, neutral, *, is_ko=False,
+                        context_elo=0.0, adjustments=None, header=None):
+    """Reiche Detail-Prognose fuer ein Duell (Gruppe oder K.-o.)."""
+    home, away = normalize_team(home), normalize_team(away)
+    fixture = {"home_team": home, "away_team": away, "neutral": int(neutral)}
+    adjustments = adjustments or {}
+    p = pred.predict_fixture(fixture, history, adjustments=adjustments, context_elo=context_elo)
+
+    if header:
+        st.markdown(f"#### {header}")
+    st.markdown(f"### {home} &nbsp;–&nbsp; {away}")
+
+    if is_ko:
+        adv = ko._advance_prob(p.home_win, p.draw, p.away_win)
+        c1, c2 = st.columns(2)
+        c1.metric(f"➡️ {home} kommt weiter", pct(adv))
+        c2.metric(f"➡️ {away} kommt weiter", pct(1 - adv))
+
+    m1, m2, m3 = st.columns(3)
+    m1.metric(f"Sieg {home}", pct(p.home_win))
+    m2.metric("Unentschieden", pct(p.draw))
+    m3.metric(f"Sieg {away}", pct(p.away_win))
+
+    fig = go.Figure(go.Bar(
+        x=[p.home_win, p.draw, p.away_win], y=[home, "Remis", away], orientation="h",
+        text=[pct(p.home_win), pct(p.draw), pct(p.away_win)], textposition="auto",
+        marker_color=[ACCENT, NEUTRAL, "#fb7185"],
+    ))
+    fig.update_layout(xaxis_tickformat=".0%", xaxis_range=[0, 1], height=190,
+                      margin=dict(t=6, b=6, l=6, r=6), plot_bgcolor=CARD, paper_bgcolor=CARD,
+                      yaxis=dict(autorange="reversed"))
+    st.plotly_chart(fig, width="stretch")
+
+    g1, g2 = st.columns([1, 1.3])
+    with g1:
+        st.metric(f"Erwartete Tore {home}", f"{p.expected_home_goals:.2f}")
+        st.metric(f"Erwartete Tore {away}", f"{p.expected_away_goals:.2f}")
+    with g2:
+        grid = pred.score_matrix(fixture, history, adjustments=adjustments)
+        st.caption("**Wahrscheinlichste Ergebnisse**")
+        lines = [f"<span class='pill'>{h}:{a}</span> &nbsp;{pr*100:.1f}%"
+                 for (h, a), pr in _top_scorelines(grid, 4)]
+        st.markdown("<br>".join(lines), unsafe_allow_html=True)
+
+    with st.expander("Modell-Faktoren"):
+        ff = pd.DataFrame(p.top_factors, columns=["Faktor", "Wert"])
+        ff["Wert"] = ff["Wert"].astype(str)
+        st.dataframe(ff, hide_index=True, width="stretch")
 
 
 # ===========================================================================
-# UI.
+# Initialisierung + gemeinsame Daten.
 # ===========================================================================
 ensure_assets()
 predictor = base_predictor()
@@ -327,36 +453,32 @@ tg = team_group()
 
 st.title("🏆 WM 2026 – Vorhersage & Turnierbaum")
 st.caption(
-    "Hybrid aus aktueller **Kaderstärke** (EA-FC-26-Echtdaten, Stand 2025/26), "
-    "World-Football-Elo (~49k echte Länderspiele) und einem kalibrierten Tor-/"
-    "Klassifikationsmodell. Der **aktuelle Kader** zählt bewusst stärker als alte "
-    "Ergebnisse – die hingen nur an den Spielern von damals."
+    "Hybrid aus aktueller **Kaderstärke** (EA-FC-26-Echtdaten), World-Football-Elo "
+    "(~49 000 echte Länderspiele) und einem kalibrierten Tor-/Klassifikationsmodell. "
+    "Der **aktuelle Kader** zählt bewusst stärker als alte Ergebnisse."
 )
 
 # ---- Sidebar: Szenario --------------------------------------------------
 with st.sidebar:
     st.header("⚙️ Szenario")
-    st.caption("Wie stark soll der **aktuelle Kader** zählen? Höher = aktuelle "
-               "Spielerstärke dominiert, niedriger = mehr historische Form/Elo.")
+    st.caption("Wie stark zählt der **aktuelle Kader**? Höher = aktuelle "
+               "Spielerstärke dominiert, niedriger = mehr Historie/Elo.")
     squad_pull = st.slider("Kaderstärke-Gewicht", 0.0, 0.8, DEFAULT_SQUAD_PULL, 0.05)
 
     st.subheader("🧑‍⚕️ Aktuelle Ereignisse")
-    st.caption(
-        "Optional. Eine Zeile pro Spieler im Format **`Team; Spielername`** "
-        "(fehlt = nicht verfügbar) oder **`Team; Spielername; angeschlagen`** "
-        "(Form −15 %). Beispiel siehe unten."
-    )
+    st.caption("Optional. Eine Zeile je Spieler: **`Team; Spielername`** "
+               "(fehlt) oder **`Team; Spielername; angeschlagen`** (Form −15 %).")
     injuries_text = st.text_area(
-        "Verletzungen / Sperren", value="", height=130,
+        "Verletzungen / Sperren", value="", height=120,
         placeholder="Spain; Rodri\nFrance; Mbappe; angeschlagen\nEngland; Bellingham",
     )
-    n_sims = st.select_slider("Simulationen (Turnier)", options=[1000, 2000, 4000, 8000], value=2000)
+    n_sims = st.select_slider("Simulationen (Turnier)", options=[1000, 2000, 4000, 8000], value=4000)
     apply = st.button("🔄 Szenario anwenden", width="stretch")
 
 if apply:
     st.session_state["scenario"] = {"squad_pull": squad_pull, "injuries": injuries_text, "n": n_sims}
 
-scen = st.session_state.get("scenario", {"squad_pull": DEFAULT_SQUAD_PULL, "injuries": "", "n": 2000})
+scen = st.session_state.get("scenario", {"squad_pull": DEFAULT_SQUAD_PULL, "injuries": "", "n": 4000})
 result = compute_scenario(scen["squad_pull"], scen["injuries"], scen["n"])
 
 if result["source"] == "live":
@@ -374,10 +496,64 @@ bracket_df = result["bracket"]
 group_probs = result["groups"]
 champion = result["champion"]
 
-tab_tour, tab_tree, tab_games, tab_groups, tab_match, tab_squads, tab_info = st.tabs([
-    "🏆 Titelchancen", "🌳 Turnierbaum", "📋 Alle Spiele", "👥 Gruppen",
-    "🔬 Einzelspiel", "🧑 Kader & Ratings", "ℹ️ Daten & Modell",
+# Predictor + Historie fuer Live-Detailprognosen (passend zum Szenario).
+detail_pred = scenario_predictor(scen["squad_pull"], scen["injuries"])
+history_df = load_history()
+
+tab_tree, tab_tour, tab_games, tab_groups, tab_match, tab_squads, tab_info = st.tabs([
+    "🌳 Turnierbaum", "🏆 Titelchancen", "📋 Alle Spiele", "👥 Gruppen",
+    "🔬 Spiel-Center", "🧑 Kader & Ratings", "ℹ️ Daten & Modell",
 ])
+
+# ---- Tab: Turnierbaum (Centerpiece, klickbar) ---------------------------
+with tab_tree:
+    cL, cR = st.columns([3, 0.9])
+    with cL:
+        st.subheader("Durchgerechneter Turnierbaum")
+        st.caption("Pro K.-o.-Spiel kommt der Favorit weiter (Prozent = Weiterkommens-"
+                   "Chance). **Auf ein Spiel zeigen** für die Kurzinfo, **klicken** für die "
+                   "Detail-Prognose darunter.")
+    with cR:
+        if champion:
+            cp = knockout.loc[knockout["team"] == champion, "P(Titel)"]
+            st.metric("🏆 Weltmeister-Prognose", champion,
+                      help="Wahrscheinlichster Turnierbaum")
+            if len(cp):
+                st.caption(f"Titelchance: **{pct(cp.iloc[0])}**")
+
+    if not bracket_df.empty:
+        event = st.plotly_chart(bracket_figure(bracket_df), width="stretch",
+                                key="bracket_tree", on_select="rerun")
+        # Klick im Baum auswerten.
+        clicked = None
+        try:
+            pts = event["selection"]["points"] if isinstance(event, dict) else event.selection["points"]
+            if pts:
+                clicked = int(pts[-1]["customdata"][0])
+        except Exception:  # noqa: BLE001
+            clicked = None
+        if clicked is not None:
+            st.session_state["tree_match"] = clicked
+
+        ids = sorted(bracket_df["match_id"].astype(int))
+        labels = {int(r["match_id"]): f"{r['round_label']}: {r['home']} – {r['away']}"
+                  for _, r in bracket_df.iterrows()}
+        default_mid = st.session_state.get("tree_match", ids[-1])
+        if default_mid not in ids:
+            default_mid = ids[-1]
+        st.divider()
+        sel_mid = st.selectbox(
+            "Spiel für Detail-Prognose", ids, index=ids.index(default_mid),
+            format_func=lambda m: labels.get(int(m), str(m)),
+            key="tree_select",
+        )
+        st.session_state["tree_match"] = sel_mid
+        row = bracket_df.loc[bracket_df["match_id"].astype(int) == int(sel_mid)].iloc[0]
+        with st.container(border=True):
+            render_match_detail(detail_pred, history_df, row["home"], row["away"], neutral=1,
+                                is_ko=True, header=f"{row['round_label']} · {row['date']}")
+    else:
+        st.warning("Kein Turnierbaum verfügbar – bitte `python scripts/build_wm2026.py` ausführen.")
 
 # ---- Tab: Titelchancen --------------------------------------------------
 with tab_tour:
@@ -396,10 +572,10 @@ with tab_tour:
     fig = go.Figure(go.Bar(
         x=knockout.head(16)["team"], y=knockout.head(16)["P(Titel)"],
         text=[pct(v) for v in knockout.head(16)["P(Titel)"]], textposition="outside",
-        marker_color="#e0b341",
+        marker_color=ACCENT,
     ))
     fig.update_layout(yaxis_tickformat=".0%", title="Titelwahrscheinlichkeit (Top 16)",
-                      height=420, margin=dict(t=40, b=10))
+                      height=420, margin=dict(t=40, b=10), plot_bgcolor=CARD, paper_bgcolor=CARD)
     st.plotly_chart(fig, width="stretch")
 
     st.markdown("**Wie weit kommt jede Nation? (Wahrscheinlichkeit je Runde)**")
@@ -414,23 +590,6 @@ with tab_tour:
                        for c in ["Sechzehntelf.", "Achtelf.", "Viertelf.", "Halbf.", "Finale", "Titel"]},
     )
 
-# ---- Tab: Turnierbaum ---------------------------------------------------
-with tab_tree:
-    st.subheader("Wahrscheinlichster Turnierbaum")
-    st.caption("Pro K.-o.-Spiel kommt der Favorit weiter (Prozent = Weiterkommens-"
-               "Wahrscheinlichkeit). Die acht besten Gruppendritten werden gemäß "
-               "FIFA-Bracket den Slots zugeordnet.")
-    if not bracket_df.empty:
-        st.plotly_chart(bracket_figure(bracket_df), width="stretch")
-        with st.expander("Turnierbaum als Tabelle"):
-            disp = bracket_df.rename(columns={
-                "round_label": "Runde", "date": "Datum", "home": "Heim", "away": "Gast",
-                "p_home_advance": "P(Heim weiter)", "winner": "Weiter",
-            })[["Runde", "Datum", "Heim", "Gast", "P(Heim weiter)", "Weiter"]]
-            st.dataframe(disp, hide_index=True, width="stretch")
-    else:
-        st.warning("Kein Turnierbaum verfügbar – bitte `python scripts/build_wm2026.py` ausführen.")
-
 # ---- Tab: Alle Spiele ---------------------------------------------------
 with tab_games:
     st.subheader("Alle 72 Gruppenspiele")
@@ -438,21 +597,22 @@ with tab_games:
         "date": "Datum", "group": "Gr.", "home_team": "Heim", "away_team": "Gast",
         "p_home": "1", "p_draw": "X", "p_away": "2", "xg_home": "xG H", "xg_away": "xG G", "tip": "Tipp",
     })
-    cols = ["Datum", "Gr.", "Heim", "Gast", "1", "X", "2", "xG H", "xG G", "Tipp"]
-    cols = [c for c in cols if c in pv.columns]
+    cols = [c for c in ["Datum", "Gr.", "Heim", "Gast", "1", "X", "2", "xG H", "xG G", "Tipp"] if c in pv.columns]
     st.dataframe(
         pv[cols], hide_index=True, width="stretch", height=460,
         column_config={c: st.column_config.ProgressColumn(c, min_value=0.0, max_value=1.0, format="%.0f%%")
                        for c in ["1", "X", "2"] if c in pv.columns},
     )
-    st.subheader("K.-o.-Spiele (wahrscheinlichster Baum)")
+    st.subheader("K.-o.-Spiele (durchgerechneter Baum)")
     if not bracket_df.empty:
         kv = bracket_df.rename(columns={
             "round_label": "Runde", "date": "Datum", "home": "Heim", "away": "Gast",
             "p_home_advance": "P(Heim weiter)", "winner": "Weiter",
         })
         st.dataframe(kv[["Runde", "Datum", "Heim", "Gast", "P(Heim weiter)", "Weiter"]],
-                     hide_index=True, width="stretch")
+                     hide_index=True, width="stretch",
+                     column_config={"P(Heim weiter)": st.column_config.ProgressColumn(
+                         "P(Heim weiter)", min_value=0.0, max_value=1.0, format="%.0f%%")})
 
 # ---- Tab: Gruppen -------------------------------------------------------
 with tab_groups:
@@ -480,24 +640,39 @@ with tab_groups:
                                    for c in ["P1", "Top2"] if c in sub.columns},
                 )
 
-# ---- Tab: Einzelspiel ---------------------------------------------------
+# ---- Tab: Spiel-Center (jedes Spiel + Kontext) --------------------------
 with tab_match:
-    st.subheader("Einzelspiel-Analyse mit Kontext-Reglern")
-    history = load_history()
-    flabel = fixtures.apply(lambda r: f"{r['date']} · {r['home_team']} vs {r['away_team']} · Gr. {r['group_name']}", axis=1)
-    sel = st.selectbox("Spiel wählen", flabel.tolist())
-    fx = fixtures.loc[flabel == sel].iloc[0].to_dict()
+    st.subheader("Spiel-Center – Detailprognose für jedes Spiel")
+    st.caption("Wähle ein Gruppen- **oder** K.-o.-Spiel und passe den Kontext an.")
+
+    kind = st.radio("Spieltyp", ["Gruppenspiel", "K.-o.-Spiel"], horizontal=True)
+    if kind == "Gruppenspiel":
+        flabel = fixtures.apply(
+            lambda r: f"{r['date']} · {r['home_team']} – {r['away_team']} · Gr. {r['group_name']}", axis=1)
+        sel = st.selectbox("Spiel wählen", flabel.tolist())
+        fx = fixtures.loc[flabel == sel].iloc[0].to_dict()
+        sel_home, sel_away, sel_neutral, sel_ko = fx["home_team"], fx["away_team"], int(fx["neutral"]), False
+        sel_header = f"Gruppe {fx['group_name']} · {fx['date']}"
+    else:
+        if bracket_df.empty:
+            st.info("Kein Turnierbaum verfügbar.")
+            st.stop()
+        klabel = bracket_df.apply(lambda r: f"{r['round_label']} · {r['home']} – {r['away']}", axis=1)
+        sel = st.selectbox("K.-o.-Spiel wählen", klabel.tolist())
+        kr = bracket_df.loc[klabel == sel].iloc[0]
+        sel_home, sel_away, sel_neutral, sel_ko = kr["home"], kr["away"], 1, True
+        sel_header = f"{kr['round_label']} · {kr['date']}"
 
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("**Manuelle Kontext-Anpassung** (positiv hilft Team 1):")
+        st.markdown("**Manuelle Anpassung** (positiv hilft Team 1):")
         player_delta = st.slider("Startelf/Form", -0.5, 0.5, 0.0, 0.05)
         injury_delta = st.slider("Verletzungen/Sperren", -0.5, 0.5, 0.0, 0.05)
     with c2:
         st.markdown("**Reise & Platz:**")
-        home_rest = st.number_input(f"Ruhetage {fx['home_team']}", 1, 14, 4)
-        away_rest = st.number_input(f"Ruhetage {fx['away_team']}", 1, 14, 4)
-        away_travel = st.slider(f"Reisedistanz {fx['away_team']} (km)", 0, 12000, 0, 500)
+        home_rest = st.number_input(f"Ruhetage {sel_home}", 1, 14, 4)
+        away_rest = st.number_input(f"Ruhetage {sel_away}", 1, 14, 4)
+        away_travel = st.slider(f"Reisedistanz {sel_away} (km)", 0, 12000, 0, 500)
         venue_alt = st.slider("Stadionhöhe (m)", 0, 3600, 0, 100)
 
     ctx = rest_delta(home_rest, away_rest)
@@ -506,32 +681,12 @@ with tab_match:
     if venue_alt > 1200:
         ctx += altitude_delta(venue_alt, 100.0, 1800.0)
 
-    live = copy.deepcopy(predictor)
-    live.squad_pull = scen["squad_pull"]
-    pred = live.predict_fixture(
-        fx, history, adjustments={"player_delta": player_delta, "injury_delta": injury_delta},
-        context_elo=ctx,
-    )
-    m1, m2, m3 = st.columns(3)
-    m1.metric(f"{fx['home_team']} gewinnt", pct(pred.home_win))
-    m2.metric("Unentschieden", pct(pred.draw))
-    m3.metric(f"{fx['away_team']} gewinnt", pct(pred.away_win))
-    g1, g2 = st.columns(2)
-    g1.metric(f"xG {fx['home_team']}", f"{pred.expected_home_goals:.2f}")
-    g2.metric(f"xG {fx['away_team']}", f"{pred.expected_away_goals:.2f}")
-
-    fig = go.Figure(go.Bar(
-        x=[fx["home_team"], "Remis", fx["away_team"]],
-        y=[pred.home_win, pred.draw, pred.away_win],
-        text=[pct(pred.home_win), pct(pred.draw), pct(pred.away_win)], textposition="auto",
-        marker_color=["#4a90d9", "#9aa7b8", "#d96a4a"],
-    ))
-    fig.update_layout(yaxis_tickformat=".0%", yaxis_range=[0, 1], height=320, margin=dict(t=10))
-    st.plotly_chart(fig, width="stretch")
-    with st.expander("Modell-Faktoren"):
-        ff = pd.DataFrame(pred.top_factors, columns=["Faktor", "Wert"])
-        ff["Wert"] = ff["Wert"].astype(str)
-        st.dataframe(ff, hide_index=True, width="stretch")
+    with st.container(border=True):
+        render_match_detail(
+            detail_pred, history_df, sel_home, sel_away, neutral=sel_neutral, is_ko=sel_ko,
+            context_elo=ctx, adjustments={"player_delta": player_delta, "injury_delta": injury_delta},
+            header=sel_header,
+        )
 
 # ---- Tab: Kader & Ratings ----------------------------------------------
 with tab_squads:
@@ -555,20 +710,19 @@ with tab_squads:
 # ---- Tab: Daten & Modell ------------------------------------------------
 with tab_info:
     st.subheader("Datengrundlage")
-    real = (DATA / "international_results.csv").exists()
     st.markdown(
         f"""
 - **Spieler/Kader:** EA FC 26 (Stand 2025/26), je Nation der stärkste verfügbare Kader
   → `data/wm2026_squads.csv` ({len(load_squads_df())} Spieler, 48 Nationen).
-- **Historie:** {'martj42 (~49k echte Länderspiele)' if real else 'Beispieldaten'} – Training **strikt vor** dem
-  WM-Start ({CUTOFF}), also leak-frei.
-- **Auslosung & Spielplan:** offizielle Final-Auslosung (5.12.2025), 72 Gruppenspiele.
-- **K.-o.-Baum:** offizielles FIFA-Bracket (Spiele 73–104), 8 beste Gruppendritte
-  regelkonform zugeordnet.
+- **Historie:** martj42 (~49 000 echte Länderspiele), automatisch beim ersten Start
+  geladen – Training **strikt vor** dem WM-Start ({CUTOFF}), also leak-frei.
+- **Auslosung & Spielplan:** Final-Auslosung (5.12.2025), 72 Gruppenspiele.
+- **K.-o.-Baum:** FIFA-Format (Spiele 73–104), 8 beste Gruppendritte regelkonform
+  zugeordnet, durchgerechnet bis zum Finale.
 - **Kadergewicht aktiv:** {scen['squad_pull']:.0%} (aktueller Kader korrigiert das historische Elo).
 """
     )
     st.subheader("Modelldiagnose")
     st.json(predictor.training_summary, expanded=False)
     st.caption("Reproduzieren: `python scripts/build_wm2026.py` (lädt echte Daten, baut alle Tabellen). "
-               "Vergleich der Stärke-Signale: `python scripts/compare_systems.py`.")
+               "Erststart/Init: `python run.py`.")

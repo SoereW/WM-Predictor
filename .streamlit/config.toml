@@ -1,0 +1,14 @@
+# Schlichtes, modernes, helles Theme fuer das WM-2026-Dashboard.
+[theme]
+base = "light"
+primaryColor = "#4f46e5"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f5f6fa"
+textColor = "#1f2937"
+font = "sans serif"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

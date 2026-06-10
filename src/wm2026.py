@@ -92,6 +92,27 @@ def venue_coord(group: str):
     """Spielort-Koordinaten (lat, lon) einer Gruppe."""
     return GROUP_VENUE_COORD.get(group)
 
+
+def fixture_venue_coord(fixture):
+    """Spielort-Koordinaten (lat, lon) eines konkreten Spiels.
+
+    Akzeptiert ein Mapping (``dict``/``pandas.Series``) oder eine
+    ``itertuples``-Zeile. Aktuell wird der Austragungsort ueber die Gruppe
+    abgeleitet (eine repraesentative Gastgeberstadt je Gruppe); fehlt die
+    Gruppe, wird ``None`` zurueckgegeben (Reise-Faktor dann neutral).
+    """
+    group = None
+    if isinstance(fixture, dict):
+        group = fixture.get("group_name") or fixture.get("group")
+    elif hasattr(fixture, "group_name"):
+        group = getattr(fixture, "group_name")
+    else:
+        try:
+            group = fixture["group_name"]
+        except Exception:  # noqa: BLE001
+            group = None
+    return GROUP_VENUE_COORD.get(str(group)) if group else None
+
 # Reihenfolge der drei Spieltage als Index-Paare innerhalb einer Gruppe.
 # Teamindex 0 ist der gesetzte Pot-1-Kopf (bei Gastgebern automatisch heim).
 _ROUND_ROBIN = [

@@ -454,6 +454,18 @@ class WMPredictor:
             top_factors=top_factors,
         )
 
+    def _score_grid(self, lh: float, la: float) -> np.ndarray:
+        """Normalisiertes Dixon-Coles-Korrektergebnis-Gitter aus erwarteten Toren."""
+        pmf_h = _poisson_pmf([lh], self.max_goals)[0]
+        pmf_a = _poisson_pmf([la], self.max_goals)[0]
+        m = np.outer(pmf_h, pmf_a)
+        m[0, 0] *= 1.0 - lh * la * self.rho
+        m[0, 1] *= 1.0 + lh * self.rho
+        m[1, 0] *= 1.0 + la * self.rho
+        m[1, 1] *= 1.0 - self.rho
+        m = np.clip(m, 0.0, None)
+        return m / m.sum()
+
     def score_matrix(self, fixture: Dict, matches: pd.DataFrame, adjustments: Dict | None = None) -> np.ndarray:
         """Normalisiertes Korrektergebnis-Gitter (fuer Monte-Carlo-Simulation)."""
         from .teams import normalize_team
@@ -471,16 +483,42 @@ class WMPredictor:
         home_elo = self.effective_elo(home, hs.elo)
         away_elo = self.effective_elo(away, as_.elo)
         _, lh, la, _ = self._core(home_elo, away_elo, hs, as_, neutral, adj_total)
+        return self._score_grid(lh, la)
 
-        pmf_h = _poisson_pmf([lh], self.max_goals)[0]
-        pmf_a = _poisson_pmf([la], self.max_goals)[0]
-        m = np.outer(pmf_h, pmf_a)
-        m[0, 0] *= 1.0 - lh * la * self.rho
-        m[0, 1] *= 1.0 + lh * self.rho
-        m[1, 0] *= 1.0 + la * self.rho
-        m[1, 1] *= 1.0 - self.rho
-        m = np.clip(m, 0.0, None)
-        return m / m.sum()
+    # ---------------------------------------------- vorbereitete Team-Zustaende
+    def _state(self, team: str, states: Dict):
+        """Team-Zustand aus dem Cache holen (oder einen neutralen Fallback bauen).
+
+        Erlaubt es, alle paarweisen Vorhersagen eines Turniers aus einmalig
+        vorberechneten ``TeamState``-Objekten abzuleiten - ohne die Historie je
+        Spiel erneut zu durchsuchen (das macht die Turnier-Simulation schnell).
+        """
+        st = states.get(team)
+        if st is not None:
+            return st
+        elo = self.elo.current_rating(team) if self.elo is not None else 1500.0
+        from .features import TeamState
+
+        return TeamState(elo=elo, form_gf=1.2, form_ga=1.2, form_pts=1.2)
+
+    def matchup_from_states(self, home: str, away: str, neutral, states: Dict, extra_elo: float = 0.0):
+        """1X2 + erwartete Tore eines Duells aus vorbereiteten Team-Zustaenden.
+
+        Rueckgabe: ``(p_home, p_draw, p_away, xg_home, xg_away)``.
+        """
+        hs, as_ = self._state(home, states), self._state(away, states)
+        home_elo = self.effective_elo(home, hs.elo)
+        away_elo = self.effective_elo(away, as_.elo)
+        probs, lh, la, _ = self._core(home_elo, away_elo, hs, as_, int(neutral or 0), 0.0, float(extra_elo))
+        return float(probs[2]), float(probs[1]), float(probs[0]), float(lh), float(la)
+
+    def score_grid_from_states(self, home: str, away: str, neutral, states: Dict, extra_elo: float = 0.0) -> np.ndarray:
+        """Korrektergebnis-Gitter eines Duells aus vorbereiteten Team-Zustaenden."""
+        hs, as_ = self._state(home, states), self._state(away, states)
+        home_elo = self.effective_elo(home, hs.elo)
+        away_elo = self.effective_elo(away, as_.elo)
+        _, lh, la, _ = self._core(home_elo, away_elo, hs, as_, int(neutral or 0), 0.0, float(extra_elo))
+        return self._score_grid(lh, la)
 
     # ---------------------------------------------------------------- io
     def save(self, path) -> None:
