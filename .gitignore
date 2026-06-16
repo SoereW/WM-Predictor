@@ -27,6 +27,7 @@ data/*.csv
 !data/wm2026_fixtures.csv
 !data/wm2026_predictions.csv
 !data/wm2026_group_sim.csv
+!data/wm2026_results.csv
 
 # Logs/Tooling
 *.log

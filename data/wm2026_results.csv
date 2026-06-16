@@ -1,0 +1,73 @@
+match_id,group,date,home_team,away_team,home_score,away_score,score,result,status,tip,tip_hit
+1,A,2026-06-11,Mexico,South Africa,2,0,2:0,1,played,1,1
+2,A,2026-06-11,South Korea,Czech Republic,2,1,2:1,1,played,1,1
+3,A,2026-06-16,Mexico,South Korea,,,-:-,,scheduled,1,
+4,A,2026-06-16,Czech Republic,South Africa,,,-:-,,scheduled,1,
+5,A,2026-06-21,Mexico,Czech Republic,,,-:-,,scheduled,1,
+6,A,2026-06-21,South Africa,South Korea,,,-:-,,scheduled,2,
+7,B,2026-06-12,Canada,Bosnia-Herzegovina,1,1,1:1,X,played,1,0
+8,B,2026-06-12,Qatar,Switzerland,1,1,1:1,X,played,2,0
+9,B,2026-06-17,Canada,Qatar,,,-:-,,scheduled,1,
+10,B,2026-06-17,Switzerland,Bosnia-Herzegovina,,,-:-,,scheduled,1,
+11,B,2026-06-22,Canada,Switzerland,,,-:-,,scheduled,1,
+12,B,2026-06-22,Bosnia-Herzegovina,Qatar,,,-:-,,scheduled,1,
+13,C,2026-06-13,Brazil,Morocco,1,1,1:1,X,played,1,0
+14,C,2026-06-13,Haiti,Scotland,0,1,0:1,2,played,2,1
+15,C,2026-06-18,Brazil,Haiti,,,-:-,,scheduled,1,
+16,C,2026-06-18,Scotland,Morocco,,,-:-,,scheduled,2,
+17,C,2026-06-23,Brazil,Scotland,,,-:-,,scheduled,1,
+18,C,2026-06-23,Morocco,Haiti,,,-:-,,scheduled,1,
+19,D,2026-06-14,United States,Paraguay,4,1,4:1,1,played,1,1
+20,D,2026-06-14,Australia,Turkey,2,0,2:0,1,played,2,0
+21,D,2026-06-19,United States,Australia,,,-:-,,scheduled,1,
+22,D,2026-06-19,Turkey,Paraguay,,,-:-,,scheduled,1,
+23,D,2026-06-24,United States,Turkey,,,-:-,,scheduled,2,
+24,D,2026-06-24,Paraguay,Australia,,,-:-,,scheduled,1,
+25,E,2026-06-15,Germany,Curacao,7,1,7:1,1,played,1,1
+26,E,2026-06-15,Ivory Coast,Ecuador,1,0,1:0,1,played,2,0
+27,E,2026-06-20,Germany,Ivory Coast,,,-:-,,scheduled,1,
+28,E,2026-06-20,Ecuador,Curacao,,,-:-,,scheduled,1,
+29,E,2026-06-25,Germany,Ecuador,,,-:-,,scheduled,1,
+30,E,2026-06-25,Curacao,Ivory Coast,,,-:-,,scheduled,2,
+31,F,2026-06-11,Netherlands,Japan,2,2,2:2,X,played,1,0
+32,F,2026-06-11,Sweden,Tunisia,5,1,5:1,1,played,1,1
+33,F,2026-06-16,Netherlands,Sweden,,,-:-,,scheduled,1,
+34,F,2026-06-16,Tunisia,Japan,,,-:-,,scheduled,2,
+35,F,2026-06-21,Netherlands,Tunisia,,,-:-,,scheduled,1,
+36,F,2026-06-21,Japan,Sweden,,,-:-,,scheduled,1,
+37,G,2026-06-12,Belgium,Egypt,1,1,1:1,X,played,1,0
+38,G,2026-06-12,Iran,New Zealand,2,2,2:2,X,played,1,0
+39,G,2026-06-17,Belgium,Iran,,,-:-,,scheduled,1,
+40,G,2026-06-17,New Zealand,Egypt,,,-:-,,scheduled,2,
+41,G,2026-06-22,Belgium,New Zealand,,,-:-,,scheduled,1,
+42,G,2026-06-22,Egypt,Iran,,,-:-,,scheduled,2,
+43,H,2026-06-13,Spain,Cape Verde,0,0,0:0,X,played,1,0
+44,H,2026-06-13,Saudi Arabia,Uruguay,1,1,1:1,X,played,2,0
+45,H,2026-06-18,Spain,Saudi Arabia,,,-:-,,scheduled,1,
+46,H,2026-06-18,Uruguay,Cape Verde,,,-:-,,scheduled,1,
+47,H,2026-06-23,Spain,Uruguay,,,-:-,,scheduled,1,
+48,H,2026-06-23,Cape Verde,Saudi Arabia,,,-:-,,scheduled,1,
+49,I,2026-06-14,France,Senegal,,,-:-,,scheduled,1,
+50,I,2026-06-14,Norway,Iraq,,,-:-,,scheduled,1,
+51,I,2026-06-19,France,Norway,,,-:-,,scheduled,1,
+52,I,2026-06-19,Iraq,Senegal,,,-:-,,scheduled,2,
+53,I,2026-06-24,France,Iraq,,,-:-,,scheduled,1,
+54,I,2026-06-24,Senegal,Norway,,,-:-,,scheduled,2,
+55,J,2026-06-15,Argentina,Algeria,,,-:-,,scheduled,1,
+56,J,2026-06-15,Austria,Jordan,,,-:-,,scheduled,1,
+57,J,2026-06-20,Argentina,Austria,,,-:-,,scheduled,1,
+58,J,2026-06-20,Jordan,Algeria,,,-:-,,scheduled,2,
+59,J,2026-06-25,Argentina,Jordan,,,-:-,,scheduled,1,
+60,J,2026-06-25,Algeria,Austria,,,-:-,,scheduled,2,
+61,K,2026-06-11,Portugal,DR Congo,,,-:-,,scheduled,1,
+62,K,2026-06-11,Uzbekistan,Colombia,,,-:-,,scheduled,2,
+63,K,2026-06-16,Portugal,Uzbekistan,,,-:-,,scheduled,1,
+64,K,2026-06-16,Colombia,DR Congo,,,-:-,,scheduled,1,
+65,K,2026-06-21,Portugal,Colombia,,,-:-,,scheduled,1,
+66,K,2026-06-21,DR Congo,Uzbekistan,,,-:-,,scheduled,X,
+67,L,2026-06-12,England,Croatia,,,-:-,,scheduled,1,
+68,L,2026-06-12,Ghana,Panama,,,-:-,,scheduled,2,
+69,L,2026-06-17,England,Ghana,,,-:-,,scheduled,1,
+70,L,2026-06-17,Panama,Croatia,,,-:-,,scheduled,2,
+71,L,2026-06-22,England,Panama,,,-:-,,scheduled,1,
+72,L,2026-06-22,Croatia,Ghana,,,-:-,,scheduled,1,

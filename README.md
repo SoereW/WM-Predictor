@@ -77,6 +77,16 @@ Ergebnis-Tabellen (im Repo eingecheckt, reproduzierbar):
 | `data/wm2026_fixtures.csv` | echter Gruppenspielplan (72 Spiele) |
 | `data/wm2026_predictions.csv` | 1X2 + xG je Spiel, plus Ensemble (`ens_*`) und Reise/Ruhe (`context_elo`) |
 | `data/wm2026_group_sim.csv` | P(Platz 1)/P(Top 2) je Team und Gruppe |
+| `data/wm2026_results.csv` | **echte Spielergebnisse** der laufenden WM + Modell-Tipp je Spiel |
+
+### Laufende WM: echte Ergebnisse einpflegen
+
+Die WM 2026 laeuft bereits. `python scripts/update_results.py` verknuepft die
+**tatsaechlichen Endergebnisse** der bisher gespielten Spiele mit dem Spielplan,
+schreibt `data/wm2026_results.csv` und gibt **alle 72 Spiele der Reihe nach**
+mit Spielausgang (1/X/2) und dem Abgleich gegen den Modell-Tipp aus. Neue
+Ergebnisse ergaenzt man in `ACTUAL_RESULTS` (Schluessel = `match_id`,
+Wert = `(heim_tore, gast_tore)`).
 
 > Ehrlichkeit: Die Kader sind der *stärkste verfügbare* Satz echter Spieler
 > je Nation laut Datensatz – nicht zwingend die offiziell nominierte
@@ -272,6 +282,7 @@ scripts/train_model.py          Trainiert Modell, speichert es, zeigt Backtest
 scripts/evaluate_ratings.py     Stichproben-Auswertung des Bewertungssystems
 scripts/validate_predictions.py Vorhersage vs. echtes Ergebnis (out-of-sample)
 scripts/compare_systems.py      Score- vs. Historie-System vergleichen (out-of-sample)
+scripts/update_results.py       Echte WM-Ergebnisse einpflegen + Ergebnis-Tabelle
 src/wm2026.py                   Echte Gruppen-Auslosung + Spielplan-Generator
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen
@@ -301,6 +312,7 @@ data/wm2026_player_ratings.csv  Alle Spieler je Nation mit Gesamtrating
 data/wm2026_team_ratings.csv    Team-Rangliste (Overall, XI, Tiefe, Chemie)
 data/wm2026_predictions.csv     1X2 + xG für alle 72 Gruppenspiele
 data/wm2026_group_sim.csv       Weiterkommens-Wahrscheinlichkeiten je Gruppe
+data/wm2026_results.csv         Echte Spielergebnisse der laufenden WM + Tipp-Abgleich
 ```
 
 > Hinweis: `src/wm2026.py` enthält die echte WM-2026-Auslosung (Final-Draw
