@@ -1,6 +1,6 @@
 match_id,group,date,home_team,away_team,home_score,away_score,score,result,status,tip,tip_hit
 1,A,2026-06-11,Mexico,South Africa,2,0,2:0,1,played,1,1
-2,A,2026-06-11,South Korea,Czech Republic,2,1,2:1,1,played,1,1
+2,A,2026-06-11,South Korea,Czech Republic,2,1,2:1,1,played,2,0
 3,A,2026-06-16,Mexico,South Korea,,,-:-,,scheduled,1,
 4,A,2026-06-16,Czech Republic,South Africa,,,-:-,,scheduled,1,
 5,A,2026-06-21,Mexico,Czech Republic,,,-:-,,scheduled,1,
@@ -11,7 +11,7 @@ match_id,group,date,home_team,away_team,home_score,away_score,score,result,statu
 10,B,2026-06-17,Switzerland,Bosnia-Herzegovina,,,-:-,,scheduled,1,
 11,B,2026-06-22,Canada,Switzerland,,,-:-,,scheduled,1,
 12,B,2026-06-22,Bosnia-Herzegovina,Qatar,,,-:-,,scheduled,1,
-13,C,2026-06-13,Brazil,Morocco,1,1,1:1,X,played,1,0
+13,C,2026-06-13,Brazil,Morocco,1,1,1:1,X,played,2,0
 14,C,2026-06-13,Haiti,Scotland,0,1,0:1,2,played,2,1
 15,C,2026-06-18,Brazil,Haiti,,,-:-,,scheduled,1,
 16,C,2026-06-18,Scotland,Morocco,,,-:-,,scheduled,2,
@@ -21,16 +21,16 @@ match_id,group,date,home_team,away_team,home_score,away_score,score,result,statu
 20,D,2026-06-14,Australia,Turkey,2,0,2:0,1,played,2,0
 21,D,2026-06-19,United States,Australia,,,-:-,,scheduled,1,
 22,D,2026-06-19,Turkey,Paraguay,,,-:-,,scheduled,1,
-23,D,2026-06-24,United States,Turkey,,,-:-,,scheduled,2,
-24,D,2026-06-24,Paraguay,Australia,,,-:-,,scheduled,1,
+23,D,2026-06-24,United States,Turkey,,,-:-,,scheduled,1,
+24,D,2026-06-24,Paraguay,Australia,,,-:-,,scheduled,2,
 25,E,2026-06-15,Germany,Curacao,7,1,7:1,1,played,1,1
-26,E,2026-06-15,Ivory Coast,Ecuador,1,0,1:0,1,played,2,0
+26,E,2026-06-15,Ivory Coast,Ecuador,1,0,1:0,1,played,1,1
 27,E,2026-06-20,Germany,Ivory Coast,,,-:-,,scheduled,1,
 28,E,2026-06-20,Ecuador,Curacao,,,-:-,,scheduled,1,
 29,E,2026-06-25,Germany,Ecuador,,,-:-,,scheduled,1,
 30,E,2026-06-25,Curacao,Ivory Coast,,,-:-,,scheduled,2,
 31,F,2026-06-11,Netherlands,Japan,2,2,2:2,X,played,1,0
-32,F,2026-06-11,Sweden,Tunisia,5,1,5:1,1,played,1,1
+32,F,2026-06-11,Sweden,Tunisia,5,1,5:1,1,played,2,0
 33,F,2026-06-16,Netherlands,Sweden,,,-:-,,scheduled,1,
 34,F,2026-06-16,Tunisia,Japan,,,-:-,,scheduled,2,
 35,F,2026-06-21,Netherlands,Tunisia,,,-:-,,scheduled,1,
@@ -64,7 +64,7 @@ match_id,group,date,home_team,away_team,home_score,away_score,score,result,statu
 63,K,2026-06-16,Portugal,Uzbekistan,,,-:-,,scheduled,1,
 64,K,2026-06-16,Colombia,DR Congo,,,-:-,,scheduled,1,
 65,K,2026-06-21,Portugal,Colombia,,,-:-,,scheduled,1,
-66,K,2026-06-21,DR Congo,Uzbekistan,,,-:-,,scheduled,X,
+66,K,2026-06-21,DR Congo,Uzbekistan,,,-:-,,scheduled,1,
 67,L,2026-06-12,England,Croatia,,,-:-,,scheduled,1,
 68,L,2026-06-12,Ghana,Panama,,,-:-,,scheduled,2,
 69,L,2026-06-17,England,Ghana,,,-:-,,scheduled,1,

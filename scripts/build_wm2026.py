@@ -51,6 +51,12 @@ from src.wm2026 import (
     venue_coord,
     write_fixtures,
 )
+from src.wm2026_live import (
+    AS_OF as LIVE_AS_OF,
+    known_scores,
+    outcome as live_outcome,
+    played_matches,
+)
 
 DATA = ROOT / "data"
 DB_PATH = ROOT / "db" / "wm_predictor.sqlite"
@@ -186,12 +192,18 @@ def _score_probs(clf: LogisticRegression, score_diff: float, neutral: int):
     return out.get(2, 0.0), out.get(1, 0.0), out.get(0, 0.0)
 
 
-def _predict_fixtures(predictor, fixtures, hist, tg, contexts, score_clf, overall) -> pd.DataFrame:
-    """Alle Gruppenspiele vorhersagen: Hybrid (mit Kontext) + Ensemble.
+def _predict_fixtures(predictor, fixtures, hist, contexts, score_clf, overall,
+                      status: str) -> pd.DataFrame:
+    """Gruppenspiele vorhersagen: Hybrid (mit Kontext) + Ensemble.
 
     - ``p_*``     : Hybrid (Elo + Kader + Tor-Modell + Logit) inkl. Reise/Ruhe.
     - ``ens_*``   : Ensemble aus Hybrid und reinem Score-Modell (im Backtest
                     bester Log-Loss/Brier - beste Wahrscheinlichkeits-Qualitaet).
+
+    Liefert die reine Modell-Prognose je Spiel; ``status`` markiert, ob es sich
+    um eine bereits gespielte (``played``, Pre-Match-Prognose, leak-frei) oder
+    eine noch offene Partie (``upcoming``, mit aktualisierten Staerken) handelt.
+    Das tatsaechliche Ergebnis wird spaeter via ``_annotate_results`` ergaenzt.
     """
     rows = []
     for _, fx in fixtures.iterrows():
@@ -203,10 +215,12 @@ def _predict_fixtures(predictor, fixtures, hist, tg, contexts, score_clf, overal
         probs = {"1": pred.home_win, "X": pred.draw, "2": pred.away_win}
         ens = {"1": eh, "X": ex, "2": ea}
         rows.append({
+            "match_id": int(fx["match_id"]),
             "date": fx["date"],
             "group": fx["group_name"],
             "home_team": fx["home_team"],
             "away_team": fx["away_team"],
+            "status": status,
             "p_home": round(pred.home_win, 3),
             "p_draw": round(pred.draw, 3),
             "p_away": round(pred.away_win, 3),
@@ -223,12 +237,45 @@ def _predict_fixtures(predictor, fixtures, hist, tg, contexts, score_clf, overal
     return pd.DataFrame(rows)
 
 
-def _simulate_groups(predictor: WMPredictor, fixtures: pd.DataFrame, hist: pd.DataFrame, n: int) -> pd.DataFrame:
-    """Weiterkommens-Wahrscheinlichkeiten je Gruppe (Monte Carlo)."""
+def _annotate_results(preds: pd.DataFrame, results: dict) -> pd.DataFrame:
+    """Tatsaechliches Ergebnis + Trefferspalten an gespielte Spiele heften.
+
+    ``results`` ist ``{match_id: (heim_tore, gast_tore)}``. Fuer offene Spiele
+    bleiben die Ergebnisspalten leer. ``tip_hit``/``ens_hit`` benoten die
+    Pre-Match-Prognose des Modells gegen den realen Ausgang.
+    """
+    scores, ress, hits, ens_hits = [], [], [], []
+    for _, r in preds.iterrows():
+        played = results.get(int(r["match_id"]))
+        if played is None:
+            scores.append(""); ress.append(""); hits.append(""); ens_hits.append("")
+            continue
+        hg, ag = played
+        res = live_outcome(hg, ag)
+        scores.append(f"{hg}:{ag}")
+        ress.append(res)
+        hits.append("1" if r["tip"] == res else "0")
+        ens_hits.append("1" if r["ens_tip"] == res else "0")
+    preds = preds.copy()
+    preds["score"] = scores
+    preds["result"] = ress
+    preds["tip_hit"] = hits
+    preds["ens_hit"] = ens_hits
+    return preds
+
+
+def _simulate_groups(predictor: WMPredictor, fixtures: pd.DataFrame, hist: pd.DataFrame,
+                     n: int, known=None) -> pd.DataFrame:
+    """Weiterkommens-Wahrscheinlichkeiten je Gruppe (Monte Carlo).
+
+    ``known`` fixiert bereits gespielte Ergebnisse, sodass die Simulation den
+    realen Turnierstand fortschreibt statt schon entschiedene Spiele neu zu
+    wuerfeln.
+    """
     parts = []
     for group in GROUPS:
         gfx = fixtures[fixtures["group_name"] == group]
-        sim = simulate_group(gfx, hist, predictor, n=n)
+        sim = simulate_group(gfx, hist, predictor, n=n, known_results=known)
         sim.insert(0, "group", group)
         parts.append(sim)
     return pd.concat(parts, ignore_index=True)
@@ -275,16 +322,59 @@ def main() -> None:
     print(f"[3] Training auf {len(train)} echten Spielen VOR {CUTOFF} (out-of-sample) ...")
     predictor = WMPredictor().fit(train)
     predictor.attach_team_scores(team_scores, coverage=coverage if args.coverage else None)
+
+    contexts = _fixture_contexts(fixtures)
+    score_clf = _fit_score_model(train, overall)
+
+    from src.wm2026_live import ACTUAL_RESULTS
+    results_by_id = {int(mid): sc for mid, sc in ACTUAL_RESULTS.items()}
+    played = played_matches(fixtures)
+    played_mask = fixtures["match_id"].isin(results_by_id)
+
+    # Pre-Match-Prognose der bereits gespielten Spiele - VOR der Einarbeitung,
+    # damit sie leak-frei bleibt und gegen den echten Ausgang benotet werden
+    # kann (das Modell hat das Ergebnis dabei nie gesehen).
+    preds_played = _predict_fixtures(predictor, fixtures[played_mask], train,
+                                     contexts, score_clf, overall, status="played")
+
+    # --- Schritt 3b: laufende WM einarbeiten (Teamstaerken aus 1. Spielen) --
+    # Die gespielten Gruppenspiele schreiben das Elo fort (zielgerichtete
+    # Staerke-Korrektur) und ergaenzen die Form-Historie. So fliessen die realen
+    # Resultate in die Staerke jeder Nation ein, bevor die restlichen Spiele
+    # prognostiziert werden.
+    if len(played):
+        elo_before = {t: predictor.elo.current_rating(t)
+                      for t in set(played["home_team"]) | set(played["away_team"])}
+        for m in played.to_dict("records"):
+            predictor.elo.update(m)
+        hist_now = pd.concat([train, played], ignore_index=True)
+        moves = sorted(
+            ((t, predictor.elo.current_rating(t) - b) for t, b in elo_before.items()),
+            key=lambda kv: kv[1], reverse=True,
+        )
+        print(f"[3b] {len(played)} gespielte WM-Spiele eingearbeitet "
+              f"(Stand {LIVE_AS_OF}): Elo-Update fuer {len(elo_before)} Teams. "
+              f"Groesste Aufwertung: {moves[0][0]} {moves[0][1]:+.0f}, "
+              f"groesster Abschlag: {moves[-1][0]} {moves[-1][1]:+.0f}.")
+    else:
+        hist_now = train
     predictor.save(MODEL_PATH)
 
     # --- Schritt 4: Vorhersagen (+ Reise/Ruhe + Ensemble) + Simulation -----
-    contexts = _fixture_contexts(fixtures)
-    score_clf = _fit_score_model(train, overall)
-    preds = _predict_fixtures(predictor, fixtures, train, tg, contexts, score_clf, overall)
+    # Offene Spiele mit den AKTUALISIERTEN Staerken prognostizieren.
+    preds_upcoming = _predict_fixtures(predictor, fixtures[~played_mask], hist_now,
+                                       contexts, score_clf, overall, status="upcoming")
+    preds = pd.concat([preds_played, preds_upcoming], ignore_index=True)
+    preds = preds.sort_values("match_id").reset_index(drop=True)
+    preds = _annotate_results(preds, results_by_id)
     preds.to_csv(PRED_OUT, index=False)
-    sim = _simulate_groups(predictor, fixtures, train, args.sims)
+
+    known = known_scores(fixtures)
+    sim = _simulate_groups(predictor, fixtures, hist_now, args.sims, known=known)
     sim.to_csv(SIM_OUT, index=False)
-    print(f"[4] {len(preds)} Gruppenspiele vorhergesagt -> {PRED_OUT.name}; "
+    n_up = int((preds["status"] == "upcoming").sum())
+    print(f"[4] {n_up} offene Gruppenspiele mit aktualisierten Staerken vorhergesagt, "
+          f"{len(preds) - n_up} gespielte mit Pre-Match-Prognose benotet -> {PRED_OUT.name}; "
           f"Gruppensimulation ({args.sims}x) -> {SIM_OUT.name}")
 
     _print_summary(player_tbl, team_tbl, preds, sim)
@@ -318,11 +408,22 @@ def _print_summary(players: pd.DataFrame, teams: pd.DataFrame, preds: pd.DataFra
         line = "   ".join(f"{r['Team']} {r['P(Top 2)']*100:.0f}%" for _, r in g.iterrows())
         print(f"  Gruppe {group}: {line}")
 
+    done = preds[preds.get("status", "upcoming") == "played"] if "status" in preds else preds.iloc[0:0]
+    if len(done):
+        hits = int((done["tip_hit"] == "1").sum())
+        ens_hits = int((done["ens_hit"] == "1").sum())
+        print("\n" + "=" * 78)
+        print(f"MODELL-TREFFER (Pre-Match auf {len(done)} gespielten Spielen)")
+        print("=" * 78)
+        print(f"  Hybrid-Tipp: {hits}/{len(done)} ({hits/len(done):.0%})   "
+              f"Ensemble-Tipp: {ens_hits}/{len(done)} ({ens_hits/len(done):.0%})")
+
     print("\n" + "=" * 78)
-    print("BEISPIEL-VORHERSAGEN (Top-Spiele)")
+    print("BEISPIEL-VORHERSAGEN (offene Top-Spiele, aktualisierte Staerken)")
     print("=" * 78)
     show = ["France", "Brazil", "Spain", "England", "Germany", "Argentina", "Portugal"]
-    sample = preds[preds["home_team"].isin(show) | preds["away_team"].isin(show)].head(12)
+    upcoming = preds[preds.get("status", "upcoming") == "upcoming"] if "status" in preds else preds
+    sample = upcoming[upcoming["home_team"].isin(show) | upcoming["away_team"].isin(show)].head(12)
     for _, r in sample.iterrows():
         print(f"  [{r['group']}] {r['home_team']:<16} vs {r['away_team']:<16}  "
               f"1={r['p_home']*100:4.1f}%  X={r['p_draw']*100:4.1f}%  2={r['p_away']*100:4.1f}%  "

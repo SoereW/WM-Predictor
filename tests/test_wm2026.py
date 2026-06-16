@@ -14,6 +14,7 @@ from src.rating.criteria import normalize_position
 from src.rating.squad_builder import build_squads, coverage_confidence, select_squad
 from src.teams import normalize_team
 from src.wm2026 import GROUPS, HOSTS, TEAM_COORD, all_teams, build_fixtures, team_group, venue_coord
+from src.wm2026_live import ACTUAL_RESULTS, known_scores, outcome, played_matches
 
 _RESULTS = []
 
@@ -89,12 +90,35 @@ def test_coords_and_coverage() -> None:
     _check("test_coverage_thin_low", conf["Duenn"] < 0.3)
 
 
+def test_live_results() -> None:
+    # Ergebnisausgang korrekt klassifiziert.
+    _check("test_outcome_home", outcome(2, 0) == "1")
+    _check("test_outcome_draw", outcome(1, 1) == "X")
+    _check("test_outcome_away", outcome(0, 1) == "2")
+
+    fx = build_fixtures()
+    played = played_matches(fx)
+    # Genau so viele gespielte Spiele wie Eintraege, mit allen Elo-Pflichtspalten.
+    _check("test_played_count", len(played) == len(ACTUAL_RESULTS))
+    need = {"date", "home_team", "away_team", "home_score", "away_score", "neutral", "tournament"}
+    _check("test_played_columns", need.issubset(set(played.columns)))
+    _check("test_played_chronological", list(played["date"]) == sorted(played["date"]))
+
+    # known_scores: Schluessel sind (heim, gast) der gespielten Partien.
+    ks = known_scores(fx)
+    _check("test_known_count", len(ks) == len(ACTUAL_RESULTS))
+    # Beispiel: Deutschland 7:1 Curacao ist als Heimsieg hinterlegt.
+    ger = [v for (h, a), v in ks.items() if h == "Germany"]
+    _check("test_known_germany", ger == [(7, 1)])
+
+
 def main() -> None:
     print("WM-2026-Tests")
     test_groups_structure()
     test_fixtures()
     test_squad_builder()
     test_coords_and_coverage()
+    test_live_results()
     passed = sum(1 for _, ok in _RESULTS if ok)
     print(f"\n{passed}/{len(_RESULTS)} Tests bestanden.")
     if passed != len(_RESULTS):

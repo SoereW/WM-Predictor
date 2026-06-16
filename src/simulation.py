@@ -15,23 +15,29 @@ import pandas as pd
 from .teams import normalize_team
 
 
-def _fixture_draws(predictor, matches, fixtures) -> List[tuple]:
-    """Bereitet je Spiel das flache Wahrscheinlichkeitsgitter zum Sampling vor."""
+def _fixture_draws(predictor, matches, fixtures, known_results=None) -> List[tuple]:
+    """Bereitet je Spiel das flache Wahrscheinlichkeitsgitter zum Sampling vor.
+
+    Bereits gespielte Partien (in ``known_results`` als
+    ``{(heim, gast): (heim_tore, gast_tore)}``) werden **fixiert** statt
+    gesampelt - ihr tatsaechliches Ergebnis steht fest.
+    """
+    known_results = known_results or {}
     prepared = []
     for _, fx in fixtures.iterrows():
-        m = predictor.score_matrix(fx.to_dict(), matches)
-        prepared.append(
-            (
-                normalize_team(fx["home_team"]),
-                normalize_team(fx["away_team"]),
-                m.flatten(),
-                m.shape[0],
-            )
-        )
+        home = normalize_team(fx["home_team"])
+        away = normalize_team(fx["away_team"])
+        fixed = known_results.get((home, away))
+        if fixed is not None:
+            prepared.append((home, away, None, None, fixed))
+        else:
+            m = predictor.score_matrix(fx.to_dict(), matches)
+            prepared.append((home, away, m.flatten(), m.shape[0], None))
     return prepared
 
 
-def simulate_group(group_fixtures: pd.DataFrame, matches: pd.DataFrame, predictor, n: int = 500) -> pd.DataFrame:
+def simulate_group(group_fixtures: pd.DataFrame, matches: pd.DataFrame, predictor,
+                   n: int = 500, known_results=None) -> pd.DataFrame:
     """Schaetzt Gruppen-Platzierungswahrscheinlichkeiten per Monte Carlo.
 
     Rueckgabe: DataFrame je Team mit P(Platz 1), P(Top 2) und mittleren
@@ -41,7 +47,7 @@ def simulate_group(group_fixtures: pd.DataFrame, matches: pd.DataFrame, predicto
         set(group_fixtures["home_team"].map(normalize_team))
         | set(group_fixtures["away_team"].map(normalize_team))
     )
-    prepared = _fixture_draws(predictor, matches, group_fixtures)
+    prepared = _fixture_draws(predictor, matches, group_fixtures, known_results)
     rng = np.random.default_rng(42)
 
     first = {t: 0 for t in teams}
@@ -53,9 +59,12 @@ def simulate_group(group_fixtures: pd.DataFrame, matches: pd.DataFrame, predicto
         pts = {t: 0 for t in teams}
         gd = {t: 0 for t in teams}
         gs = {t: 0 for t in teams}
-        for home, away, flat, kp1 in prepared:
-            idx = rng.choice(len(flat), p=flat)
-            hg, ag = divmod(int(idx), kp1)
+        for home, away, flat, kp1, fixed in prepared:
+            if fixed is not None:
+                hg, ag = fixed
+            else:
+                idx = rng.choice(len(flat), p=flat)
+                hg, ag = divmod(int(idx), kp1)
             gs[home] += hg
             gs[away] += ag
             gd[home] += hg - ag

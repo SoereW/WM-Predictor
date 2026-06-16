@@ -75,18 +75,38 @@ Ergebnis-Tabellen (im Repo eingecheckt, reproduzierbar):
 | `data/wm2026_player_ratings.csv` | **Spielertabelle mit Gesamtrating** |
 | `data/wm2026_team_ratings.csv` | **Team-Rangliste** (Overall, XI, Chemie …) |
 | `data/wm2026_fixtures.csv` | echter Gruppenspielplan (72 Spiele) |
-| `data/wm2026_predictions.csv` | 1X2 + xG je Spiel, plus Ensemble (`ens_*`) und Reise/Ruhe (`context_elo`) |
+| `data/wm2026_predictions.csv` | 1X2 + xG je Spiel, `status`/`score`/`result` (laufende WM), Ensemble (`ens_*`), Reise/Ruhe (`context_elo`) |
 | `data/wm2026_group_sim.csv` | P(Platz 1)/P(Top 2) je Team und Gruppe |
 | `data/wm2026_results.csv` | **echte Spielergebnisse** der laufenden WM + Modell-Tipp je Spiel |
 
-### Laufende WM: echte Ergebnisse einpflegen
+### Laufende WM: echte Ergebnisse einpflegen + Staerken nachschaerfen
 
-Die WM 2026 laeuft bereits. `python scripts/update_results.py` verknuepft die
-**tatsaechlichen Endergebnisse** der bisher gespielten Spiele mit dem Spielplan,
-schreibt `data/wm2026_results.csv` und gibt **alle 72 Spiele der Reihe nach**
-mit Spielausgang (1/X/2) und dem Abgleich gegen den Modell-Tipp aus. Neue
-Ergebnisse ergaenzt man in `ACTUAL_RESULTS` (Schluessel = `match_id`,
-Wert = `(heim_tore, gast_tore)`).
+Die WM 2026 laeuft bereits. Die **tatsaechlichen Endergebnisse** der bisher
+gespielten Spiele werden zentral in `src/wm2026_live.py` gepflegt
+(`ACTUAL_RESULTS`, Schluessel = `match_id`, Wert = `(heim_tore, gast_tore)`).
+Zwei Verbraucher teilen sich diese Daten:
+
+- `python scripts/update_results.py` schreibt `data/wm2026_results.csv` und gibt
+  **alle 72 Spiele der Reihe nach** mit Spielausgang (1/X/2) und dem Abgleich
+  gegen den Modell-Tipp aus.
+- `python scripts/build_wm2026.py` **arbeitet die Ergebnisse in die Teamstaerken
+  ein**: das Elo jeder beteiligten Nation wird mit den gespielten Spielen
+  fortgeschrieben (zielgerichtete Staerke-Korrektur, World-Cup-K-Faktor) und die
+  Form-Historie ergaenzt. Die **restlichen Spiele** werden anschliessend mit den
+  aktualisierten Staerken neu prognostiziert; bereits gespielte Spiele behalten
+  ihre **leak-freie Pre-Match-Prognose** (das Modell hat das Ergebnis nie
+  gesehen) und werden gegen den realen Ausgang benotet. Auch die
+  Gruppensimulation fixiert gespielte Ergebnisse und wuerfelt nur die offenen
+  Partien.
+
+Konkret (Stand 16.06.2026, 1. Spieltag Gruppen A-H): Australien (2:0 vs.
+Tuerkei) und Deutschland (7:1 vs. Curacao) gewinnen am meisten Elo, die Tuerkei
+verliert am meisten. In `data/wm2026_predictions.csv` markiert die Spalte
+`status` (`played`/`upcoming`), `score`/`result` halten den echten Ausgang,
+`tip_hit`/`ens_hit` die Treffer der Pre-Match-Prognose.
+
+Neue Ergebnisse ergaenzt man in `ACTUAL_RESULTS`, `AS_OF` hochsetzen, beide
+Skripte erneut laufen lassen.
 
 > Ehrlichkeit: Die Kader sind der *stärkste verfügbare* Satz echter Spieler
 > je Nation laut Datensatz – nicht zwingend die offiziell nominierte
@@ -284,6 +304,7 @@ scripts/validate_predictions.py Vorhersage vs. echtes Ergebnis (out-of-sample)
 scripts/compare_systems.py      Score- vs. Historie-System vergleichen (out-of-sample)
 scripts/update_results.py       Echte WM-Ergebnisse einpflegen + Ergebnis-Tabelle
 src/wm2026.py                   Echte Gruppen-Auslosung + Spielplan-Generator
+src/wm2026_live.py              Live-Ergebnisse der laufenden WM (Quelle fuer Tabelle + Staerken)
 src/database.py                 DB-Schema und CSV-Ingestion
 src/teams.py                    Normalisierung von Teamnamen
 src/elo.py                      World-Football-Elo
